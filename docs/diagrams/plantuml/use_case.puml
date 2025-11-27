@@ -1,21 +1,69 @@
 @startuml
 left to right direction
 
-actor User
-actor Admin
+actor Customer
+actor Kitchen
+actor Waiter
 
 rectangle System {
-  usecase "Create Item" as UC1
-  usecase "View Items" as UC2
-  usecase "Delete Item" as UC3
-  usecase "Authenticate" as UC4
+  ' Customer use cases
+  usecase (Choose Seat) as UC1
+  usecase (Browse Menu) as UC2
+  usecase (Add Item to Cart) as UC3
+  usecase (Remove Item from Cart) as UC4
+  usecase (Place Order) as UC5
+  usecase (View Order Status) as UC6
+  usecase (Make Payment) as UC7
+  usecase (Cancel Order) as UC8
+  usecase (Rate Order) as UC9
+  usecase (Request Assistance) as UC10
+
+  ' Kitchen use cases
+  usecase (Receive Order) as UC11
+  usecase (Update Order Status) as UC12
+  usecase (View Active Orders) as UC13
+  usecase (Mark Order Complete) as UC14
+  usecase (Manage Menu Items) as UC15
+
+  ' Waiter use cases
+  usecase (View Assigned Deliveries) as UC16
+  usecase (Deliver Food to Seat) as UC17
+  usecase (Confirm Delivery) as UC18
+  usecase (Handle Customer Requests) as UC19
+  usecase (Update Delivery Status) as UC20
 }
 
-User --> UC1
-User --> UC2
-Admin --> UC3
-Admin --> UC4
+' Customer relationships
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Customer --> UC5
+Customer --> UC6
+Customer --> UC7
+Customer --> UC8
+Customer --> UC9
+Customer --> UC10
 
-UC1 ..> UC4 : <<include>>
-UC3 ..> UC4 : <<include>>
+' Kitchen relationships
+Kitchen --> UC11
+Kitchen --> UC12
+Kitchen --> UC13
+Kitchen --> UC14
+Kitchen --> UC15
+
+' Waiter relationships
+Waiter --> UC16
+Waiter --> UC17
+Waiter --> UC18
+Waiter --> UC19
+Waiter --> UC20
+
+' Include/Extend relationships
+UC2 ..> UC1 : <<include>>
+UC3 ..> UC2 : <<include>>
+UC5 ..> UC3 : <<include>>
+UC17 ..> UC16 : <<include>>
+UC17 ..> UC7 : <<include>>
+
 @enduml

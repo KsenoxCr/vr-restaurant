@@ -2,9 +2,95 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
-Table Post {
+Table Category {
   id Int [pk, increment]
   name String [not null]
+  displayOrder Int [not null, default: 0]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
+  items MenuItem [not null]
 }
+
+Table MenuItem {
+  id Int [pk, increment]
+  name String [not null]
+  description String
+  price Decimal [not null]
+  categoryId Int [not null]
+  available Boolean [not null, default: true]
+  allergens Allergen[] [not null]
+  imageUrl String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  category Category [not null]
+  orderItems OrderItem [not null]
+}
+
+Table Session {
+  id String [pk]
+  seatNumber String [not null]
+  activeOrderId Int [unique]
+  lastActivity DateTime [default: `now()`, not null]
+  createdAt DateTime [default: `now()`, not null]
+  expiresAt DateTime [not null]
+  activeOrder Order
+  orders Order [not null]
+}
+
+Table Order {
+  id Int [pk, increment]
+  sessionId String [not null]
+  seatNumber String [not null]
+  status OrderStatus [not null, default: 'SUBMITTED']
+  total Decimal [not null]
+  queuePosition Int
+  estimatedStartTime DateTime
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  session Session [not null]
+  items OrderItem [not null]
+  activeSession Session
+}
+
+Table OrderItem {
+  id Int [pk, increment]
+  orderId Int [not null]
+  menuItemId Int [not null]
+  quantity Int [not null, default: 1]
+  priceSnapshot Decimal [not null]
+  createdAt DateTime [default: `now()`, not null]
+  order Order [not null]
+  menuItem MenuItem [not null]
+}
+
+Enum OrderStatus {
+  SUBMITTED
+  CONFIRMED
+  PREPARING
+  READY
+  DELIVERED
+  REJECTED
+}
+
+Enum Allergen {
+  GLUTEN
+  DAIRY
+  EGGS
+  NUTS
+  PEANUTS
+  SHELLFISH
+  FISH
+  SOY
+  WHEAT
+  SESAME
+}
+
+Ref: MenuItem.categoryId > Category.id
+
+Ref: Session.activeOrderId - Order.id
+
+Ref: Order.sessionId - Session.id [delete: Cascade]
+
+Ref: OrderItem.orderId > Order.id [delete: Cascade]
+
+Ref: OrderItem.menuItemId > MenuItem.id

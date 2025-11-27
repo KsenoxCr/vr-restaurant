@@ -1,0 +1,117 @@
+# business requirements
+
+## Deployment
+
+- Demo version for single train restaurant carriage
+- Session based, no user accounts for initial version
+- Session based, initially no user accounts
+- Staff access point: Stationary Terminal in kitchen area
+- Customer access (QR code at seat → web app, no native install)
+- Payment handled separately during order receival (cash/card), integrated payment processing is out of scope for system
+
+## User flows
+
+- Passenger on train → selects seat (manual input, later feature: QR code) -> accesses menu via device → places order → receives order at seat
+- Kitchen receives order queue → prepares → marks ready
+- waiters → delivers to carriage/seat
+- Staff manages menu availability (items run out during journey)
+
+## Contraints
+
+### Scaling limits
+
+- kitchen staff limited to 5 concurrent orders (preparation capacity)
+- max 30 orders at a time per train (kitchen capacity, restaurant carriage seats: ~50)
+- Menu items: max 30 (limited kitchen space)
+- concurrent users: 200 (db connections)
+
+### functional contrains
+
+- Orders in "Preparing" state capped at 5
+- 6th order stays "Confirmed" until slot opens
+
+## Order state machine
+
+Submitted → Confirmed → Preparing → Ready → Delivered
+              ↓             ↓
+          Rejected (out of stock, kitchen closed, product quality defect detected)
+
+## Error States
+
+- Order submission fails (network, validation)
+- Kitchen rejects after "Preparing" started
+- Customer cancels order (accident, changed mind)
+
+## Access control
+
+- Physical access control only
+
+## MVP
+
+- Customer can browse menu, add to cart, submit order
+- Kitchen receives order, updates status
+- Kitchen view shows queue depth
+- Customer sees order status update (polling)
+- Staff can mark items unavailable
+- Works with spotty connectivity (order queues locally)
+- Allergen filtering
+
+## Later Features (If time schedule permits)
+
+- Real-time status updates (WebSocket)
+- Order history per session
+- Estimated preparation time
+- QR code for seat identification
+
+## Out of scope
+
+- Multi-tenancy: fleet of trains
+- Order submission queried locally first, then sent to server when connection available
+- Offline mode for kitchen staff (local caching of orders when connection lost, sync when restored)
+- Payment processing integrationj
+- Estimated preparation time display
+- Monitoring
+- customer & staff accounts for auth
+
+## Domain Entities
+
+MenuItem
+- id
+- name
+- price
+- categoryId
+- available (stock flag, staff toggle)
+- allergens (text/enum array)
+- description
+- imageUrl (optional, cuts if time pressure)
+
+Category
+- id
+- name
+- displayOrder (sort menu sections)
+- items (relation)
+
+Order
+- id
+- status (enum: submitted → confirmed → preparing → ready → delivered/rejected)
+- total (computed)
+- queuePosition (calculated: pending orders ahead)
+- estimatedStartTime (computed based on queue)
+- seatNumber
+- createdAt
+- updatedAt
+- items (relation)
+
+OrderItem (junction table)
+- orderId
+- menuItemId
+- quantity
+- priceSnapshot (CRITICAL: captures price at order time, not current MenuItem.price)
+
+Session
+- id (browser session token)
+- seatNumber
+- createdAt
+- expriresAt
+- ActiveOrderId (current order in progress)
+- lastActivity

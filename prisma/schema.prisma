@@ -15,11 +15,106 @@ generator dbml {
   output   = "../dbml"
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+// Enums
+enum OrderStatus {
+  SUBMITTED
+  CONFIRMED
+  PREPARING
+  READY
+  DELIVERED
+  REJECTED
+}
 
-    @@index([name])
+enum Allergen {
+  GLUTEN
+  DAIRY
+  EGGS
+  NUTS
+  PEANUTS
+  SHELLFISH
+  FISH
+  SOY
+  WHEAT
+  SESAME
+}
+
+model Category {
+  id           Int        @id @default(autoincrement())
+  name         String
+  displayOrder Int        @default(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  items        MenuItem[]
+
+  @@index([displayOrder])
+}
+
+model MenuItem {
+  id          Int        @id @default(autoincrement())
+  name        String
+  description String?
+  price       Decimal    @db.Decimal(10, 2)
+  categoryId  Int
+  available   Boolean    @default(true)
+  allergens   Allergen[]
+  imageUrl    String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  category    Category     @relation(fields: [categoryId], references: [id])
+  orderItems  OrderItem[]
+
+  @@index([categoryId])
+  @@index([available])
+}
+
+model Session {
+  id              String    @id @default(cuid())
+  seatNumber      String
+  activeOrderId   Int?      @unique
+  lastActivity    DateTime  @default(now())
+  createdAt       DateTime  @default(now())
+  expiresAt       DateTime
+
+  activeOrder     Order?    @relation("ActiveOrder", fields: [activeOrderId], references: [id])
+  orders          Order[]   @relation("SessionOrders")
+
+  @@index([seatNumber])
+  @@index([expiresAt])
+}
+
+model Order {
+  id                  Int         @id @default(autoincrement())
+  sessionId           String
+  seatNumber          String
+  status              OrderStatus @default(SUBMITTED)
+  total               Decimal     @db.Decimal(6, 2)
+  queuePosition       Int?
+  estimatedStartTime  DateTime?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  session             Session     @relation("SessionOrders", fields: [sessionId], references: [id], onDelete: Cascade)
+  items               OrderItem[]
+  activeSession       Session?    @relation("ActiveOrder")
+
+  @@index([sessionId])
+  @@index([status])
+  @@index([seatNumber])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id            Int      @id @default(autoincrement())
+  orderId       Int
+  menuItemId    Int
+  quantity      Int      @default(1)
+  priceSnapshot Decimal  @db.Decimal(10, 2)
+  createdAt     DateTime @default(now())
+
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem      MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@index([orderId])
+  @@index([menuItemId])
 }
