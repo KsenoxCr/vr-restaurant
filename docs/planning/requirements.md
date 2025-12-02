@@ -74,6 +74,10 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - Desktop styling for web app, demo optimized for mobile
 - QR code for seat identification
 
+## Technology Stack: T3 with Local Postgres (Docker)
+
+- Rationale: Rapid development, strong type safety, good community support. Will use in future projects for own startups, potential clients and react/nextjs is in demand for software dev jobs.
+
 ## Domain Entities
 
 MenuItem
