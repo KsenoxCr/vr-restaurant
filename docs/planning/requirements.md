@@ -6,7 +6,7 @@
 - Session based, no user accounts for initial version
 - Session based, initially no user accounts
 - Staff access point: Stationary Terminal in kitchen area
-- Customer access (QR code at seat → web app, no native install)
+- Customer access (web app, no native install)
 - Payment handled separately during order receival (cash/card), integrated payment processing is out of scope for system
 
 ## User flows
@@ -61,7 +61,6 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - Real-time status updates (WebSocket)
 - Order history per session
 - Estimated preparation time
-- QR code for seat identification
 
 ## Out of scope
 
@@ -72,6 +71,8 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - Estimated preparation time display
 - Monitoring
 - customer & staff accounts for auth
+- Desktop styling for web app, demo optimized for mobile
+- QR code for seat identification
 
 ## Domain Entities
 

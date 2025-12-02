@@ -10,7 +10,7 @@
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "dev": "next dev",
-    "gen": "prisma generate",
+    "postinstall": "prisma generate && ",
     "lint": "next lint",
     "start": "next start",
     "diagrams": "./scripts/generate-diagrams.sh",
@@ -32,6 +32,8 @@
     "zod": "^3.23.3"
   },
   "devDependencies": {
+    "@dbml/cli": "^5.2.0",
+    "@softwaretechnik/dbml-renderer": "^1.0.31",
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",
