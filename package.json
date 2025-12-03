@@ -10,6 +10,7 @@
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "db:start": "sudo ./start-database.sh",
+    "db:seed": "prisma db seed",
     "dev": "next dev",
     "postinstall": "prisma generate && ",
     "lint": "next lint",
