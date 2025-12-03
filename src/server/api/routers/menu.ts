@@ -60,5 +60,6 @@ export const menuRouter = createTRPCRouter({
       if (!item) {
         throw new TRPCError({ code: 'NOT_FOUND', message: `Menu item with id ${input} not found` });
       }
+      return item;
     }),
 });
