@@ -58,25 +58,30 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 
 ## Later Features (If time schedule permits)
 
-- Real-time status updates (WebSocket)
+- Real-time status updates (WebSocket, polling fallback)
 - Order history per session
 - Estimated preparation time
 
 ## Out of scope
 
-- Multi-tenancy: fleet of trains
-- Order submission queried locally first, then sent to server when connection available
-- Offline mode for kitchen staff (local caching of orders when connection lost, sync when restored)
-- Payment processing integrationj
+- Multi-tenancy: fleet of trains, single train suitable for demo/prototype
+- offline-first architecture. Unnecessary complexity for edge case of poor connection (remote areas, underpasses)
+- Payment processing integration, physical payment terminal sufficient
 - Estimated preparation time display
 - Monitoring
 - customer & staff accounts for auth
 - Desktop styling for web app, demo optimized for mobile
 - QR code for seat identification
+- Caching (proof of concept, no deployment, no CDN = UX optimization redundant)
+- Time of day specific menus i.e breakfast menu
 
 ## Technology Stack: T3 with Local Postgres (Docker)
 
 - Rationale: Rapid development, strong type safety, good community support. Will use in future projects for own startups, potential clients and react/nextjs is in demand for software dev jobs.
+
+## Architectural choices
+
+- SSR: Simplest to implement, no deployment to userbase so scalability constraints are acceptable. Also easiest to learn, standard pattern for modern Next.js app router. no ISR validation logic bugs
 
 ## Domain Entities
 
