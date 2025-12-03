@@ -3,20 +3,20 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.category.deleteMany();
-  await prisma.menuItem.deleteMany();
-  await prisma.session.deleteMany();
-  await prisma.order.deleteMany();
   await prisma.orderItem.deleteMany();
+  await prisma.order.deleteMany();
+  await prisma.session.deleteMany();
+  await prisma.menuItem.deleteMany();
+  await prisma.category.deleteMany();
 
   const categories = await prisma.category.createMany({
     data: [
-      { name: 'dish', displayOrder: 0 },
-      { name: 'breakfast', displayOrder: 1 },
-      { name: 'bread', displayOrder: 2 },
-      { name: 'hot', displayOrder: 3 },
-      { name: 'cold', displayOrder: 4 },
-      { name: 'alcohol', displayOrder: 5 },
+      { name: 'dish', type: 'food', displayOrder: 0 },
+      { name: 'breakfast', type: 'food', displayOrder: 1 },
+      { name: 'bread', type: 'food', displayOrder: 2 },
+      { name: 'hot', type: 'beverage', displayOrder: 3 },
+      { name: 'cold', type: 'beverage', displayOrder: 4 },
+      { name: 'alcohol', type: 'beverage', displayOrder: 5 },
     ],
   });
 
