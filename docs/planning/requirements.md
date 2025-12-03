@@ -12,6 +12,8 @@
 ## User flows
 
 - Passenger on train → selects seat (manual input, later feature: QR code) -> accesses menu via device → places order → receives order at seat
+                                                                                                                ↓
+                                                                                                    Cancels order before confirmed
 - Kitchen receives order queue → prepares → marks ready
 - waiters → delivers to carriage/seat
 - Staff manages menu availability (items run out during journey)
