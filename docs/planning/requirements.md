@@ -3,8 +3,8 @@
 ## Deployment
 
 - Demo version for single train restaurant carriage
-- Session based, no user accounts for initial version
 - Session based, initially no user accounts
+- Using cookies for session persistence
 - Staff access point: Stationary Terminal in kitchen area
 - Customer access (web app, no native install)
 - Payment handled separately during order receival (cash/card), integrated payment processing is out of scope for system
