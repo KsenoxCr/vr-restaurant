@@ -1,11 +1,9 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 
 import { Decimal } from "@prisma/client/runtime/library";
 import { OrderStatus } from "@prisma/client";
-
-// Create order, get orders for kitchen, update order status
 
 export const orderRouter = createTRPCRouter({
   create: protectedProcedure
@@ -17,55 +15,105 @@ export const orderRouter = createTRPCRouter({
         })
       ),
     })).mutation(async ({ ctx, input }) => {
-      const menuItems = await ctx.db.menuItem.findMany({
-        where: {
-          id: { in: input.items.map((item) => item.id) },
-          available: true
-        },
-      });
+      return ctx.db.$transaction(async (tx) => { // Use serializable isolation level if race conditions become problematic
 
-      if (menuItems.length !== input.items.length) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "One or more menu items are not available",
+        const menuItems = await tx.menuItem.findMany({
+          where: {
+            id: { in: input.items.map((item) => item.id) },
+            available: true
+          },
         });
-      }
 
-      const total = input.items.reduce((sum, item) => {
-        const menuItem = menuItems.find(mi => mi.id === item.id);
-        return sum.add(menuItem!.price.mul(item.quantity));
-      }, new Decimal(0)); // TEST: Ensure no precision loss
+        if (menuItems.length !== input.items.length) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "One or more menu items are not available",
+          });
+        }
 
-      const maxPosition = await ctx.db.order.aggregate({
-        _max: { queuePosition: true },
+        const total = input.items.reduce((sum, item) => {
+          const menuItem = menuItems.find(mi => mi.id === item.id);
+          return sum.add(menuItem!.price.mul(item.quantity));
+        }, new Decimal(0)); // TEST: Ensure no precision loss
+
+        const maxPosition = await tx.order.aggregate({
+          _max: { queuePosition: true },
+          where: {
+            status: {
+              in: [OrderStatus.SUBMITTED, OrderStatus.CONFIRMED,
+              OrderStatus.PREPARING]
+            }
+          }
+        }) ?? 0;
+
+        const queuePosition = (maxPosition._max.queuePosition ?? 0) + 1;
+
+        return tx.order.create({
+          data: {
+            sessionId: ctx.session.id,
+            seatNumber: ctx.session.seatNumber,
+            total: total,
+            queuePosition: queuePosition,
+            items: {
+              create: input.items.map((item) => ({
+                menuItemId: item.id,
+                quantity: item.quantity,
+                priceSnapshot: menuItems.find(mi => mi.id === item.id)!.price,
+              })),
+            },
+          },
+          include: {
+            items: {
+              include: {
+                menuItem: true,
+              },
+            }
+          },
+        });
+      });
+    }),
+  getAll: publicProcedure // Auth required for production
+    .query(async ({ ctx }) => {
+      return ctx.db.order.findMany({
         where: {
           status: {
             in: [OrderStatus.SUBMITTED, OrderStatus.CONFIRMED,
             OrderStatus.PREPARING]
           }
-        }
-      }) ?? 0;
-
-      const queuePosition = (maxPosition._max.queuePosition ?? 0) + 1;
-
-      const order = await ctx.db.order.create({
-        data: {
-          sessionId: ctx.session.id,
-          seatNumber: ctx.session.seatNumber,
-          total: total,
-          queuePosition: queuePosition,
-          items: {
-            create: input.items.map((item) => ({
-              menuItemId: item.id,
-              quantity: item.quantity,
-              priceSnapshot: menuItems.find(mi => mi.id === item.id)!.price,
-            })),
-          },
+        },
+        orderBy: {
+          queuePosition: "asc",
         },
         include: {
-          items: true,
+          items: {
+            include: {
+              menuItem: true,
+            },
+          },
         },
       });
-      return order;
+    }),
+  updateStatus: publicProcedure // Auth required for production
+    .input(z.object({}).extend({
+      orderId: z.number(),
+      status: z.nativeEnum(OrderStatus),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const order = await ctx.db.order.findUnique({
+        where: { id: input.orderId },
+      });
+      if (!order) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Order not found",
+        });
+      }
+
+      return ctx.db.order.update({
+        where: { id: input.orderId },
+        data: {
+          status: input.status,
+        },
+      });
     }),
 });
