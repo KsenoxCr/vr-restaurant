@@ -30,6 +30,7 @@ Table MenuItem {
 Table Session {
   id String [pk]
   seatNumber Int [not null]
+  role SessionRole [not null, default: 'CUSTOMER']
   activeOrderId Int [unique]
   lastActivity DateTime [default: `now()`, not null]
   createdAt DateTime [default: `now()`, not null]
@@ -62,6 +63,11 @@ Table OrderItem {
   createdAt DateTime [default: `now()`, not null]
   order Order [not null]
   menuItem MenuItem [not null]
+}
+
+Enum SessionRole {
+  CUSTOMER
+  KITCHEN
 }
 
 Enum OrderStatus {
