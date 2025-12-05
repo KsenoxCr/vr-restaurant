@@ -17,7 +17,7 @@ generator dbml {
 
 enum SessionRole {
   CUSTOMER
-  STAFF
+  KITCHEN
 }
 
 // Enums
