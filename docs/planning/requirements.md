@@ -8,6 +8,7 @@
 - Staff access point: Stationary Terminal in kitchen area
 - Customer access (web app, no native install)
 - Payment handled separately during order receival (cash/card), integrated payment processing is out of scope for system
+- Session length max 4h, default 30min, expireAt length updated if activity
 
 ## User flows
 
