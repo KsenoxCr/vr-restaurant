@@ -9,6 +9,7 @@
 - Customer access (web app, no native install)
 - Payment handled separately during order receival (cash/card), integrated payment processing is out of scope for system
 - Session length max 4h, default 30min, expireAt length updated if activity
+- Kitchen authenticate with pin
 
 ## User flows
 
@@ -58,6 +59,7 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - Staff can mark items unavailable
 - Works with spotty connectivity (order queues locally)
 - Allergen filtering
+- pin auth for kitchen terminal
 
 ## Later Features (If time schedule permits)
 
