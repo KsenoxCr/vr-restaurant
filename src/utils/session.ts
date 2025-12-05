@@ -1,16 +1,16 @@
-import { PrismaClient, Session } from '@prisma/client';
+import { PrismaClient, Session, SessionRole } from '@prisma/client';
 
-export async function prolongSession(
-    db: PrismaClient,
-    session: Session
-) {
+export async function prolongSession(db: PrismaClient, session: Session) {
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
 
-    const maxExpiryDate = new Date(session.createdAt.getTime() + 4 * 60 * 60 * 1000); // 4 hour
-    const defaultSessionLength = 30 * 60 * 1000; // 30 minutes
+    const maxExpiryMilliseconds = session.role === SessionRole.CUSTOMER ? 4 * 60 * 60 * 1000 : 12 * 60 * 60 * 1000; // 4 hours for customers, 12 hours for staff
+
+    const maxExpiryDate = new Date(session.createdAt.getTime() + maxExpiryMilliseconds);
+
+    const SessionIncrementLength = 30 * 60 * 1000; // 30 minutes
 
     if (session.lastActivity < fiveMinutesAgo && session.expiresAt < maxExpiryDate) {
-        const newExpiry = new Date(session.expiresAt.getTime() + defaultSessionLength)
+        const newExpiry = new Date(session.expiresAt.getTime() + SessionIncrementLength)
 
         await db.session.update({
             where: { id: session.id },
