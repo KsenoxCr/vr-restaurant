@@ -6,11 +6,13 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { type Session } from "@prisma/client";
 
 import { db } from "~/server/db";
+import { cookies } from "next/headers";
 
 /**
  * 1. CONTEXT
@@ -24,10 +26,30 @@ import { db } from "~/server/db";
  *
  * @see https://trpc.io/docs/server/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }) => {
+
+export const createTRPCContext = async (opts: {
+  headers: Headers,
+  req?: Request;
+}) => {
+  const cookieStore = cookies();
+  const sessionId = cookieStore.get("sessionId")?.value;
+
+  let session: Session | null = null;
+
+  if (sessionId) {
+    session = await db.session.findUnique({
+      where: { id: sessionId }
+    });
+  }
+
+  if (session && session.expiresAt < new Date()) {
+    session = null;
+  }
+
   return {
     db,
-    ...opts,
+    session,
+    headers: opts.headers,
   };
 };
 
@@ -96,6 +118,19 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
   return result;
 });
 
+const authMiddleware = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.session) {
+    throw new TRPCError({ code: "UNAUTHORIZED" })
+  }
+
+  return next({
+    ctx: {
+      ...ctx,
+      session: ctx.session,
+    },
+  });
+});
+
 /**
  * Public (unauthenticated) procedure
  *
@@ -104,3 +139,5 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
+
+export const protectedProcedure = t.procedure.use(timingMiddleware).use(authMiddleware);
