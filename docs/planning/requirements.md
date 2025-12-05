@@ -71,12 +71,13 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - offline-first architecture. Unnecessary complexity for edge case of poor connection (remote areas, underpasses)
 - Payment processing integration, physical payment terminal sufficient
 - Estimated preparation time display
-- Monitoring
+- Monitoring & Statistics dashboard
 - customer & staff accounts for auth
 - Desktop styling for web app, demo optimized for mobile
 - QR code for seat identification
 - Caching (proof of concept, no deployment, no CDN = UX optimization redundant)
 - Time of day specific menus i.e breakfast menu
+- Seat availability validation
 
 ## Technology Stack: T3 with Local Postgres (Docker)
 
