@@ -71,7 +71,7 @@ model MenuItem {
 
 model Session {
   id              String    @id @default(cuid())
-  seatNumber      String
+  seatNumber      Int
   activeOrderId   Int?      @unique
   lastActivity    DateTime  @default(now())
   createdAt       DateTime  @default(now())
@@ -87,7 +87,7 @@ model Session {
 model Order {
   id                  Int         @id @default(autoincrement())
   sessionId           String
-  seatNumber          String
+  seatNumber          Int
   status              OrderStatus @default(SUBMITTED)
   total               Decimal     @db.Decimal(6, 2)
   queuePosition       Int?

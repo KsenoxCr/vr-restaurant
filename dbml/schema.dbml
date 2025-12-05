@@ -29,7 +29,7 @@ Table MenuItem {
 
 Table Session {
   id String [pk]
-  seatNumber String [not null]
+  seatNumber Int [not null]
   activeOrderId Int [unique]
   lastActivity DateTime [default: `now()`, not null]
   createdAt DateTime [default: `now()`, not null]
@@ -41,7 +41,7 @@ Table Session {
 Table Order {
   id Int [pk, increment]
   sessionId String [not null]
-  seatNumber String [not null]
+  seatNumber Int [not null]
   status OrderStatus [not null, default: 'SUBMITTED']
   total Decimal [not null]
   queuePosition Int
