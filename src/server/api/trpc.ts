@@ -9,7 +9,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { type Session } from "@prisma/client";
+import { Session, SessionRole } from "@prisma/client";
 
 import { db } from "~/server/db";
 import { cookies } from "next/headers";
@@ -120,23 +120,32 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
 });
 
 const authMiddleware = t.middleware(async ({ ctx, next }) => {
-  if (!ctx.session) {
-    throw new TRPCError({ code: "UNAUTHORIZED" })
-  }
-
-  if (ctx.session.expiresAt < new Date()) {
+  if (!ctx.session || ctx.session.expiresAt < new Date()) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
   await prolongSession(ctx.db, ctx.session);
 
-  return next({
-    ctx: {
-      ...ctx,
-      session: ctx.session,
-    },
-  });
+  return next({ ctx: { ...ctx, session: ctx.session, }, });
 });
+
+const kitchenMiddleware = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.session || ctx.session.expiresAt < new Date()) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  if (ctx.session.role !== SessionRole.KITCHEN) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "Kitchen access required"
+    });
+  }
+
+  await prolongSession(ctx.db, ctx.session);
+
+  return next({ ctx: { ...ctx, session: ctx.session } });
+});
+
 
 /**
  * Public (unauthenticated) procedure
@@ -148,3 +157,5 @@ const authMiddleware = t.middleware(async ({ ctx, next }) => {
 export const publicProcedure = t.procedure.use(timingMiddleware);
 
 export const protectedProcedure = t.procedure.use(timingMiddleware).use(authMiddleware);
+
+export const kitchenProcedure = t.procedure.use(timingMiddleware).use(kitchenMiddleware);
