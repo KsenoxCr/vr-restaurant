@@ -13,6 +13,7 @@ import { type Session } from "@prisma/client";
 
 import { db } from "~/server/db";
 import { cookies } from "next/headers";
+import { prolongSession } from "~/utils/session";
 
 /**
  * 1. CONTEXT
@@ -127,22 +128,7 @@ const authMiddleware = t.middleware(async ({ ctx, next }) => {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
 
-  const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
-
-  const maxExpiryDate = new Date(ctx.session.createdAt.getTime() + 4 * 60 * 60 * 1000); // 4 hour
-  const defaultSessionLength = 30 * 60 * 1000; // 30 minutes
-
-  if (ctx.session.lastActivity < fiveMinutesAgo && ctx.session.expiresAt < maxExpiryDate) {
-    const newExpiry = new Date(ctx.session.expiresAt.getTime() + defaultSessionLength)
-
-    await ctx.db.session.update({
-      where: { id: ctx.session.id },
-      data: {
-        lastActivity: new Date(),
-        expiresAt: newExpiry <= maxExpiryDate ? newExpiry : maxExpiryDate
-      }
-    });
-  }
+  await prolongSession(ctx.db, ctx.session);
 
   return next({
     ctx: {
