@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure, protectedProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, kitchenProcedure, protectedProcedure } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 
 import { Decimal } from "@prisma/client/runtime/library";
@@ -72,7 +72,7 @@ export const orderRouter = createTRPCRouter({
         });
       });
     }),
-  getAll: publicProcedure // Auth required for production
+  getAll: kitchenProcedure
     .query(async ({ ctx }) => {
       return ctx.db.order.findMany({
         where: {
@@ -93,7 +93,7 @@ export const orderRouter = createTRPCRouter({
         },
       });
     }),
-  updateStatus: publicProcedure // Auth required for production
+  updateStatus: kitchenProcedure
     .input(z.object({}).extend({
       orderId: z.number(),
       status: z.nativeEnum(OrderStatus),
