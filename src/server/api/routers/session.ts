@@ -21,5 +21,14 @@ export const sessionRouter = createTRPCRouter({
       });
 
       return { sessionId: session.id, expiresAt: session.expiresAt };
-    })
+    }),
+  cleanup: publicProcedure // Auth required for production
+    .mutation(async ({ ctx }) => {
+      const result = await ctx.db.session.deleteMany({
+        where: {
+          expiresAt: { lt: new Date() },
+        }
+      });
+      return { deletedCount: result.count };
+    }),
 });
