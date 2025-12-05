@@ -15,6 +15,11 @@ generator dbml {
   output   = "../dbml"
 }
 
+enum SessionRole {
+  CUSTOMER
+  STAFF
+}
+
 // Enums
 enum OrderStatus {
   SUBMITTED
@@ -72,10 +77,11 @@ model MenuItem {
 model Session {
   id              String    @id @default(cuid())
   seatNumber      Int
+  role            SessionRole  @default(CUSTOMER)
   activeOrderId   Int?      @unique
   lastActivity    DateTime  @default(now())
   createdAt       DateTime  @default(now())
-  expiresAt       DateTime
+  expiresAt       DateTime 
 
   activeOrder     Order?    @relation("ActiveOrder", fields: [activeOrderId], references: [id])
   orders          Order[]   @relation("SessionOrders")
@@ -90,7 +96,7 @@ model Order {
   seatNumber          Int
   status              OrderStatus @default(SUBMITTED)
   total               Decimal     @db.Decimal(6, 2)
-  queuePosition       Int?
+  queuePosition       Int? // TODO: Constrait can't be less than 1
   estimatedStartTime  DateTime?
   createdAt           DateTime    @default(now())
   updatedAt           DateTime    @updatedAt
