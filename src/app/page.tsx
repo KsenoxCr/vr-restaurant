@@ -2,6 +2,7 @@ import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
   const menuItems = await api.menu.getAll();
+  const categories = await api.menu.getCategories();
 
   return (
     <HydrateClient>
@@ -13,6 +14,11 @@ export default async function Home() {
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
               Menu Items: {menuItems.length}
+            </p>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-2xl text-white">
+              Categories: {categories.length}
             </p>
           </div>
         </div>
