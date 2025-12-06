@@ -19,4 +19,4 @@ jobs:
           GL_REPO="${{ github.event.repository.name }}"
 
           git remote add gitlab "https://${{ secrets.GL_USERNAME }}:${{ secrets.GL_TOKEN }}@gitlab.com/${{ secrets.GL_USERNAME }}/${GL_REPO}.git"
-          git push gitlab --mirror
+          git push gitlab --prune "+refs/remotes/origin/*:refs/heads/*" "+refs/tags/*:refs/tags/*"
