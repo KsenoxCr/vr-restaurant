@@ -4,10 +4,11 @@ import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
+import { MobileOnlyGate } from "~/app/_components/mobile-only-gate";
 
 export const metadata: Metadata = {
   title: "VR Restaurant",
-  description: "Train Restaurant Food Ordering App",
+  description: "Food Ordering App for Traing Restaurant Carriage",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
@@ -17,7 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          <MobileOnlyGate>
+            {children}
+          </MobileOnlyGate>
+        </TRPCReactProvider>
+        <footer>KsenoxCr, 2025</footer>
       </body>
     </html>
   );
