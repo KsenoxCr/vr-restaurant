@@ -1,20 +1,14 @@
 import { ChefHat, Train } from "lucide-react"
+import { KitchenButton } from "../_components/kitchen-button"
+import { TrainIcon } from "../_components/train-icon"
 
-export default function Home() {
-
+export default function SeatSelection() {
   return (
   <div className="flex justify-center items-center p-6 min-h-screen bg-neutral-700">
-        <button
-          className="fixed top-4 right-4 z-50 p-3 rounded-full shadow-lg transition-all active:shadow-xl active:scale-105 text-neutral-100 bg-neutral-800 active:bg-neutral-900"
-          aria-label="Kitchen Terminal"
-          >
-          <ChefHat className="w-6 h-6" />
-        </button> {/* _component */}
+      <KitchenButton/>
       <div className="p-8 w-full max-w-md rounded-2xl shadow-lg bg-zinc-800">
         <div className="flex justify-center mb-6">
-          <div className="p-4 bg-green-600 rounded-full">
-            <Train className="w-12 h-12 text-white" />
-        </div>
+        <TrainIcon/>
         </div>
         <h1 className="mb-2 text-center text-neutral-100">
           Select Your Seat

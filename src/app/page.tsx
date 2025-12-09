@@ -4,6 +4,7 @@ import { Train, Utensils, Coffee, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { KitchenButton } from "./_components/kitchen-button";
 import { FeaturePill } from "./_components/feature-pill";
+import { TrainIcon } from "./_components/train-icon";
 import { useRouter } from "next/navigation"
 
 export default function Home() {
@@ -21,9 +22,7 @@ export default function Home() {
         />
       </div>
       <KitchenButton/>
-      <div className="inline-block p-4 bg-green-600 rounded-full">
-        <Train className="w-16 h-16 text-white" />
-        </div> {/* _component */}
+      <TrainIcon/>
       <h1>Welcome Aboard</h1>
       <p>Order fresh food and beverages directly to your seat in the restaurant carriage</p>
       <div className="flex flex-wrap gap-3 justify-center mb-12 max-w-md">
