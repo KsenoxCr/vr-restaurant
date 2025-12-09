@@ -3,6 +3,7 @@
 import { Train, Utensils, Coffee, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { KitchenButton } from "./_components/kitchen-button";
+import { FeaturePill } from "./_components/feature-pill";
 import { useRouter } from "next/navigation"
 
 export default function Home() {
@@ -25,19 +26,10 @@ export default function Home() {
         </div> {/* _component */}
       <h1>Welcome Aboard</h1>
       <p>Order fresh food and beverages directly to your seat in the restaurant carriage</p>
-      <div className="flex-wrap gap-3 justify-center max-w-md">
-        <div className="flex gap-2 items-center p-4 rounded-full border-2 backdrop-blur-sm bg-white/10 border-white/20">
-          <Utensils className="text-green-600" />
-          <p>Fresh Food</p>
-        </div>
-        <div className="flex gap-2 items-center p-4 rounded-full border-2 bg-white/10 backdrop-blur-sm border-white/20">
-          <Coffee className="text-green-600" />
-          <p>Hot Beverages</p>
-        </div>
-        <div className="flex gap-2 items-center p-4 rounded-full border-2 bg-white/10 backdrop-blur-sm border-white/20">
-          <Train className="text-green-600" />
-          <p>Seat Delivery</p>
-        </div>
+      <div className="flex flex-wrap gap-3 justify-center mb-12 max-w-md">
+        <FeaturePill icon={Utensils} label="Fresh Food"/>
+        <FeaturePill icon={Coffee} label="Hot Beverages"/>
+        <FeaturePill icon={Train} label="Seat Delivery"/>
       </div>
       <button
         className="flex gap-3 items-center py-4 px-8 m-5 text-white bg-green-600 rounded-full shadow-xl transition-all active:bg-green-700 active:scale-105 group"
