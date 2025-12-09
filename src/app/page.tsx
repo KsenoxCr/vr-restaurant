@@ -1,6 +1,7 @@
 import { api, HydrateClient } from "~/trpc/server";
 import { Train, Utensils, Coffee, ChefHat, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { KitchenButton } from "./_components/kitchen-button";
 
 export default function Home() {
   return (
@@ -15,15 +16,10 @@ export default function Home() {
             priority
           />
         </div>
-        <button
-          className="fixed top-4 right-4 z-50 p-3 text-white rounded-full shadow-lg transition-all active:shadow-xl active:scale-105 text-blu bg-neutral-800 active:bg-neutral-900"
-          aria-label="Kitchen Terminal"
-        >
-          <ChefHat className="w-6 h-6" />
-        </button>
+        <KitchenButton/>
         <div className="inline-block p-4 bg-green-600 rounded-full">
           <Train className="w-16 h-16 text-white" />
-        </div>
+          </div> {/* _component */}
         <h1>Welcome Aboard</h1>
         <p>Order fresh food and beverages directly to your seat in the restaurant carriage</p>
         <div className="flex-wrap gap-3 justify-center max-w-md">
@@ -42,7 +38,7 @@ export default function Home() {
         </div>
         <button
           className="flex gap-3 items-center py-4 px-8 m-5 text-white bg-green-600 rounded-full shadow-xl transition-all active:bg-green-700 active:scale-105 group"
-        >
+        > {/* _component */}
           <span className="text-lg">Get Started</span>
           <ArrowRight className="w-5 h-5 transition-transform group-active:translate-x-1" />
         </button>
