@@ -33,6 +33,7 @@
 
 - Orders in "Preparing" state capped at 5
 - 6th order stays "Confirmed" until slot opens
+- Only one active order per seat
 
 ## Order state machine
 
