@@ -8,6 +8,21 @@ export const sessionRouter = createTRPCRouter({
   create: publicProcedure
     .input(z.number().min(1))
     .mutation(async ({ ctx, input }) => {
+
+      const existing = await ctx.db.session.findFirst({
+        where: {
+          seatNumber: input,
+          expiresAt: { gt: new Date() }
+        }
+      })
+
+      if (existing) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: `Seat number ${input} is already reserved. Please choose another seat.`,
+        });
+      }
+
       const defaultSessionLength = 30 * 60 * 1000; // 30 minutes
       const expiresAt = new Date(Date.now() + defaultSessionLength);
 
