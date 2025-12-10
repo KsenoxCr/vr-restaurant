@@ -1,40 +1,38 @@
-import { z } from "zod";
-import { createTRPCRouter, publicProcedure, protectedProcedure } from
-  "~/server/api/trpc";
-import { TRPCError } from "@trpc/server";
 import { SessionRole } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
+import { z } from "zod";
+import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { newExpiresAt } from "~/utils/session";
 
 export const sessionRouter = createTRPCRouter({
   create: publicProcedure
-    .input(z.number().min(1))
+    .input(z.number().min(1).max(99))
     .mutation(async ({ ctx, input }) => {
+      return await ctx.db.$transaction(async (tx) => {
+        const existing = await tx.session.findFirst({
+          where: {
+            seatNumber: input,
+            expiresAt: { gt: new Date() }
+          }
+        })
 
-      const existing = await ctx.db.session.findFirst({
-        where: {
-          seatNumber: input,
-          expiresAt: { gt: new Date() }
+        if (existing) {
+          throw new TRPCError({
+            code: "CONFLICT",
+            message: `Seat number ${input} is already reserved. Please choose another seat.`,
+          });
         }
-      })
 
-      if (existing) {
-        throw new TRPCError({
-          code: "CONFLICT",
-          message: `Seat number ${input} is already reserved. Please choose another seat.`,
+        const session = await tx.session.create({
+          data: {
+            seatNumber: input,
+            expiresAt: newExpiresAt(30),
+            role: SessionRole.CUSTOMER,
+          },
         });
-      }
 
-      const defaultSessionLength = 30 * 60 * 1000; // 30 minutes
-      const expiresAt = new Date(Date.now() + defaultSessionLength);
-
-      const session = await ctx.db.session.create({
-        data: {
-          seatNumber: input,
-          expiresAt: expiresAt,
-          role: SessionRole.CUSTOMER,
-        },
-      });
-
-      return { sessionId: session.id, expiresAt: session.expiresAt };
+        return { sessionId: session.id, expiresAt: session.expiresAt };
+      })
     }),
   kitchenLogin: publicProcedure
     .input(z.string().length(4))
@@ -46,13 +44,10 @@ export const sessionRouter = createTRPCRouter({
         });
       }
 
-      const defaultSessionLength = 2 * 60 * 60 * 1000; // 2 hour
-      const expiresAt = new Date(Date.now() + defaultSessionLength);
-
       const session = await ctx.db.session.create({
         data: {
           seatNumber: 0,
-          expiresAt: expiresAt,
+          expiresAt: newExpiresAt(120),
           role: SessionRole.KITCHEN,
         },
       });

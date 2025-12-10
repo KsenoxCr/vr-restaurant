@@ -1,5 +1,10 @@
 import { PrismaClient, Session, SessionRole } from '@prisma/client';
 
+export function newExpiresAt(defaultLenMins: number) {
+    const defaultSessionLength = defaultLenMins * 60 * 1000;
+    return new Date(Date.now() + defaultSessionLength);
+}
+
 export async function prolongSession(db: PrismaClient, session: Session) {
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
 
