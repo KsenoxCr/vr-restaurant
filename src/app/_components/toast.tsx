@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-export function Toast({ message, duration }: { message: string, duration: number }) {
+export function Toast({ message, duration, onComplete }: { message: string, duration: number, onComplete?: () => void }) {
   const [isVisible, setIsVisible] = useState(true)
   const [isFading, setIsFading] = useState(false)
 
@@ -13,6 +13,7 @@ export function Toast({ message, duration }: { message: string, duration: number
 
     const deletionTimer = setTimeout(() => {
       setIsVisible(false)
+      onComplete?.()
     }, duration)
 
     return () => {
