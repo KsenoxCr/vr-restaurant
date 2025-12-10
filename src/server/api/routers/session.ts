@@ -19,7 +19,7 @@ export const sessionRouter = createTRPCRouter({
         if (existing) {
           throw new TRPCError({
             code: "CONFLICT",
-            message: `Seat number ${input} is already reserved. Please choose another seat.`,
+            message: `Seat already reserved. Please choose another seat.`,
           });
         }
 
