@@ -1,7 +1,7 @@
 import { SessionRole } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
 import { newExpiresAt } from "~/utils/session";
 
 export const sessionRouter = createTRPCRouter({
@@ -34,6 +34,9 @@ export const sessionRouter = createTRPCRouter({
         return { sessionId: session.id, expiresAt: session.expiresAt };
       })
     }),
+  getCurrent: protectedProcedure.query(async ({ ctx }) => {
+    return ctx.session
+  }),
   kitchenLogin: publicProcedure
     .input(z.string().length(4))
     .mutation(async ({ ctx, input }) => {
