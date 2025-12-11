@@ -7,6 +7,7 @@ import { api } from "~/trpc/react";
 import { Toast } from "../_components/toast";
 import { useRouter } from "next/navigation";
 import { TRPCClientError } from "@trpc/client";
+import Cookies from "js-cookie";
 
 
 export default function SeatSelection() {
@@ -32,8 +33,14 @@ export default function SeatSelection() {
           const message = err instanceof TRPCClientError ? err.message : "Something went wrong."
           setErrorMessage(message)
         },
-        onSuccess: () => {
-          router.push("/menu")
+        onSuccess: (data) => {
+          Cookies.set("sessionId", data.sessionId, {
+            expires: new Date(data.expiresAt),
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict"
+          })
+
+          router.push("/menu-view")
         }
       })
   }
