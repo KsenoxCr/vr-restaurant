@@ -81,6 +81,7 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - Caching (proof of concept, no deployment, no CDN = UX optimization redundant)
 - Time of day specific menus i.e breakfast menu
 - Seat availability validation
+- Reactive Design
 
 ## Technology Stack: T3 with Local Postgres (Docker)
 
