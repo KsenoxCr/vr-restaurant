@@ -10,6 +10,7 @@
 - Payment handled separately during order receival (cash/card), integrated payment processing is out of scope for system
 - Session length max 4h, default 30min, expireAt length updated if activity
 - Kitchen authenticate with pin
+- Dynamic menu category display; future proofing for new category types
 
 ## User flows
 
