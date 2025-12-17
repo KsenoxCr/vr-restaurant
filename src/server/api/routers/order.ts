@@ -2,7 +2,6 @@ import { z } from "zod";
 import { createTRPCRouter, kitchenProcedure, protectedProcedure } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 
-import { Decimal } from "@prisma/client/runtime/library";
 import { OrderStatus } from "@prisma/client";
 
 export const orderRouter = createTRPCRouter({
@@ -31,10 +30,10 @@ export const orderRouter = createTRPCRouter({
           });
         }
 
-        const total = input.items.reduce((sum, item) => {
+        const totalCents = input.items.reduce((sum, item) => {
           const menuItem = menuItems.find(mi => mi.id === item.id);
-          return sum.add(menuItem!.price.mul(item.quantity));
-        }, new Decimal(0)); // TEST: Ensure no precision loss
+          return sum + (menuItem!.priceCents * item.quantity);
+        }, 0);
 
         const maxPosition = await tx.order.aggregate({
           _max: { queuePosition: true },
@@ -52,13 +51,13 @@ export const orderRouter = createTRPCRouter({
           data: {
             sessionId: ctx.session.id,
             seatNumber: ctx.session.seatNumber,
-            total: total,
+            totalCents: totalCents,
             queuePosition: queuePosition,
             items: {
               create: input.items.map((item) => ({
                 menuItemId: item.id,
                 quantity: item.quantity,
-                priceSnapshot: menuItems.find(mi => mi.id === item.id)!.price,
+                priceSnapshotCents: menuItems.find(mi => mi.id === item.id)!.priceCents,
               })),
             },
           },

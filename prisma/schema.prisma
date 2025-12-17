@@ -59,7 +59,7 @@ model MenuItem {
   id          Int        @id @default(autoincrement())
   name        String
   description String?
-  price       Decimal    @db.Decimal(10, 2)
+  priceCents  Int
   categoryId  Int
   available   Boolean    @default(true)
   allergens   Allergen[]
@@ -95,7 +95,7 @@ model Order {
   sessionId           String
   seatNumber          Int
   status              OrderStatus @default(SUBMITTED)
-  total               Decimal     @db.Decimal(6, 2)
+  totalCents          Int
   queuePosition       Int? // TODO: Constrait can't be less than 1
   estimatedStartTime  DateTime?
   createdAt           DateTime    @default(now())
@@ -112,12 +112,12 @@ model Order {
 }
 
 model OrderItem {
-  id            Int      @id @default(autoincrement())
-  orderId       Int
-  menuItemId    Int
-  quantity      Int      @default(1)
-  priceSnapshot Decimal  @db.Decimal(10, 2)
-  createdAt     DateTime @default(now())
+  id                   Int      @id @default(autoincrement())
+  orderId              Int
+  menuItemId           Int
+  quantity             Int      @default(1)
+  priceSnapshotCents   Int
+  createdAt            DateTime @default(now())
 
   order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
   menuItem      MenuItem @relation(fields: [menuItemId], references: [id])

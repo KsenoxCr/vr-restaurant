@@ -16,7 +16,7 @@ Table MenuItem {
   id Int [pk, increment]
   name String [not null]
   description String
-  price Decimal [not null]
+  priceCents Int [not null]
   categoryId Int [not null]
   available Boolean [not null, default: true]
   allergens Allergen[] [not null]
@@ -44,7 +44,7 @@ Table Order {
   sessionId String [not null]
   seatNumber Int [not null]
   status OrderStatus [not null, default: 'SUBMITTED']
-  total Decimal [not null]
+  totalCents Int [not null]
   queuePosition Int
   estimatedStartTime DateTime
   createdAt DateTime [default: `now()`, not null]
@@ -59,7 +59,7 @@ Table OrderItem {
   orderId Int [not null]
   menuItemId Int [not null]
   quantity Int [not null, default: 1]
-  priceSnapshot Decimal [not null]
+  priceSnapshotCents Int [not null]
   createdAt DateTime [default: `now()`, not null]
   order Order [not null]
   menuItem MenuItem [not null]

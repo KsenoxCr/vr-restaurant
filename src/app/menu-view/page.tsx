@@ -7,6 +7,7 @@ import { LoadingPage } from "../_components/loading-page";
 import { useState } from "react";
 import { MenuItemCard } from "../_components/menu-item-card";
 import { ErrorScreen } from "../_components/error-screen";
+import Link from "next/link";
 
 // 1st render:
 // -Type buttons (persistent)
@@ -71,7 +72,7 @@ export default function MenuView() {
         name={e.name}
         id={e.id}
         description={e.description}
-        price={Number(e.price).toFixed(2)}
+        priceCents={e.priceCents}
         imageUrl={e.imageUrl}
         onClick={() => {}}
       />
@@ -120,15 +121,13 @@ export default function MenuView() {
       <header className="flex items-center w-screen h-[75px] bg-neutral-800">
         <div className="flex w-[calc(100%-30px)] items-center text-xl">
           {queries.session.data?.seatNumber && (
-            <button
+            <Link
               className="flex absolute left-5 items-center ml-1 text-green-600"
-              onClick={() => {
-                router.push("/seat-selection");
-              }}
+              href="/seat-selection"
             >
               <UserRound className="w-8 h-8" />
               <p className="ml-1">Seat {queries.session.data?.seatNumber}</p>
-            </button>
+            </Link>
           )}
           <h1 className="absolute left-1/2 text-neutral-300">Menu</h1>
           <button className="absolute right-5 text-green-600">
