@@ -15,8 +15,6 @@
 ## User flows
 
 - Passenger on train → selects seat (manual input, later feature: QR code) -> accesses menu via device → places order → receives order at seat
-                                                                                                                ↓
-                                                                                                    Cancels order before confirmed
 - Kitchen receives order queue → prepares → marks ready
 - waiters → delivers to carriage/seat
 - Staff manages menu availability (items run out during journey)
@@ -65,6 +63,7 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 
 ## Later Features (If time schedule permits)
 
+- Order rejection specification menu (for showing detailed description of rejection to user)
 - Real-time status updates (WebSocket, polling fallback)
 - Order history per session
 - Estimated preparation time
@@ -83,6 +82,7 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - Time of day specific menus i.e breakfast menu
 - Seat availability validation
 - Reactive Design
+- Locale currency formatting
 
 ## Technology Stack: T3 with Local Postgres (Docker)
 
