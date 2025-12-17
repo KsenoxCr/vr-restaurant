@@ -8,6 +8,7 @@ import { useState } from "react";
 import { MenuItemCard } from "../_components/menu-item-card";
 import { ErrorScreen } from "../_components/error-screen";
 import Link from "next/link";
+import { CartButton } from "../_components/cart";
 
 // 1st render:
 // -Type buttons (persistent)
@@ -118,22 +119,18 @@ export default function MenuView() {
 
   return (
     <main className="block h-screen">
-      <header className="flex items-center w-screen h-[75px] bg-neutral-800">
-        <div className="flex w-[calc(100%-30px)] items-center text-xl">
-          {queries.session.data?.seatNumber && (
-            <Link
-              className="flex absolute left-5 items-center ml-1 text-green-600"
-              href="/seat-selection"
-            >
-              <UserRound className="w-8 h-8" />
-              <p className="ml-1">Seat {queries.session.data?.seatNumber}</p>
-            </Link>
-          )}
-          <h1 className="absolute left-1/2 text-neutral-300">Menu</h1>
-          <button className="absolute right-5 text-green-600">
-            <ShoppingCart className="w-8 h-8" />
-          </button>
-        </div>
+      <header className="flex justify-between items-center w-screen text-xl bg-neutral-800">
+        {queries.session.data?.seatNumber && (
+          <Link
+            className="flex items-center ml-2 text-green-600"
+            href="/seat-selection"
+          >
+            <UserRound className="w-8 h-8" />
+            <p className="ml-1">Seat {queries.session.data?.seatNumber}</p>
+          </Link>
+        )}
+        <h1 className="absolute left-1/2 text-neutral-300">Menu</h1>
+        <CartButton />
       </header>
       {createCatBtns()}
       {selected !== "all" && createSubCatBtns()}

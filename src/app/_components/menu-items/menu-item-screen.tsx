@@ -3,7 +3,7 @@ import { CircleX } from "lucide-react";
 import Image from "next/image";
 import { api } from "~/trpc/server";
 import { BackButton } from "./back-button";
-import { Cart } from "../cart";
+import { CartButton } from "../cart";
 import { PurchasePanel } from "../purchase-panel";
 import { formatCents } from "~/utils/price";
 import { NotFoundScreen } from "../not-found";
@@ -52,7 +52,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
     <main className="flex flex-col items-center w-screen h-screen bg-neutral-700">
       <header className="flex justify-between items-center w-screen bg-neutral-800">
         <BackButton />
-        <Cart />
+        <CartButton />
       </header>
       <article className="mt-4 flex h-[85%] w-[90%] flex-col justify-center overflow-hidden rounded-2xl bg-neutral-800 text-neutral-300 shadow-lg">
         <div className="flex relative justify-center items-center flex-[4]">
