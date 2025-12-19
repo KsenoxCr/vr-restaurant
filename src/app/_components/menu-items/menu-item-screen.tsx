@@ -3,7 +3,7 @@ import { CircleX } from "lucide-react";
 import Image from "next/image";
 import { api } from "~/trpc/server";
 import { BackButton } from "./back-button";
-import { CartButton } from "../cart";
+import { CartButton } from "../cart-button";
 import { PurchasePanel } from "../purchase-panel";
 import { formatCents } from "~/utils/price";
 import { NotFoundScreen } from "../not-found";
@@ -49,7 +49,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
   }
 
   return (
-    <main className="flex flex-col items-center w-screen h-screen bg-neutral-700">
+    <main className="flex overflow-hidden fixed inset-0 flex-col items-center w-screen h-screen bg-neutral-700">
       <header className="flex justify-between items-center w-screen bg-neutral-800">
         <BackButton />
         <CartButton />
@@ -85,7 +85,12 @@ export async function MenuItemScreen({ id }: { id: number }) {
           <h2 className="mt-2 mb-4 text-xl">Description</h2>
           <p>{menuItem.description}</p>
         </div>
-        <PurchasePanel priceCents={menuItem.priceCents} maxQuantity={10} />
+        <PurchasePanel
+          id={menuItem.id}
+          name={menuItem.name}
+          priceCents={menuItem.priceCents}
+          maxQuantity={10}
+        />
       </article>
     </main>
   );
