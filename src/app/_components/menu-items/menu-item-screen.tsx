@@ -89,6 +89,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
           id={menuItem.id}
           name={menuItem.name}
           priceCents={menuItem.priceCents}
+          imageUrl={menuItem.imageUrl}
           maxQuantity={10}
         />
       </article>

@@ -9,11 +9,13 @@ export function AddToCartButton({
   id,
   name,
   priceCents,
+  imageUrl,
   quantity,
 }: {
   id: string;
   name: string;
   priceCents: number;
+  imageUrl: string | null;
   quantity: number;
 }) {
   const [total, setTotal] = useState(priceCents);
@@ -28,6 +30,7 @@ export function AddToCartButton({
       menuItemId: Number(id),
       name,
       priceCents,
+      imageUrl,
       quantity,
     });
   };

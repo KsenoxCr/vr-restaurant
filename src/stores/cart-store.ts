@@ -5,6 +5,7 @@ export type CartItem = {
   menuItemId: number;
   name: string;
   priceCents: number;
+  imageUrl: string | null;
   quantity: number;
 };
 
