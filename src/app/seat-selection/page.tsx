@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 export default function SeatSelection() {
   const router = useRouter();
 
+  const utils = api.useUtils();
   const createSession = api.session.create.useMutation();
 
   const [inputValue, setInputValue] = useState("");
@@ -54,6 +55,8 @@ export default function SeatSelection() {
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
         });
+
+        utils.invalidate();
 
         router.push("/menu-view");
       },
