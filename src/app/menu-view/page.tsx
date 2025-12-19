@@ -8,10 +8,14 @@ import { MenuItemCard } from "../_components/menu-item-card";
 import { ErrorScreen } from "../_components/error-screen";
 import Link from "next/link";
 import { CartButton } from "../_components/cart-button";
+import { usePathname } from "next/navigation";
 
 export default function MenuView() {
   const [categoryType, setCategoryType] = useState("all");
   const [subcategory, setSubcategory] = useState("");
+  const pathname = usePathname();
+  const isModalOpen =
+    pathname.includes("/menu-items/") || pathname.includes("/cart");
 
   const queries = {
     session: api.session.getCurrent.useQuery(),
@@ -72,13 +76,13 @@ export default function MenuView() {
     ];
 
     return (
-      <div className="flex justify-end w-screen bg-neutral-700">
-        <div className="flex h-[100%] w-[calc(100%-8px)] gap-2">
+      <div className="w-screen bg-neutral-700">
+        <div className="flex overflow-x-auto gap-2 px-2">
           {uniqueCategoryTypes.map((t) => (
             <button
               key={t}
               onClick={() => setCategoryType(t)}
-              className={`${categoryType === t ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb my-2 w-24 rounded-full p-3`}
+              className={`${categoryType === t ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb my-2 min-w-24 flex-shrink-0 rounded-full p-3`}
             >
               {t}
             </button>
@@ -92,8 +96,8 @@ export default function MenuView() {
     if (!categories || categoryType === "all") return null;
 
     return (
-      <div className="flex justify-end w-screen bg-neutral-700">
-        <div className="flex h-[100%] w-[calc(100%-8px)] gap-2">
+      <div className="w-screen bg-neutral-700">
+        <div className="flex overflow-x-auto gap-2 px-2">
           {categories
             .filter((c) => c.type === categoryType)
             .map((c) => {
@@ -101,7 +105,7 @@ export default function MenuView() {
                 <button
                   key={c.name}
                   onClick={() => setSubcategory(c.name)}
-                  className={`${subcategory === c.name ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb my-2 w-24 rounded-full p-3`}
+                  className={`${subcategory === c.name ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb mb-3 min-w-24 flex-shrink-0 rounded-full p-3`}
                 >
                   {c.name}
                 </button>
@@ -134,22 +138,24 @@ export default function MenuView() {
 
   return (
     <main className="flex flex-col h-screen">
-      <header className="flex justify-between items-center w-screen text-xl bg-neutral-800">
-        {queries.session.data?.seatNumber && (
-          <Link
-            className="flex items-center ml-2 text-green-600"
-            href="/seat-selection"
-          >
-            <UserRound className="w-8 h-8" />
-            <p className="ml-1">Seat {queries.session.data?.seatNumber}</p>
-          </Link>
-        )}
-        <h1 className="absolute left-1/2 text-neutral-300">Menu</h1>
-        <CartButton />
-      </header>
-      {createCatBtns()}
-      {createSubCatBtns(categoryType)}
-      <menu className="flex relative flex-col flex-1 items-center pt-2 pb-6 bg-neutral-800">
+      <div className={`sticky top-0 ${isModalOpen ? "-z-10" : "z-10"}`}>
+        <header className="flex justify-between items-center w-screen text-xl bg-neutral-800">
+          {queries.session.data?.seatNumber && (
+            <Link
+              className="flex items-center ml-2 text-green-600"
+              href="/seat-selection"
+            >
+              <UserRound className="w-8 h-8" />
+              <p className="ml-1">Seat {queries.session.data?.seatNumber}</p>
+            </Link>
+          )}
+          <h1 className="absolute left-1/2 text-neutral-300">Menu</h1>
+          <CartButton />
+        </header>
+        {createCatBtns()}
+        {createSubCatBtns(categoryType)}
+      </div>
+      <menu className="grid overflow-y-auto relative justify-items-center pt-2 pb-6 bg-neutral-800">
         {showMenuItems(activeCategory)}
       </menu>
     </main>
