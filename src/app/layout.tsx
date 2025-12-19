@@ -5,9 +5,9 @@ import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { MobileOnlyGate } from "~/app/_components/mobile-only-gate";
-import React from "react"
+import React from "react";
 
-if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   (window as any).React = React;
 }
 
@@ -24,9 +24,7 @@ export default function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
-          <MobileOnlyGate>
-            {children}
-          </MobileOnlyGate>
+          <MobileOnlyGate>{children}</MobileOnlyGate>
         </TRPCReactProvider>
       </body>
     </html>
