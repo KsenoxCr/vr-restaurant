@@ -22,6 +22,7 @@ export function PurchasePanel({
   return (
     <>
       <QuantityPicker
+        isLarge
         quantity={quantity}
         setQuantity={setQuantity}
         max={maxQuantity}
