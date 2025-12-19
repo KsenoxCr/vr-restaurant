@@ -8,11 +8,13 @@ import { Toast } from "../_components/toast";
 import { useRouter } from "next/navigation";
 import { TRPCClientError } from "@trpc/client";
 import Cookies from "js-cookie";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function SeatSelection() {
   const router = useRouter();
 
   const utils = api.useUtils();
+  const queryClient = useQueryClient();
   const createSession = api.session.create.useMutation();
 
   const [inputValue, setInputValue] = useState("");
@@ -56,6 +58,7 @@ export default function SeatSelection() {
           sameSite: "strict",
         });
 
+        queryClient.removeQueries({ queryKey: [["session"]] });
         utils.invalidate();
 
         router.push("/menu-view");
