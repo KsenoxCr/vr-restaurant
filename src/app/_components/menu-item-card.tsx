@@ -1,6 +1,7 @@
 import { CircleX } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { formatCents } from "~/utils/price";
 
 export function MenuItemCard({
@@ -16,6 +17,8 @@ export function MenuItemCard({
   priceCents: number;
   imageUrl: string | null;
 }) {
+  const pathname = usePathname();
+
   return (
     <Link
       href={`/menu-items/${id}`}
