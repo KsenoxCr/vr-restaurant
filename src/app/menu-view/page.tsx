@@ -39,7 +39,15 @@ export default function MenuView() {
     }
   }, [categoryType, categories]);
 
-  const activeCategory = categoryType === "all" ? "all" : subcategory;
+  if (queries.session.isError) {
+    return (
+      <ErrorScreen
+        href="/seat-selection"
+        message="Session not created..."
+        label="Select Seat"
+      />
+    );
+  }
 
   const queryValues = Object.values(queries);
 
@@ -47,19 +55,6 @@ export default function MenuView() {
   const loading = queryValues.some((q) => q.isLoading);
 
   if (error) {
-    // Add if for no session created
-    const queryError = queryValues.find((e) => e.error);
-
-    if (queryError?.error?.message === "UNAUTHORIZED") {
-      return (
-        <ErrorScreen
-          href="/seat-selection"
-          message="Session not created..."
-          label="Select Seat"
-        />
-      );
-    }
-
     throw Error("Page failed to load");
   }
 
@@ -136,13 +131,15 @@ export default function MenuView() {
     ));
   };
 
+  const activeCategory = categoryType === "all" ? "all" : subcategory;
+
   return (
     <main className="flex flex-col h-screen">
       <div className={`sticky top-0 ${isModalOpen ? "-z-10" : "z-10"}`}>
         <header className="flex justify-between items-center w-screen text-xl bg-neutral-800">
           {queries.session.data?.seatNumber && (
             <Link
-              className="flex items-center ml-2 text-green-600"
+              className="flex items-center ml-2 text-green-600 active:text-green-700 transition-color group"
               href="/seat-selection"
             >
               <UserRound className="w-8 h-8" />
