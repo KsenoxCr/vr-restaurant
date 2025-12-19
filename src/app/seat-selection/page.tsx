@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { KitchenButton } from "../_components/kitchen-button";
@@ -9,61 +9,76 @@ import { useRouter } from "next/navigation";
 import { TRPCClientError } from "@trpc/client";
 import Cookies from "js-cookie";
 
-
 export default function SeatSelection() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [inputValue, setInputValue] = useState("")
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
-  const isDisabled = inputValue.length == 0
+  const createSession = api.session.create.useMutation();
+
+  const [inputValue, setInputValue] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const isDisabled = inputValue.length == 0;
 
   const HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const input = e.currentTarget.value.replace(/\D/g, "").slice(0, 2)
+    const input = e.currentTarget.value.replace(/\D/g, "").slice(0, 2);
 
-    setInputValue(input)
-  }
-
-  const createSession = api.session.create.useMutation()
+    setInputValue(input);
+  };
 
   const HandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
+    e.preventDefault();
 
-      createSession.mutate(Number(inputValue), {
-        onError: (err) => {
-          const message = err instanceof TRPCClientError ? err.message : "Something went wrong."
-          setErrorMessage(message)
-        },
-        onSuccess: (data) => {
-          Cookies.set("sessionId", data.sessionId, {
-            expires: new Date(data.expiresAt),
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict"
-          })
+    if (Cookies.get("seatNumber") === inputValue && Cookies.get("sessionId")) {
+      router.push("/menu-view");
+      return;
+    }
 
-          router.push("/menu-view")
-        }
-      })
-  }
+    createSession.mutate(Number(inputValue), {
+      onError: (err) => {
+        const message =
+          err instanceof TRPCClientError
+            ? err.message
+            : "Something went wrong.";
+        setErrorMessage(message);
+      },
+      onSuccess: (data) => {
+        const expires = new Date(data.expiresAt);
+
+        Cookies.set("sessionId", data.sessionId, {
+          expires: expires,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+        });
+
+        Cookies.set("seatNumber", inputValue, {
+          expires: expires,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+        });
+
+        router.push("/menu-view");
+      },
+    });
+  };
 
   return (
-  <div className="flex justify-center items-center p-6 min-h-screen bg-neutral-700">
-      <KitchenButton/>
+    <div className="flex justify-center items-center p-6 min-h-screen bg-neutral-700">
+      <KitchenButton />
       <div className="p-8 w-full max-w-md rounded-2xl shadow-lg bg-neutral-800">
         <div className="flex justify-center mb-6">
-        <TrainIcon/>
+          <TrainIcon />
         </div>
-        <h1 className="mb-2 text-center text-neutral-100">
-          Select Your Seat
-        </h1>
+        <h1 className="mb-2 text-center text-neutral-100">Select Your Seat</h1>
         <p className="mb-8 text-center text-neutral-300">
           Please enter your seat number to begin ordering
         </p>
         <form onSubmit={HandleSubmit}>
-          { errorMessage && (
+          {errorMessage && (
             <Toast
               duration={3000}
               message={errorMessage}
-              onComplete={() => { setErrorMessage(null) }}
+              onComplete={() => {
+                setErrorMessage(null);
+              }}
             />
           )}
           <label htmlFor="seat" className="block mb-3 text-neutral-100">
@@ -76,7 +91,7 @@ export default function SeatSelection() {
             onChange={HandleChange}
             inputMode="numeric"
             placeholder="e.g. 12"
-            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-green-600 focus:outline-none placeholder:text-neutral-600 bg-neutral-800 border-neutral-600 text-neutral-100"
+            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-green-600 focus:outline-none border-neutral-600 bg-neutral-800 text-neutral-100 placeholder:text-neutral-600"
             autoFocus
           />
           <button
@@ -89,5 +104,5 @@ export default function SeatSelection() {
         </form>
       </div>
     </div>
-  )
+  );
 }
