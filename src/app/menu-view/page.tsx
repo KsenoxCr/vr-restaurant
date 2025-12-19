@@ -122,6 +122,7 @@ export default function MenuView() {
 
     return items.map((e) => (
       <MenuItemCard
+        key={e.id}
         name={e.name}
         id={e.id}
         description={e.description}
