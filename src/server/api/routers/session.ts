@@ -1,7 +1,11 @@
 import { SessionRole } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { newExpiresAt } from "~/utils/session";
 
 export const sessionRouter = createTRPCRouter({
@@ -12,9 +16,9 @@ export const sessionRouter = createTRPCRouter({
         const existing = await tx.session.findFirst({
           where: {
             seatNumber: input,
-            expiresAt: { gt: new Date() }
-          }
-        })
+            expiresAt: { gt: new Date() },
+          },
+        });
 
         if (existing) {
           throw new TRPCError({
@@ -32,10 +36,10 @@ export const sessionRouter = createTRPCRouter({
         });
 
         return { sessionId: session.id, expiresAt: session.expiresAt };
-      })
+      });
     }),
   getCurrent: protectedProcedure.query(async ({ ctx }) => {
-    return ctx.session
+    return ctx.session;
   }),
   kitchenLogin: publicProcedure
     .input(z.string().length(4))
@@ -62,7 +66,7 @@ export const sessionRouter = createTRPCRouter({
       const result = await ctx.db.session.deleteMany({
         where: {
           expiresAt: { lt: new Date() },
-        }
+        },
       });
       return { deletedCount: result.count };
     }),
