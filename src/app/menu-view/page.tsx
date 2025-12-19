@@ -1,36 +1,42 @@
 "use client";
 
-import { ShoppingCart, UserRound } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { UserRound } from "lucide-react";
 import { api } from "~/trpc/react";
 import { LoadingPage } from "../_components/loading-page";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MenuItemCard } from "../_components/menu-item-card";
 import { ErrorScreen } from "../_components/error-screen";
 import Link from "next/link";
-import { CartButton } from "../_components/cart";
-
-// 1st render:
-// -Type buttons (persistent)
-// all items
-
-// following renders:
-// cat buttons (only if not "all" selected)
-// cat items
-
-// Menu item shown as child component
+import { CartButton } from "../_components/cart-button";
 
 export default function MenuView() {
-  const [selected, setSelected] = useState("all");
-  const [subSelected, setSubSelected] = useState();
+  const [categoryType, setCategoryType] = useState("all");
+  const [subcategory, setSubcategory] = useState("");
 
   const queries = {
-    session: api.session.getCurrent.useQuery(), //Should not be cached if router pushed to menuview
+    session: api.session.getCurrent.useQuery(),
     categories: api.menu.getCategories.useQuery(),
     menu: api.menu.getAll.useQuery(),
   } as const;
 
-  const router = useRouter();
+  const categories = queries.categories.data;
+
+  useEffect(() => {
+    if (!categories || categoryType === "all") return;
+
+    const subcategories = categories.filter((c) => c.type === categoryType);
+
+    if (subcategories.length > 0) {
+      setSubcategory((prev) =>
+        subcategories.some((c) => c.name === prev)
+          ? prev
+          : subcategories[0]!.name,
+      );
+    }
+  }, [categoryType, categories]);
+
+  const activeCategory = categoryType === "all" ? "all" : subcategory;
+
   const queryValues = Object.values(queries);
 
   const error = queryValues.some((q) => q.isError);
@@ -57,36 +63,13 @@ export default function MenuView() {
     return <LoadingPage />;
   }
 
-  // useEffect(() => {}, [selected]);
-
-  const categories = queries.categories.data;
-
-  const showMenuItems = (category: string) => {
-    const items =
-      category === "all"
-        ? queries.menu.data
-        : queries.menu.data!.filter((e) => e.category.name === category);
-
-    // Claude: what do with the assertions!
-    return items!.map((e) => (
-      <MenuItemCard
-        name={e.name}
-        id={e.id}
-        description={e.description}
-        priceCents={e.priceCents}
-        imageUrl={e.imageUrl}
-        onClick={() => {}}
-      />
-    ));
-  };
-
   const createCatBtns = () => {
+    if (!categories) return null;
+
     const uniqueCategoryTypes = [
       "all",
       ...new Set(categories!.map((e) => e.type)),
     ];
-
-    // Learn about how positioning affects flexbox
 
     return (
       <div className="flex justify-end w-screen bg-neutral-700">
@@ -94,8 +77,8 @@ export default function MenuView() {
           {uniqueCategoryTypes.map((t) => (
             <button
               key={t}
-              onClick={() => setSelected(t)}
-              className={`${selected === t ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb my-2 w-24 rounded-full p-3`}
+              onClick={() => setCategoryType(t)}
+              className={`${categoryType === t ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb my-2 w-24 rounded-full p-3`}
             >
               {t}
             </button>
@@ -105,20 +88,51 @@ export default function MenuView() {
     );
   };
 
-  const createSubCatBtns = () => {
+  const createSubCatBtns = (categoryType: string) => {
+    if (!categories || categoryType === "all") return null;
+
     return (
-      <div className="flex w-screen bg-neutral-700">
-        {categories!
-          .filter((c) => c.type === selected)
-          .map((e) => {
-            return <button onClick={() => setSelected(e.name)}></button>;
-          })}
+      <div className="flex justify-end w-screen bg-neutral-700">
+        <div className="flex h-[100%] w-[calc(100%-8px)] gap-2">
+          {categories
+            .filter((c) => c.type === categoryType)
+            .map((c) => {
+              return (
+                <button
+                  key={c.name}
+                  onClick={() => setSubcategory(c.name)}
+                  className={`${subcategory === c.name ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb my-2 w-24 rounded-full p-3`}
+                >
+                  {c.name}
+                </button>
+              );
+            })}
+        </div>
       </div>
     );
   };
 
+  const showMenuItems = (category: string) => {
+    if (!queries.menu.data) return null;
+
+    const items =
+      category === "all"
+        ? queries.menu.data
+        : queries.menu.data!.filter((e) => e.category.name === category);
+
+    return items.map((e) => (
+      <MenuItemCard
+        name={e.name}
+        id={e.id}
+        description={e.description}
+        priceCents={e.priceCents}
+        imageUrl={e.imageUrl}
+      />
+    ));
+  };
+
   return (
-    <main className="block h-screen">
+    <main className="flex flex-col h-screen">
       <header className="flex justify-between items-center w-screen text-xl bg-neutral-800">
         {queries.session.data?.seatNumber && (
           <Link
@@ -133,9 +147,9 @@ export default function MenuView() {
         <CartButton />
       </header>
       {createCatBtns()}
-      {selected !== "all" && createSubCatBtns()}
+      {createSubCatBtns(categoryType)}
       <menu className="flex relative flex-col flex-1 items-center pt-2 pb-6 bg-neutral-800">
-        {showMenuItems(selected)}
+        {showMenuItems(activeCategory)}
       </menu>
     </main>
   );
