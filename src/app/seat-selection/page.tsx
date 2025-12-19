@@ -30,6 +30,11 @@ export default function SeatSelection() {
   const HandleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (inputValue == "0") {
+      setErrorMessage("Seat number cannot be zero.");
+      return;
+    }
+
     if (Cookies.get("seatNumber") === inputValue && Cookies.get("sessionId")) {
       router.push("/menu-view");
       return;
