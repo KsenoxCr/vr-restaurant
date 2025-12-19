@@ -4,12 +4,12 @@ import { useCartStore } from "~/stores/cart-store";
 import { CartButton } from "../_components/cart-button";
 import { BackButton } from "../_components/menu-items/back-button";
 import { QuantityPicker } from "../_components/quantity-picker";
+import { RemoveButton } from "./_components/remove-button";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import { ErrorScreen } from "../_components/error-screen";
 import { formatCents } from "~/utils/price";
-import { Trash2 } from "lucide-react";
 
 export default function CartPage() {
   const router = useRouter();
@@ -65,34 +65,33 @@ export default function CartPage() {
               {items.map((item) => (
                 <div
                   key={item.menuItemId}
-                  className="flex gap-3 items-center p-4 rounded-lg bg-neutral-800"
+                  className="flex flex-col gap-3 p-4 rounded-lg bg-neutral-800"
                 >
-                  <div className="overflow-hidden relative flex-shrink-0 w-16 h-16 rounded-lg bg-neutral-700">
-                    {item.imageUrl ? (
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="flex justify-center items-center w-full h-full text-neutral-500">
-                        No image
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex flex-col flex-1">
-                    <h3 className="text-base text-white">{item.name}</h3>
-                    <p className="text-sm text-green-500">
-                      {formatCents(item.priceCents)}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col gap-2 items-end">
-                    <div className="text-base text-white">
-                      {formatCents(item.priceCents * item.quantity)}
+                  <div className="flex gap-3 items-center">
+                    <div className="overflow-hidden relative flex-shrink-0 w-16 h-16 rounded-lg bg-neutral-700">
+                      {item.imageUrl ? (
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.name}
+                          fill
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="flex justify-center items-center w-full h-full text-neutral-500">
+                          No image
+                        </div>
+                      )}
                     </div>
+
+                    <div className="flex flex-col flex-1">
+                      <h3 className="text-base text-white">{item.name}</h3>
+                      <p className="text-sm text-green-500">
+                        {formatCents(item.priceCents)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center">
                     <div className="flex gap-2 items-center">
                       <QuantityPicker
                         quantity={item.quantity}
@@ -103,12 +102,13 @@ export default function CartPage() {
                         isLarge={false}
                         showLabel={false}
                       />
-                      <button
+                      <RemoveButton
                         onClick={() => removeItem(item.menuItemId)}
-                        className="flex justify-center items-center w-8 h-8 text-white rounded-full transition-colors hover:bg-red-600 bg-neutral-700"
-                      >
-                        <Trash2 size={16} />
-                      </button>
+                      />
+                    </div>
+
+                    <div className="text-base font-medium text-white">
+                      {formatCents(item.priceCents * item.quantity)}
                     </div>
                   </div>
                 </div>
