@@ -12,7 +12,7 @@ export function AddToCartButton({
   imageUrl,
   quantity,
 }: {
-  id: string;
+  id: number;
   name: string;
   priceCents: number;
   imageUrl: string | null;
@@ -27,7 +27,7 @@ export function AddToCartButton({
 
   const handleAddToCart = () => {
     addItem({
-      menuItemId: Number(id),
+      menuItemId: id,
       name,
       priceCents,
       imageUrl,
