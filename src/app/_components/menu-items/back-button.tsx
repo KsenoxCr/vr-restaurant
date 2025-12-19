@@ -8,7 +8,7 @@ export function BackButton() {
 
   return (
     <button
-      className="flex justify-center items-center m-4 text-green-600"
+      className="flex justify-center items-center m-4 text-green-600 active:text-green-700 transition-color group"
       onClick={
         window.history.length > 1
           ? () => router.back()
