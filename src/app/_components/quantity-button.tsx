@@ -20,12 +20,11 @@ export function QuantityButton({
       variant={isIncrement ? "increment" : "decrement"}
       size={isLarge ? "icon-lg" : "icon"}
       rounded="full"
+      active="intense"
       onClick={onClick}
       disabled={disabled}
     >
-      <span className="transition-transform group-active:scale-105">
-        {isIncrement ? "+" : "-"}
-      </span>
+      {isIncrement ? "+" : "-"}
     </Button>
   );
 }
