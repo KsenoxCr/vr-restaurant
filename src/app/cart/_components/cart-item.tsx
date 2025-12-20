@@ -42,7 +42,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
 
       {/* Lower row: Quantity picker, Delete button, Total price */}
       <div className="flex justify-between items-center">
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-3 items-center">
           <QuantityPicker
             quantity={item.quantity}
             setQuantity={(newQuantity) =>
