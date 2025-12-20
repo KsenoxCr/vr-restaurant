@@ -48,7 +48,7 @@ export function AddToCartButton({
           navigateBack(router, "/menu-view");
         }}
         rounded="xl"
-        className="gap-2 mb-4 w-full shadow-lg"
+        className="gap-2 mb-4 w-full"
       >
         <ShoppingCart className="w-6 h-6" />
         {`Add to Cart - ${formatCents(total)}`}

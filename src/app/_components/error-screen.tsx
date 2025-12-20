@@ -20,7 +20,7 @@ export function ErrorScreen(props: ClickOrHref) {
         <Button
           variant="secondary"
           active={true}
-          className="mt-5 shadow-lg"
+          className="mt-5"
           onClick={() => props.callback()}
         >
           Reset
@@ -29,7 +29,7 @@ export function ErrorScreen(props: ClickOrHref) {
         <Button
           variant="secondary"
           active={true}
-          className="mt-5 shadow-lg"
+          className="mt-5"
           asChild
         >
           <Link href={props.href}>{props.label ?? "Go Back"}</Link>

@@ -14,7 +14,7 @@ export const KitchenButton = React.forwardRef<
       variant="secondary"
       rounded="full"
       aria-label="Kitchen Terminal"
-      className="fixed top-4 right-4 z-50 p-3 shadow-lg active:shadow-xl"
+      className="fixed top-4 right-4 z-50 p-3"
       asChild
     >
       <Link href="/kitchen-view" ref={ref} {...props}>
