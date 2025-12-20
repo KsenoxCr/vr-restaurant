@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { TRPCClientError } from "@trpc/client";
 import Cookies from "js-cookie";
 import { useQueryClient } from "@tanstack/react-query";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/app/_components/ui/button";
 
 export default function SeatSelection() {
   const router = useRouter();

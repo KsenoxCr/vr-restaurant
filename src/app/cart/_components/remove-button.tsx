@@ -1,7 +1,7 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/app/_components/ui/button";
 
 type RemoveButtonProps = {
   onClick: () => void;

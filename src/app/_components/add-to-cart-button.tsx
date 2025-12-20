@@ -6,7 +6,7 @@ import { formatCents } from "~/lib/utils/price";
 import { useCartStore } from "~/stores/cart-store";
 import { useRouter } from "next/navigation";
 import { navigateBack } from "~/lib/utils/navigation";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/app/_components/ui/button";
 
 export function AddToCartButton({
   id,

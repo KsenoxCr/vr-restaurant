@@ -3,7 +3,7 @@
 import React from "react";
 import { ChefHat } from "lucide-react";
 import Link from "next/link";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/app/_components/ui/button";
 
 export const KitchenButton = React.forwardRef<
   HTMLAnchorElement,

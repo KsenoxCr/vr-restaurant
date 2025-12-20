@@ -3,7 +3,7 @@
 import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import { useCartStore } from "~/stores/cart-store";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/app/_components/ui/button";
 
 export function CartButton() {
   const itemCount = useCartStore((state) => state.getTotalItems());

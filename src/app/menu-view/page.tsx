@@ -9,7 +9,7 @@ import { ErrorScreen } from "../_components/error-screen";
 import Link from "next/link";
 import { CartButton } from "../_components/cart-button";
 import { usePathname } from "next/navigation";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/app/_components/ui/button";
 
 export default function MenuView() {
   const [categoryType, setCategoryType] = useState("all");
