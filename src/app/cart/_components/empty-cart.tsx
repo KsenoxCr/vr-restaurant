@@ -11,9 +11,7 @@ export function EmptyCart({ onBrowseMenu }: EmptyCartProps) {
     <div className="w-[40%]">
       <p className="text-center">Your cart is empty.</p>
       <Button className="mt-5 w-full" onClick={onBrowseMenu}>
-        <span className="group-active:scale-105 group-active:text-neutral-400">
-          Browse Menu
-        </span>
+        Browse Menu
       </Button>
     </div>
   );

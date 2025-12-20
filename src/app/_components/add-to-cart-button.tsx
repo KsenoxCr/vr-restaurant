@@ -48,10 +48,10 @@ export function AddToCartButton({
           navigateBack(router, "/menu-view");
         }}
         rounded="xl"
-        className="w-full gap-2 mb-4 shadow-lg"
+        className="gap-2 mb-4 w-full shadow-lg"
       >
-        <ShoppingCart className="w-6 h-6 transition-all group-active:-translate-x-1 group-active:scale-105" />
-        <span className="transition-all group-active:scale-105">{`Add to Cart - ${formatCents(total)}`}</span>
+        <ShoppingCart className="w-6 h-6" />
+        {`Add to Cart - ${formatCents(total)}`}
       </Button>
     </div>
   );
