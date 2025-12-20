@@ -1,6 +1,6 @@
 "use client";
 
-import { formatCents } from "~/utils/price";
+import { formatCents } from "~/lib/utils/price";
 
 type CartSummaryProps = {
   totalPrice: number;

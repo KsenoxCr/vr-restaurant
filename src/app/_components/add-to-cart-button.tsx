@@ -2,10 +2,10 @@
 
 import { ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
-import { formatCents } from "~/utils/price";
+import { formatCents } from "~/lib/utils/price";
 import { useCartStore } from "~/stores/cart-store";
 import { useRouter } from "next/navigation";
-import { navigateBack } from "~/utils/navigation";
+import { navigateBack } from "~/lib/utils/navigation";
 import { Button } from "~/components/ui/button";
 
 export function AddToCartButton({

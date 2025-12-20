@@ -1,7 +1,7 @@
 import { CircleX } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { formatCents } from "~/utils/price";
+import { formatCents } from "~/lib/utils/price";
 
 export function MenuItemCard({
   id,

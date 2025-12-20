@@ -11,7 +11,7 @@ import { CartSummary } from "./_components/cart-summary";
 import { PlaceOrderButton } from "./_components/place-order-button";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import { navigateBack } from "~/utils/navigation";
+import { navigateBack } from "~/lib/utils/navigation";
 
 export default function CartPage() {
   const router = useRouter();

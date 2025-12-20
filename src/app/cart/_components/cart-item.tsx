@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { QuantityPicker } from "~/app/_components/quantity-picker";
 import { RemoveButton } from "./remove-button";
-import { formatCents } from "~/utils/price";
+import { formatCents } from "~/lib/utils/price";
 import type { CartItem as CartItemType } from "~/stores/cart-store";
 
 type CartItemProps = {

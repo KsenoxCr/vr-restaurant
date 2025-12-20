@@ -2,7 +2,7 @@
 
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { navigateBack } from "~/utils/navigation";
+import { navigateBack } from "~/lib/utils/navigation";
 import { Button } from "~/components/ui/button";
 
 export function BackButton() {

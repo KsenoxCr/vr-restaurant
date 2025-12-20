@@ -5,7 +5,7 @@ import { api } from "~/trpc/server";
 import { BackButton } from "./back-button";
 import { CartButton } from "../cart-button";
 import { PurchasePanel } from "../purchase-panel";
-import { formatCents } from "~/utils/price";
+import { formatCents } from "~/lib/utils/price";
 import { NotFoundScreen } from "../not-found";
 import { ErrorScreen } from "../error-screen";
 
