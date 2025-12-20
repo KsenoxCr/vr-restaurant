@@ -63,58 +63,30 @@ export default function MenuView() {
     return <LoadingPage />;
   }
 
-  const createCatBtns = () => {
-    if (!categories) return null;
-
-    const uniqueCategoryTypes = [
-      "all",
-      ...new Set(categories!.map((e) => e.type)),
-    ];
+  const createCategoryButtons = (
+    items: string[] | null,
+    activeValue: string,
+    onClick: (value: string) => void,
+    className = "flex-shrink-0 my-2 min-w-24",
+  ) => {
+    if (!items || items.length === 0) return null;
 
     return (
       <div className="w-screen bg-neutral-700">
         <div className="flex overflow-x-auto gap-2 px-2">
-          {uniqueCategoryTypes.map((t) => (
+          {items.map((item) => (
             <Button
-              key={t}
-              onClick={() => setCategoryType(t)}
+              key={item}
+              onClick={() => onClick(item)}
               variant="toggle"
               rounded="full"
               active={false}
-              data-active={categoryType === t}
-              className="my-2 min-w-24 flex-shrink-0"
+              data-active={activeValue === item}
+              className={className}
             >
-              {t}
+              {item}
             </Button>
           ))}
-        </div>
-      </div>
-    );
-  };
-
-  const createSubCatBtns = (categoryType: string) => {
-    if (!categories || categoryType === "all") return null;
-
-    return (
-      <div className="w-screen bg-neutral-700">
-        <div className="flex overflow-x-auto gap-2 px-2">
-          {categories
-            .filter((c) => c.type === categoryType)
-            .map((c) => {
-              return (
-                <Button
-                  key={c.name}
-                  onClick={() => setSubcategory(c.name)}
-                  variant="toggle"
-                  rounded="full"
-                  active={false}
-                  data-active={subcategory === c.name}
-                  className="mb-3 min-w-24 flex-shrink-0"
-                >
-                  {c.name}
-                </Button>
-              );
-            })}
         </div>
       </div>
     );
@@ -158,10 +130,24 @@ export default function MenuView() {
           <h1 className="absolute left-1/2 text-neutral-300">Menu</h1>
           <CartButton />
         </header>
-        {createCatBtns()}
-        {createSubCatBtns(categoryType)}
+        {createCategoryButtons(
+          categories
+            ? ["all", ...new Set(categories.map((e) => e.type))]
+            : null,
+          categoryType,
+          setCategoryType,
+        )}
+        {categoryType !== "all" &&
+          createCategoryButtons(
+            categories
+              ?.filter((c) => c.type === categoryType)
+              .map((c) => c.name) ?? null,
+            subcategory,
+            setSubcategory,
+            "mb-3 min-w-24 flex-shrink-0",
+          )}
       </div>
-      <menu className="grid overflow-y-auto relative justify-items-center pt-2 pb-6 bg-neutral-800">
+      <menu className="grid overflow-y-auto relative flex-1 justify-items-center pt-2 pb-6 bg-neutral-800">
         {showMenuItems(activeCategory)}
       </menu>
     </main>
