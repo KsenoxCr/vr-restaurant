@@ -2,28 +2,24 @@
 
 import React from "react";
 import { ChefHat } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Button } from "~/components/ui/button";
 
 export const KitchenButton = React.forwardRef<
-  HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement>
+  HTMLAnchorElement,
+  React.AnchorHTMLAttributes<HTMLAnchorElement>
 >((props, ref) => {
-  const router = useRouter();
-
   return (
     <Button
       variant="secondary"
       rounded="full"
       aria-label="Kitchen Terminal"
       className="fixed top-4 right-4 z-50 p-3 shadow-lg active:shadow-xl"
-      ref={ref}
-      {...props}
-      onClick={() => {
-        router.push("/kitchen-view");
-      }}
+      asChild
     >
-      <ChefHat className="w-6 h-6" />
+      <Link href="/kitchen-view" ref={ref} {...props}>
+        <ChefHat className="w-6 h-6" />
+      </Link>
     </Button>
   );
 });

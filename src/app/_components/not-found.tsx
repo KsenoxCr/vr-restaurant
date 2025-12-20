@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "~/components/ui/button";
 
 type NotFoundScreenProps = {
   message?: string;
@@ -19,14 +20,11 @@ export function NotFoundScreen({ message, buttonProps }: NotFoundScreenProps) {
           <h1 className="text-lg font-bold">Page not found</h1>
         </>
       )}
-      {
-        <Link
-          href={buttonProps ? buttonProps.route : "/"}
-          className="py-3 px-5 mt-10 text-white bg-green-600 rounded-lg transition-colors active:bg-green-700 disabled:bg-neutral-400"
-        >
+      <Button variant="primary" className="mt-10" asChild>
+        <Link href={buttonProps ? buttonProps.route : "/"}>
           {buttonProps ? buttonProps.text : "Back to Home"}
         </Link>
-      }
+      </Button>
     </div>
   );
 }
