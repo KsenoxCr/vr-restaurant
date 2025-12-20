@@ -11,7 +11,7 @@ export function PurchasePanel({
   imageUrl,
   maxQuantity = 10,
 }: {
-  id: string;
+  id: number;
   name: string;
   priceCents: number;
   imageUrl: string | null;
