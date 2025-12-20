@@ -13,11 +13,10 @@ export function RemoveButton({ onClick }: RemoveButtonProps) {
       variant="destructive"
       size="icon"
       rounded="full"
+      active="intense"
       onClick={onClick}
     >
-      <span className="transition-transform group-active:scale-105">
-        <Trash2 size={16} />
-      </span>
+      <Trash2 size={16} />
     </Button>
   );
 }
