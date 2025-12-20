@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { TRPCClientError } from "@trpc/client";
 import Cookies from "js-cookie";
 import { useQueryClient } from "@tanstack/react-query";
+import { Button } from "~/components/ui/button";
 
 export default function SeatSelection() {
   const router = useRouter();
@@ -105,15 +106,9 @@ export default function SeatSelection() {
             className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-green-600 focus:outline-none border-neutral-600 bg-neutral-800 text-neutral-100 placeholder:text-neutral-600"
             autoFocus
           />
-          <button
-            type="submit"
-            disabled={isDisabled}
-            className="py-3 mt-5 w-full text-white bg-green-600 rounded-lg transition-all active:bg-green-700 active:scale-105 group disabled:bg-neutral-400"
-          >
-            <span className="group-active:scale-105 group-active:text-neutral-400">
-              Continue
-            </span>
-          </button>
+          <Button type="submit" disabled={isDisabled} className="mt-5 w-full">
+            Continue
+          </Button>
         </form>
       </div>
     </div>
