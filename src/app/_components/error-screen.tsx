@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Button } from "~/components/ui/button";
 
 type ClickOrHref = {
   message?: string;
@@ -16,19 +17,23 @@ export function ErrorScreen(props: ClickOrHref) {
         <p className="mt-2 text-xs">{props.error.digest}</p>
       )}
       {"callback" in props ? (
-        <button
-          className="py-3 px-6 mt-5 text-white rounded-lg shadow-lg transition-colors bg-neutral-800 active:bg-neutral-900 active:text-neutral-400"
+        <Button
+          variant="secondary"
+          active={false}
+          className="mt-5 shadow-lg"
           onClick={() => props.callback()}
         >
           Reset
-        </button>
+        </Button>
       ) : (
-        <Link
-          className="py-3 px-6 mt-5 text-white rounded-lg shadow-lg transition-colors bg-neutral-800 active:bg-neutral-900 active:text-neutral-400"
-          href={props.href}
+        <Button
+          variant="secondary"
+          active={false}
+          className="mt-5 shadow-lg"
+          asChild
         >
-          {props.label ?? "Go Back"}
-        </Link>
+          <Link href={props.href}>{props.label ?? "Go Back"}</Link>
+        </Button>
       )}
     </div>
   );

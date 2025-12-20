@@ -6,6 +6,7 @@ import { formatCents } from "~/utils/price";
 import { useCartStore } from "~/stores/cart-store";
 import { useRouter } from "next/navigation";
 import { navigateBack } from "~/utils/navigation";
+import { Button } from "~/components/ui/button";
 
 export function AddToCartButton({
   id,
@@ -41,16 +42,17 @@ export function AddToCartButton({
 
   return (
     <div className="flex justify-center items-center mx-4 mb-2">
-      <button
+      <Button
         onClick={() => {
           handleAddToCart();
           navigateBack(router, "/menu-view");
         }}
-        className="flex gap-2 justify-center items-center p-4 mb-4 w-full bg-green-600 rounded-xl shadow-lg transition-all active:bg-green-700 active:scale-105 group active:text-neutral-400"
+        rounded="xl"
+        className="w-full gap-2 mb-4 shadow-lg"
       >
         <ShoppingCart className="w-6 h-6 transition-all group-active:-translate-x-1 group-active:scale-105" />
         <span className="transition-all group-active:scale-105">{`Add to Cart - ${formatCents(total)}`}</span>
-      </button>
+      </Button>
     </div>
   );
 }

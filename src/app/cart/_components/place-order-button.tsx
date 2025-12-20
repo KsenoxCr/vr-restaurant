@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "~/components/ui/button";
+
 type PlaceOrderButtonProps = {
   onClick?: () => void;
   disabled?: boolean;
@@ -10,12 +12,13 @@ export function PlaceOrderButton({
   disabled = false,
 }: PlaceOrderButtonProps) {
   return (
-    <button
+    <Button
+      size="lg"
       onClick={onClick}
       disabled={disabled}
-      className="py-4 w-full text-lg font-medium text-white bg-green-600 rounded-lg transition-all hover:bg-green-700 active:scale-105 disabled:bg-neutral-400 disabled:cursor-not-allowed"
+      className="w-full font-medium"
     >
       Place Order
-    </button>
+    </Button>
   );
 }

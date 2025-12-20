@@ -9,6 +9,7 @@ import { ErrorScreen } from "../_components/error-screen";
 import Link from "next/link";
 import { CartButton } from "../_components/cart-button";
 import { usePathname } from "next/navigation";
+import { Button } from "~/components/ui/button";
 
 export default function MenuView() {
   const [categoryType, setCategoryType] = useState("all");
@@ -74,13 +75,17 @@ export default function MenuView() {
       <div className="w-screen bg-neutral-700">
         <div className="flex overflow-x-auto gap-2 px-2">
           {uniqueCategoryTypes.map((t) => (
-            <button
+            <Button
               key={t}
               onClick={() => setCategoryType(t)}
-              className={`${categoryType === t ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb my-2 min-w-24 flex-shrink-0 rounded-full p-3`}
+              variant="toggle"
+              rounded="full"
+              active={false}
+              data-active={categoryType === t}
+              className="my-2 min-w-24 flex-shrink-0"
             >
               {t}
-            </button>
+            </Button>
           ))}
         </div>
       </div>
@@ -97,13 +102,17 @@ export default function MenuView() {
             .filter((c) => c.type === categoryType)
             .map((c) => {
               return (
-                <button
+                <Button
                   key={c.name}
                   onClick={() => setSubcategory(c.name)}
-                  className={`${subcategory === c.name ? "bg-green-600 text-neutral-800" : "bg-neutral-800 text-neutral-300"} shadow-mb mb-3 min-w-24 flex-shrink-0 rounded-full p-3`}
+                  variant="toggle"
+                  rounded="full"
+                  active={false}
+                  data-active={subcategory === c.name}
+                  className="mb-3 min-w-24 flex-shrink-0"
                 >
                   {c.name}
-                </button>
+                </Button>
               );
             })}
         </div>
