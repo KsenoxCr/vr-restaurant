@@ -19,7 +19,7 @@ export function ErrorScreen(props: ClickOrHref) {
       {"callback" in props ? (
         <Button
           variant="secondary"
-          active={false}
+          active={true}
           className="mt-5 shadow-lg"
           onClick={() => props.callback()}
         >
@@ -28,7 +28,7 @@ export function ErrorScreen(props: ClickOrHref) {
       ) : (
         <Button
           variant="secondary"
-          active={false}
+          active={true}
           className="mt-5 shadow-lg"
           asChild
         >
