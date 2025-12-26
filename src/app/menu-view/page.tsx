@@ -11,13 +11,15 @@ import { CartButton } from "../_components/cart-button";
 import { usePathname } from "next/navigation";
 import { Button } from "~/app/_components/ui/button";
 import { Text } from "../_components/ui/text";
+import { FilterButton } from "./_components/FilterButton";
+import { FilterPanel, Filters } from "./_components/FilterPanel";
 
 export default function MenuView() {
   const [categoryType, setCategoryType] = useState("all");
   const [subcategory, setSubcategory] = useState("");
+  const [filtersVisible, setFiltersVisible] = useState(false);
+  const [filters, setFilters] = useState<Filters | null>(null);
   const pathname = usePathname();
-  const isModalOpen =
-    pathname.includes("/menu-items/") || pathname.includes("/cart");
 
   const menuRef = useRef<HTMLMenuElement | null>(null);
 
@@ -101,13 +103,29 @@ export default function MenuView() {
     );
   };
 
-  const showMenuItems = (category: string) => {
+  const showMenuItems = (category: string, filters: Filters | null) => {
     if (!queries.menu.data) return null;
 
     const items =
       category === "all"
         ? queries.menu.data
-        : queries.menu.data!.filter((e) => e.category.name === category);
+        : queries.menu.data!.filter((e) => {
+           const fromCategory = e.category.name === category
+
+           if (filters?.allergens) {
+             for (const allergen of filters.allergens) {
+                if (e.allergens.includes(allergen)) return false
+             }
+           }
+
+           if (filters?.priceRange) {
+              
+           }
+
+           const containsAllergens = e.allergens.
+
+           return fromCategory && !containsAllergens
+        });
 
     return items.map((e) => (
       <MenuItemCard
@@ -122,6 +140,9 @@ export default function MenuView() {
   };
 
   const activeCategory = categoryType === "all" ? "all" : subcategory;
+
+  const isModalOpen =
+    pathname.includes("/menu-items/") || pathname.includes("/cart");
 
   return (
     <main className="flex flex-col h-screen">
@@ -171,8 +192,16 @@ export default function MenuView() {
         ref={menuRef}
         className="grid overflow-y-auto relative flex-1 justify-items-center pt-2 pb-6 bg-neutral-800"
       >
-        {showMenuItems(activeCategory)}
+        {showMenuItems(activeCategory, filters)}
       </menu>
+      {<FilterPanel visible={filtersVisible} setFilters={setFilters} />}
+      {queries.menu.data && queries.menu.data.length > 0 && (
+        <FilterButton
+          onClick={() => {
+            setFiltersVisible(!filtersVisible);
+          }}
+        />
+      )}
     </main>
   );
 }

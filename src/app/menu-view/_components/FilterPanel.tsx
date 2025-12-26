@@ -1,14 +1,35 @@
+import { Allergen } from "@prisma/client";
+import { FormEvent, useEffect, useState } from "react";
 import { Button } from "~/app/_components/ui/button";
 import { Text } from "~/app/_components/ui/text";
 
+export type Filters = {
+  priceRange?: string;
+  allergens?: Allergen[];
+};
+
 export function FilterPanel({
-  handleSubmit,
   visible,
+  setFilters,
 }: {
-  handleSubmit: () => void;
   visible: boolean;
+  setFilters: (args: Filters) => void;
 }) {
   const visibility = visible ? "" : "hidden";
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const fd = new FormData(e.currentTarget);
+
+    const priceRange = fd.get("priceRange");
+    const allergens = fd.getAll("allergen");
+
+    setFilters({
+      priceRange: typeof priceRange === "string" ? priceRange : undefined,
+      allergens: allergens.filter((v): v is Allergen => typeof v === "string"),
+    });
+  };
 
   return (
     <div
@@ -18,46 +39,69 @@ export function FilterPanel({
         <Text as="h2" variant="label" className="mb-2">
           Filters
         </Text>
-        <Text as="h3" variant="heading-3" className="mb-1">
-          Price Range
-        </Text>
-        <Text as="label" className="flex gap-2">
-          <input type="checkbox" />
-          Under 5€
-        </Text>
-        <Text as="label" className="flex gap-2">
-          <input type="checkbox" />
-          5€-10€
-        </Text>
-        <Text as="label" className="flex gap-2">
-          <input type="checkbox" />
-          Over 5€
-        </Text>
+        <fieldset>
+          <Text as="legend" variant="heading-3" className="mb-1">
+            Price Range
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="radio" name="priceRange" value="le-5" />
+            Under 5€
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="radio" name="priceRange" value="5-10" />
+            5€-10€
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="radio" name="priceRange" value="ge-10" />
+            Over 5€
+          </Text>
+        </fieldset>
 
-        <Text as="h3" variant="heading-3" className="my-1">
-          Allergens
-        </Text>
-        <Text as="label" className="flex gap-2">
-          <input type="checkbox" />
-          Gluten-free
-        </Text>
-        <Text as="label" className="flex gap-2">
-          <input type="checkbox" />
-          Dairy-free
-        </Text>
-        <Text as="label" className="flex gap-2">
-          <input type="checkbox" />
-          Nut-free
-        </Text>
-        <Text as="label" className="flex gap-2">
-          <input type="checkbox" />
-          Vegetarian
-        </Text>
-        <Text as="label" className="flex gap-2">
-          <input type="checkbox" />
-          Vegan
-        </Text>
-
+        <fieldset>
+          <Text as="legend" variant="heading-3" className="my-1">
+            Allergens
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="GLUTEN" />
+            Gluten
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="DAIRY" />
+            Dairy
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="EGGS" />
+            Eggs
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="NUTS" />
+            Nuts
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="PEANUTS" />
+            Peanuts
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="SHELLFISH" />
+            Shellfish
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="FISH" />
+            Fish
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="SOY" />
+            Soy
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="WHEAT" />
+            Wheat
+          </Text>
+          <Text as="label" className="flex gap-2">
+            <input type="checkbox" name="allergen" value="SESAME" />
+            Sesame
+          </Text>
+        </fieldset>
         <div className="flex gap-2 mt-2">
           <Button type="reset" variant="secondary">
             Clear
