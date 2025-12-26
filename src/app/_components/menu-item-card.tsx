@@ -2,6 +2,7 @@ import { CircleX } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatCents } from "~/lib/utils/price";
+import { Text } from "./ui/text";
 
 export function MenuItemCard({
   id,
@@ -34,11 +35,15 @@ export function MenuItemCard({
         )}
       </div>
       <div className="flex flex-col justify-between basis-2/5">
-        <h3 className="mx-4 mt-3 mb-2 text-neutral-300">{name}</h3>
-        <p className="my-1 mx-4 text-neutral-400">{description}</p>
-        <span className="mx-4 mt-2 mb-3 text-green-600">
+        <Text as="h3" variant="body" className="mx-4 mt-3 mb-2">
+          {name}
+        </Text>
+        <Text as="p" variant="muted" className="my-1 mx-4">
+          {description}
+        </Text>
+        <Text variant="price" className="mx-4 mt-2 mb-3">
           {formatCents(priceCents)}
-        </span>
+        </Text>
       </div>
     </Link>
   );

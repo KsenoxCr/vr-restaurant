@@ -10,6 +10,7 @@ import Link from "next/link";
 import { CartButton } from "../_components/cart-button";
 import { usePathname } from "next/navigation";
 import { Button } from "~/app/_components/ui/button";
+import { Text } from "../_components/ui/text";
 
 export default function MenuView() {
   const [categoryType, setCategoryType] = useState("all");
@@ -120,14 +121,23 @@ export default function MenuView() {
         <header className="flex justify-between items-center w-screen text-xl bg-neutral-800">
           {queries.session.data?.seatNumber && (
             <Link
-              className="flex items-center ml-2 text-green-600 active:text-green-700 transition-color group"
+              className="flex gap-1 items-center ml-2 text-lg text-green-600 active:text-green-700 transition-color group"
               href="/seat-selection"
             >
               <UserRound className="w-8 h-8" />
-              <p className="ml-1">Seat {queries.session.data?.seatNumber}</p>
+              {`Seat ${queries.session.data?.seatNumber}`}
             </Link>
           )}
-          <h1 className="absolute left-1/2 text-neutral-300">Menu</h1>
+          <Text
+            as="h1"
+            onClick={() => {
+              window.scrollTo(0, 0);
+            }}
+            color="secondary"
+            className="absolute left-1/2"
+          >
+            Menu
+          </Text>
           <CartButton />
         </header>
         {createCategoryButtons(

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { QuantityPicker } from "~/app/_components/quantity-picker";
 import { RemoveButton } from "./remove-button";
 import { formatCents } from "~/lib/utils/price";
+import { Text } from "~/app/_components/ui/text";
 import type { CartItem as CartItemType } from "~/stores/cart-store";
 
 type CartItemProps = {
@@ -33,10 +34,12 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
         </div>
 
         <div className="flex flex-col flex-1">
-          <h3 className="text-base text-white">{item.name}</h3>
-          <p className="text-sm text-green-500">
+          <Text as="h3" variant="heading-3">
+            {item.name}
+          </Text>
+          <Text variant="body-sm" color="accent-light">
             {formatCents(item.priceCents)}
-          </p>
+          </Text>
         </div>
       </div>
 
@@ -55,9 +58,9 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
           <RemoveButton onClick={() => onRemove(item.menuItemId)} />
         </div>
 
-        <div className="text-base font-medium text-white">
+        <Text size="base" weight="medium" color="primary">
           {formatCents(item.priceCents * item.quantity)}
-        </div>
+        </Text>
       </div>
     </div>
   );

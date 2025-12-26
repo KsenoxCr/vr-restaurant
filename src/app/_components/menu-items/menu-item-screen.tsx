@@ -8,6 +8,7 @@ import { PurchasePanel } from "../purchase-panel";
 import { formatCents } from "~/lib/utils/price";
 import { NotFoundScreen } from "../not-found";
 import { ErrorScreen } from "../error-screen";
+import { Text } from "../ui/text";
 
 export async function MenuItemScreen({ id }: { id: number }) {
   let menuItem;
@@ -68,22 +69,26 @@ export async function MenuItemScreen({ id }: { id: number }) {
           )}
         </div>
         <div className="flex justify-between items-center my-2 mx-4 mt-4">
-          <h1 className="text-xl">{menuItem.name}</h1>
-          <p className="text-2xl text-green-600">
-            {formatCents(menuItem.priceCents)}
-          </p>
+          <Text as="h1" variant="heading-2">
+            {menuItem.name}
+          </Text>
+          <Text variant="price-lg">{formatCents(menuItem.priceCents)}</Text>
         </div>
         <div className="my-2 mx-4">
-          <span className="py-2 px-4 mr-2 rounded-full bg-neutral-600">
+          <Text className="py-2 px-4 mr-2 rounded-full bg-neutral-600">
             {menuItem.category.type}
-          </span>
-          <span className="py-2 px-4 rounded-full bg-neutral-600">
+          </Text>
+          <Text className="py-2 px-4 rounded-full bg-neutral-600">
             {menuItem.category.name}
-          </span>
+          </Text>
         </div>
         <div className="mx-4 mt-2">
-          <h2 className="mt-2 mb-4 text-xl">Description</h2>
-          <p>{menuItem.description}</p>
+          <Text as="h2" variant="heading-2" className="mt-2 mb-4">
+            Description
+          </Text>
+          <Text as="p" variant="body">
+            {menuItem.description}
+          </Text>
         </div>
         <PurchasePanel
           id={menuItem.id}

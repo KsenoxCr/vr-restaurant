@@ -1,5 +1,7 @@
 "use client";
 
+import { Text } from "~/app/_components/ui/text";
+
 type CartHeaderProps = {
   seatNumber: string;
 };
@@ -7,8 +9,8 @@ type CartHeaderProps = {
 export function CartHeader({ seatNumber }: CartHeaderProps) {
   return (
     <div className="text-lg">
-      <span className="text-neutral-400">Delivering to: </span>
-      <span className="text-green-500">Seat {seatNumber}</span>
+      <Text variant="muted">Delivering to: </Text>
+      <Text color="accent-light">Seat {seatNumber}</Text>
     </div>
   );
 }

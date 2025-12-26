@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "~/app/_components/ui/button";
+import { Text } from "./ui/text";
 
 type ClickOrHref = {
   message?: string;
@@ -9,12 +10,18 @@ type ClickOrHref = {
 export function ErrorScreen(props: ClickOrHref) {
   return (
     <div className="flex fixed inset-0 flex-col justify-center items-center text-white background bg-neutral-700">
-      <h1 className="text-lg font-bold">
+      <Text as="h1" size="lg" weight="bold">
         {props.message ? props.message : "Something went wrong..."}
-      </h1>
-      {props.error && <p className="mt-4 text-sm">{props.error.message}</p>}
+      </Text>
+      {props.error && (
+        <Text as="p" variant="error" className="mt-4">
+          {props.error.message}
+        </Text>
+      )}
       {props.error?.digest && (
-        <p className="mt-2 text-xs">{props.error.digest}</p>
+        <Text as="p" size="xs" className="mt-2">
+          {props.error.digest}
+        </Text>
       )}
       {"callback" in props ? (
         <Button
