@@ -3,7 +3,7 @@
 import { UserRound } from "lucide-react";
 import { api } from "~/trpc/react";
 import { LoadingPage } from "../_components/loading-page";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MenuItemCard } from "../_components/menu-item-card";
 import { ErrorScreen } from "../_components/error-screen";
 import Link from "next/link";
@@ -18,6 +18,8 @@ export default function MenuView() {
   const pathname = usePathname();
   const isModalOpen =
     pathname.includes("/menu-items/") || pathname.includes("/cart");
+
+  const menuRef = useRef<HTMLMenuElement | null>(null);
 
   const queries = {
     session: api.session.getCurrent.useQuery(),
@@ -40,6 +42,12 @@ export default function MenuView() {
       );
     }
   }, [categoryType, categories]);
+
+  useEffect(() => {
+    if (menuRef.current) {
+      menuRef.current.scrollTo(0, 0);
+    }
+  }, [categoryType, subcategory]);
 
   if (queries.session.isError) {
     return (
@@ -117,7 +125,7 @@ export default function MenuView() {
 
   return (
     <main className="flex flex-col h-screen">
-      <div className={`sticky top-0 ${isModalOpen ? "-z-10" : "z-10"}`}>
+      <div className={`${isModalOpen ? "-z-10" : "z-10"}`}>
         <header className="flex justify-between items-center w-screen text-xl bg-neutral-800">
           {queries.session.data?.seatNumber && (
             <Link
@@ -131,9 +139,11 @@ export default function MenuView() {
           <Text
             as="h1"
             onClick={() => {
-              window.scrollTo(0, 0);
+              menuRef.current &&
+                menuRef.current.scrollTo({ top: 0, behavior: "smooth" });
             }}
             color="secondary"
+            size="xl"
             className="absolute left-1/2"
           >
             Menu
@@ -157,7 +167,10 @@ export default function MenuView() {
             "mb-3 min-w-24 flex-shrink-0",
           )}
       </div>
-      <menu className="grid overflow-y-auto relative flex-1 justify-items-center pt-2 pb-6 bg-neutral-800">
+      <menu
+        ref={menuRef}
+        className="grid overflow-y-auto relative flex-1 justify-items-center pt-2 pb-6 bg-neutral-800"
+      >
         {showMenuItems(activeCategory)}
       </menu>
     </main>
