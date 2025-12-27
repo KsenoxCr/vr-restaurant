@@ -14,15 +14,15 @@ export function NotFoundScreen({ message, buttonProps }: NotFoundScreenProps) {
   return (
     <div className="flex fixed inset-0 flex-col justify-center items-center background bg-neutral-700">
       {message ? (
-        <Text as="h1" color="primary" size="lg" className="mb-4">
+        <Text as="h1" size="lg" className="mb-4">
           {message}
         </Text>
       ) : (
         <>
-          <Text as="h1" color="primary" size="3xl" weight="bold">
+          <Text as="h1" size="3xl" weight="bold">
             404
           </Text>
-          <Text as="h1" color="primary" size="lg" weight="bold">
+          <Text as="h1" size="lg" weight="bold">
             Page not found
           </Text>
         </>

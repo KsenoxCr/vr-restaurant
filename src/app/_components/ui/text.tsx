@@ -7,24 +7,24 @@ import {
 } from "react";
 import { cn } from "~/lib/utils/cn";
 
-const textVariants = cva("", {
+const textVariants = cva("text-neutral-300", {
   variants: {
     variant: {
       // Headings
-      "heading-1": "text-xl font-bold text-neutral-300",
-      "heading-2": "text-xl text-neutral-300",
-      "heading-3": "text-base text-neutral-300",
+      "heading-1": "text-xl font-bold",
+      "heading-2": "text-xl",
+      "heading-3": "text-base",
 
       // Body text
-      body: "text-base text-neutral-300",
-      "body-sm": "text-sm text-neutral-300",
+      body: "text-base",
+      "body-sm": "text-sm",
 
       // Specialized
       label: "text-lg text-neutral-100",
       price: "text-green-600 font-medium",
       "price-lg": "text-2xl text-green-600",
       muted: "text-neutral-400",
-      badge: "text-xs font-semibold text-neutral-300",
+      badge: "text-xs font-semibold",
       error: "text-sm text-red-500",
     },
     size: {
@@ -43,8 +43,6 @@ const textVariants = cva("", {
       bold: "font-bold",
     },
     color: {
-      primary: "text-neutral-300",
-      secondary: "text-neutral-300",
       muted: "text-neutral-400",
       placeholder: "text-neutral-500",
       accent: "text-green-600",

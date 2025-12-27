@@ -4,23 +4,21 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "~/lib/utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none group shadow-lg",
+  "inline-flex text-neutral-300 items-center justify-center transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none group shadow-lg",
   {
     variants: {
       variant: {
-        primary:
-          "bg-green-600 text-neutral-300 active:bg-green-700 active:text-neutral-400",
+        primary: "bg-green-600 active:bg-green-700 active:text-neutral-400",
         secondary:
-          "bg-neutral-800 text-neutral-300 active:bg-neutral-900 active:text-neutral-400",
+          "bg-neutral-800 active:bg-neutral-900 active:text-neutral-400",
         destructive:
-          "bg-neutral-700 text-neutral-300 hover:bg-red-600 active:bg-red-700 active:text-neutral-400",
-        increment:
-          "bg-green-600 text-neutral-300 active:bg-green-700 active:text-neutral-400",
+          "bg-neutral-700 hover:bg-red-600 active:bg-red-700 active:text-neutral-400",
+        increment: "bg-green-600 active:bg-green-700 active:text-neutral-400",
         decrement:
-          "bg-neutral-900 text-neutral-300 active:bg-neutral-950 active:text-neutral-400",
+          "bg-neutral-900 active:bg-neutral-950 active:text-neutral-400",
         ghost: "text-green-600 active:text-green-700",
         toggle:
-          "bg-neutral-800 text-neutral-300 data-[active=true]:bg-green-600 data-[active=true]:text-neutral-800 shadow-mb",
+          "bg-neutral-800 data-[active=true]:bg-green-600 data-[active=true]:text-neutral-800 shadow-mb",
       },
       size: {
         default: "px-4 py-3",

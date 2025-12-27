@@ -10,16 +10,16 @@ type ClickOrHref = {
 export function ErrorScreen(props: ClickOrHref) {
   return (
     <div className="flex fixed inset-0 flex-col justify-center items-center bg-neutral-700">
-      <Text as="h1" color="primary" size="lg" weight="bold">
+      <Text as="h1" size="lg" weight="bold">
         {props.message ? props.message : "Something went wrong..."}
       </Text>
       {props.error && (
-        <Text as="p" color="primary" variant="error" className="mt-4">
+        <Text as="p" variant="error" className="mt-4">
           {props.error.message}
         </Text>
       )}
       {props.error?.digest && (
-        <Text as="p" color="primary" size="xs" className="mt-2">
+        <Text as="p" size="xs" className="mt-2">
           {props.error.digest}
         </Text>
       )}

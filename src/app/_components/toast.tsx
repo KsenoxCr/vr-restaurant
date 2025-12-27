@@ -40,7 +40,7 @@ export function Toast({
       <div
         className={`flex max-w-[min(300px,60vw)] rounded-xl border-2 bg-neutral-600 px-8 py-5 shadow-lg transition-opacity duration-${fadeTime} ${isFading ? "opacity-0" : "opacity-100"} border-neutral-400 backdrop-blur-lg`}
       >
-        <Text as="p" color="primary">
+        <Text as="p">
           {message}
         </Text>
       </div>

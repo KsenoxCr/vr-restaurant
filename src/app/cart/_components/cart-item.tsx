@@ -57,7 +57,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
           <RemoveButton onClick={() => onRemove(item.menuItemId)} />
         </div>
 
-        <Text size="base" weight="medium" color="primary">
+        <Text size="base" weight="medium">
           {formatCents(item.priceCents * item.quantity)}
         </Text>
       </div>
