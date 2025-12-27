@@ -58,7 +58,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
       <div className="flex flex-1 justify-center items-center">
         <article className="flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col justify-center overflow-hidden rounded-2xl bg-neutral-800 text-neutral-300 shadow-lg">
           {/* Image */}
-          <div className="flex relative justify-center items-center flex-[4]">
+          <div className="flex relative justify-center items-center flex-[4] bg-neutral-900">
             {menuItem.imageUrl ? (
               <Image
                 src={menuItem.imageUrl}
@@ -67,7 +67,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
                 fill
               />
             ) : (
-              <CircleX className="w-8 h-8" />
+              <CircleX className="w-14 h-14 text-neutral-700" />
             )}
           </div>
 

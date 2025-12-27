@@ -31,7 +31,7 @@ export function MenuItemCard({
             fill
           />
         ) : (
-          <CircleX className="w-8 h-8 text-neutral-300" /> // Test with broken url
+          <CircleX className="w-14 h-14 text-neutral-700" /> // Test with broken url
         )}
       </div>
       <div className="flex flex-col justify-between basis-2/5">
