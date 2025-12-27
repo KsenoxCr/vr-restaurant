@@ -55,49 +55,72 @@ export async function MenuItemScreen({ id }: { id: number }) {
         <BackButton />
         <CartButton />
       </header>
-      <article className="mt-4 flex h-[85%] w-[90%] flex-col justify-center overflow-hidden rounded-2xl bg-neutral-800 text-neutral-300 shadow-lg">
-        <div className="flex relative justify-center items-center flex-[4]">
-          {menuItem.imageUrl ? (
-            <Image
-              src={menuItem.imageUrl}
-              alt={menuItem.name}
-              className="object-cover object-center"
-              fill
+      <div className="flex flex-1 justify-center items-center">
+        <article className="flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col justify-center overflow-hidden rounded-2xl bg-neutral-800 text-neutral-300 shadow-lg">
+          {/* Image */}
+          <div className="flex relative justify-center items-center flex-[4]">
+            {menuItem.imageUrl ? (
+              <Image
+                src={menuItem.imageUrl}
+                alt={menuItem.name}
+                className="object-cover object-center"
+                fill
+              />
+            ) : (
+              <CircleX className="w-8 h-8" />
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1 my-4 mx-4">
+            {/* Name & Price */}
+            <div className="flex justify-between items-center mb-4">
+              <Text as="h1" variant="heading-2">
+                {menuItem.name}
+              </Text>
+              <Text variant="price-lg">{formatCents(menuItem.priceCents)}</Text>
+            </div>
+
+            {/* Type & Category */}
+            <div>
+              <Text className="py-2 px-4 mr-2 rounded-full bg-neutral-600">
+                {menuItem.category.type}
+              </Text>
+              <Text className="py-2 px-4 rounded-full bg-neutral-600">
+                {menuItem.category.name}
+              </Text>
+            </div>
+
+            {/* Allergens */}
+            <Text as="h2" variant="heading-2" className="mt-3">
+              Allergens
+            </Text>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {menuItem.allergens.map((a) => (
+                <Text className="py-1 px-2 rounded-full bg-neutral-600">
+                  {a.toLowerCase()}
+                </Text>
+              ))}
+            </div>
+
+            {/* Description */}
+            <div>
+              <Text as="h2" variant="heading-2" className="mt-2 mb-2">
+                Description
+              </Text>
+              <Text as="p" variant="body">
+                {menuItem.description}
+              </Text>
+            </div>
+            <PurchasePanel
+              id={menuItem.id}
+              name={menuItem.name}
+              priceCents={menuItem.priceCents}
+              imageUrl={menuItem.imageUrl}
+              maxQuantity={10}
             />
-          ) : (
-            <CircleX className="w-8 h-8" />
-          )}
-        </div>
-        <div className="flex justify-between items-center my-2 mx-4 mt-4">
-          <Text as="h1" variant="heading-2">
-            {menuItem.name}
-          </Text>
-          <Text variant="price-lg">{formatCents(menuItem.priceCents)}</Text>
-        </div>
-        <div className="my-2 mx-4">
-          <Text className="py-2 px-4 mr-2 rounded-full bg-neutral-600">
-            {menuItem.category.type}
-          </Text>
-          <Text className="py-2 px-4 rounded-full bg-neutral-600">
-            {menuItem.category.name}
-          </Text>
-        </div>
-        <div className="mx-4 mt-2">
-          <Text as="h2" variant="heading-2" className="mt-2 mb-4">
-            Description
-          </Text>
-          <Text as="p" variant="body">
-            {menuItem.description}
-          </Text>
-        </div>
-        <PurchasePanel
-          id={menuItem.id}
-          name={menuItem.name}
-          priceCents={menuItem.priceCents}
-          imageUrl={menuItem.imageUrl}
-          maxQuantity={10}
-        />
-      </article>
+          </div>
+        </article>
+      </div>
     </main>
   );
 }
