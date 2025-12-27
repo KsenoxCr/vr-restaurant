@@ -6,6 +6,7 @@ import { RemoveButton } from "./remove-button";
 import { formatCents } from "~/lib/utils/price";
 import { Text } from "~/app/_components/ui/text";
 import type { CartItem as CartItemType } from "~/stores/cart-store";
+import { CircleX } from "lucide-react";
 
 type CartItemProps = {
   item: CartItemType;
@@ -15,9 +16,9 @@ type CartItemProps = {
 
 export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
   return (
-    <div className="flex flex-col gap-3 p-4 rounded-lg bg-neutral-800">
+    <div className="flex flex-col gap-4 p-4 rounded-lg bg-neutral-800">
       {/* Upper row: Image, Name, Price */}
-      <div className="flex gap-3 items-center">
+      <div className="flex gap-4 items-center">
         <div className="overflow-hidden relative flex-shrink-0 w-16 h-16 rounded-lg bg-neutral-700">
           {item.imageUrl ? (
             <Image
@@ -27,9 +28,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
               className="object-cover"
             />
           ) : (
-            <div className="flex justify-center items-center w-full h-full text-neutral-500">
-              No image
-            </div>
+            <CircleX className="w-8 h-8 text-neutral-300" />
           )}
         </div>
 

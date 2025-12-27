@@ -31,7 +31,7 @@ export function QuantityPicker({
       />
       <Text
         size={isLarge ? "lg" : "base"}
-        className={isLarge ? "m-4 my-6" : "my-4 w-8 text-center"}
+        className={isLarge ? "m-4 my-5" : "w-8 text-center"}
       >
         {quantity}
       </Text>
@@ -48,7 +48,7 @@ export function QuantityPicker({
   }
 
   return (
-    <div className="flex justify-between items-center my-2 mx-4">
+    <div className="flex justify-between items-center">
       <Text as="label" variant="label">
         Quantity
       </Text>

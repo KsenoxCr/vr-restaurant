@@ -41,14 +41,14 @@ export function AddToCartButton({
   };
 
   return (
-    <div className="flex justify-center items-center mx-4 mb-2">
+    <div className="flex justify-center items-center">
       <Button
         onClick={() => {
           handleAddToCart();
           navigateBack(router, "/menu-view");
         }}
         rounded="xl"
-        className="gap-2 mb-4 w-full"
+        className="gap-2 w-full"
       >
         <ShoppingCart className="w-6 h-6" />
         {`Add to Cart - ${formatCents(total)}`}
