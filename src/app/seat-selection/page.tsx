@@ -83,7 +83,7 @@ export default function SeatSelection() {
         <Text as="h1" variant="heading-1" className="mb-2 text-center">
           Select Your Seat
         </Text>
-        <Text as="p" variant="body" className="mb-8 text-center">
+        <Text as="p" variant="body" className="my-6 text-center">
           Please enter your seat number to begin ordering
         </Text>
         <form onSubmit={HandleSubmit}>
@@ -96,7 +96,12 @@ export default function SeatSelection() {
               }}
             />
           )}
-          <Text as="label" htmlFor="seat" variant="label" className="block mb-3">
+          <Text
+            as="label"
+            htmlFor="seat"
+            variant="label"
+            className="block mb-3"
+          >
             Seat Number
           </Text>
           <input
@@ -106,7 +111,7 @@ export default function SeatSelection() {
             onChange={HandleChange}
             inputMode="numeric"
             placeholder="e.g. 12"
-            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-green-600 focus:outline-none border-neutral-600 bg-neutral-800 text-neutral-100 placeholder:text-neutral-600"
+            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-green-600 focus:outline-none border-neutral-600 bg-neutral-800 text-neutral-300 placeholder:text-neutral-600"
             autoFocus
           />
           <Button type="submit" disabled={isDisabled} className="mt-5 w-full">

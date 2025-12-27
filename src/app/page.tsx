@@ -7,10 +7,11 @@ import { FeaturePill } from "./_components/feature-pill";
 import { TrainIcon } from "./_components/train-icon";
 import { Text } from "./_components/ui/text";
 import Link from "next/link";
+import { Button } from "./_components/ui/button";
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-6 justify-center items-center px-4 min-h-screen text-center text-neutral-300">
+    <main className="flex flex-col gap-6 justify-center items-center px-4 min-h-screen text-center">
       <div className="fixed inset-0 text-green -z-10">
         <Image
           src="/images/bg.jpg"
@@ -34,13 +35,13 @@ export default function Home() {
         <FeaturePill icon={Coffee} label="Hot Beverages" />
         <FeaturePill icon={Train} label="Seat Delivery" />
       </div>
-      <Link
-        className="flex gap-3 items-center py-4 px-8 m-5 text-neutral-300 bg-green-600 rounded-full shadow-xl transition-all active:bg-green-700 active:scale-105 group"
-        href="/seat-selection"
-      >
-        <Text size="lg">Get Started</Text>
-        <ArrowRight className="w-5 h-5 transition-transform group-active:translate-x-1" />
-      </Link>
+
+      <Button size="lg" rounded="full">
+        <Link href="/seat-selection">
+          <Text size="lg">Get Started</Text>
+        </Link>
+        <ArrowRight className="ml-2 w-5 h-5" />
+      </Button>
       <Text as="p" variant="body">
         Enjoy your journey with our onboard dining service
       </Text>
