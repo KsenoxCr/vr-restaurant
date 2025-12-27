@@ -13,6 +13,7 @@ import { Button } from "~/app/_components/ui/button";
 import { Text } from "../_components/ui/text";
 import { FilterButton } from "./_components/FilterButton";
 import { FilterPanel, Filters } from "./_components/FilterPanel";
+import { inRange } from "~/lib/utils/price";
 
 export default function MenuView() {
   const [categoryType, setCategoryType] = useState("all");
@@ -106,26 +107,22 @@ export default function MenuView() {
   const showMenuItems = (category: string, filters: Filters | null) => {
     if (!queries.menu.data) return null;
 
-    const items =
-      category === "all"
-        ? queries.menu.data
-        : queries.menu.data!.filter((e) => {
-           const fromCategory = e.category.name === category
+    console.log(filters);
 
-           if (filters?.allergens) {
-             for (const allergen of filters.allergens) {
-                if (e.allergens.includes(allergen)) return false
-             }
-           }
-
-           if (filters?.priceRange) {
-              
-           }
-
-           const containsAllergens = e.allergens.
-
-           return fromCategory && !containsAllergens
-        });
+    const items = queries.menu.data!.filter(
+      (e) =>
+        (category !== "all" ? e.category.name === category : true) &&
+        (filters?.priceRange
+          ? inRange(
+              e.priceCents,
+              filters.priceRange.bottom,
+              filters.priceRange.top,
+            )
+          : true) &&
+        (filters?.allergens
+          ? filters.allergens.filter((a) => e.allergens.includes(a)).length == 0
+          : true),
+    );
 
     return items.map((e) => (
       <MenuItemCard
@@ -198,7 +195,7 @@ export default function MenuView() {
       {queries.menu.data && queries.menu.data.length > 0 && (
         <FilterButton
           onClick={() => {
-            setFiltersVisible(!filtersVisible);
+            setFiltersVisible(!filtersVisible); //TODO: Why this rerenders menuItems
           }}
         />
       )}

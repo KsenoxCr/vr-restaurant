@@ -1,10 +1,14 @@
 import { Allergen } from "@prisma/client";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent } from "react";
 import { Button } from "~/app/_components/ui/button";
 import { Text } from "~/app/_components/ui/text";
+type PriceRangeCents = {
+  top: number;
+  bottom: number;
+};
 
 export type Filters = {
-  priceRange?: string;
+  priceRange?: PriceRangeCents;
   allergens?: Allergen[];
 };
 
@@ -22,13 +26,28 @@ export function FilterPanel({
 
     const fd = new FormData(e.currentTarget);
 
-    const priceRange = fd.get("priceRange");
-    const allergens = fd.getAll("allergen");
+    const fdPriceRange = fd.get("priceRange");
+    const allergens = fd
+      .getAll("allergen")
+      .filter((v): v is Allergen => typeof v === "string");
 
-    setFilters({
-      priceRange: typeof priceRange === "string" ? priceRange : undefined,
-      allergens: allergens.filter((v): v is Allergen => typeof v === "string"),
-    });
+    let priceRangeCents: PriceRangeCents | undefined;
+
+    if (typeof fdPriceRange === "string") {
+      switch (fdPriceRange) {
+        case "le-5":
+          priceRangeCents = { top: 500, bottom: 0 };
+          break;
+        case "5-10":
+          priceRangeCents = { top: 1000, bottom: 500 };
+          break;
+        case "ge-10":
+          priceRangeCents = { top: Infinity, bottom: 1000 };
+          break;
+      }
+    }
+
+    setFilters({ allergens, priceRange: priceRangeCents });
   };
 
   return (
@@ -53,7 +72,7 @@ export function FilterPanel({
           </Text>
           <Text as="label" className="flex gap-2">
             <input type="radio" name="priceRange" value="ge-10" />
-            Over 5€
+            Over 10€
           </Text>
         </fieldset>
 

@@ -7,3 +7,7 @@ export function formatCents(cents: number): string {
 
   return `${sign}${eurosPart}.${centsPart}€`;
 }
+
+export function inRange(price: number, bottom: number, top: number) {
+  return price >= bottom && price <= top;
+}
