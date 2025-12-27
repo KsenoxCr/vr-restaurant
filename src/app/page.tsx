@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-6 justify-center items-center px-4 min-h-screen text-center text-white">
+    <main className="flex flex-col gap-6 justify-center items-center px-4 min-h-screen text-center text-neutral-300">
       <div className="fixed inset-0 text-green -z-10">
         <Image
           src="/images/bg.jpg"
@@ -35,7 +35,7 @@ export default function Home() {
         <FeaturePill icon={Train} label="Seat Delivery" />
       </div>
       <Link
-        className="flex gap-3 items-center py-4 px-8 m-5 text-white bg-green-600 rounded-full shadow-xl transition-all active:bg-green-700 active:scale-105 group"
+        className="flex gap-3 items-center py-4 px-8 m-5 text-neutral-300 bg-green-600 rounded-full shadow-xl transition-all active:bg-green-700 active:scale-105 group"
         href="/seat-selection"
       >
         <Text size="lg">Get Started</Text>

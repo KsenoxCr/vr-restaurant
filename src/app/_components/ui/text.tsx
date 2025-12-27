@@ -11,9 +11,9 @@ const textVariants = cva("", {
   variants: {
     variant: {
       // Headings
-      "heading-1": "text-xl font-bold text-white",
-      "heading-2": "text-xl text-white",
-      "heading-3": "text-base text-white",
+      "heading-1": "text-xl font-bold text-neutral-300",
+      "heading-2": "text-xl text-neutral-300",
+      "heading-3": "text-base text-neutral-300",
 
       // Body text
       body: "text-base text-neutral-300",
@@ -24,7 +24,7 @@ const textVariants = cva("", {
       price: "text-green-600 font-medium",
       "price-lg": "text-2xl text-green-600",
       muted: "text-neutral-400",
-      badge: "text-xs font-semibold text-white",
+      badge: "text-xs font-semibold text-neutral-300",
       error: "text-sm text-red-500",
     },
     size: {
@@ -43,7 +43,7 @@ const textVariants = cva("", {
       bold: "font-bold",
     },
     color: {
-      primary: "text-white",
+      primary: "text-neutral-300",
       secondary: "text-neutral-300",
       muted: "text-neutral-400",
       placeholder: "text-neutral-500",

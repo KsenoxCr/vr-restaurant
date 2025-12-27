@@ -12,7 +12,7 @@ type NotFoundScreenProps = {
 
 export function NotFoundScreen({ message, buttonProps }: NotFoundScreenProps) {
   return (
-    <div className="flex fixed inset-0 flex-col justify-center items-center text-white background bg-neutral-700">
+    <div className="flex fixed inset-0 flex-col justify-center items-center text-neutral-300 background bg-neutral-700">
       {message ? (
         <Text as="h1" size="lg" className="mb-4">
           {message}
