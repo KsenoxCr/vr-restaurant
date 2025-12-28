@@ -1,6 +1,6 @@
 import "~/styles/globals.css";
 
-import { GeistSans } from "geist/font/sans";
+import { Inter, IBM_Plex_Sans } from "next/font/google";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
@@ -17,11 +17,21 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/icons/favicon.ico" }],
 };
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
+const ibmPlexSans = IBM_Plex_Sans({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable}`}>
+    <html
+      lang="en"
+      className={`${ibmPlexSans.variable} ${inter.variable} ${inter.className}`}
+    >
       <body>
         <TRPCReactProvider>
           <MobileOnlyGate>{children}</MobileOnlyGate>

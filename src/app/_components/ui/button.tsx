@@ -4,18 +4,16 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "~/lib/utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex text-off-white items-center justify-center transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none group shadow-lg",
+  "inline-flex text-off-white items-center justify-center transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none group shadow-lg font-heading",
   {
     variants: {
       variant: {
         primary: "bg-accent active:bg-dark-accent active:text-slate",
-        secondary:
-          "bg-dark-gray active:bg-dark active:text-slate",
+        secondary: "bg-dark-gray active:bg-dark active:text-slate",
         destructive:
           "bg-gray hover:bg-desctructive active:bg-desctructive-dark active:text-slate",
         increment: "bg-accent active:bg-dark-accent active:text-slate",
-        decrement:
-          "bg-dark active:bg-off-black active:text-slate",
+        decrement: "bg-dark active:bg-off-black active:text-slate",
         ghost: "text-accent active:text-dark-accent",
         toggle:
           "bg-dark-gray data-[active=true]:bg-accent data-[active=true]:text-dark-gray shadow-mb",

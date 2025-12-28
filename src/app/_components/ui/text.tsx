@@ -7,13 +7,13 @@ import {
 } from "react";
 import { cn } from "~/lib/utils/cn";
 
-const textVariants = cva("text-off-white", {
+const textVariants = cva("text-off-white font-body", {
   variants: {
     variant: {
       // Headings
-      "heading-1": "text-xl font-bold",
-      "heading-2": "text-xl",
-      "heading-3": "text-base",
+      "heading-1": "text-xl font-bold font-heading",
+      "heading-2": "text-xl font-heading",
+      "heading-3": "text-base font-heading",
 
       // Body text
       body: "text-base",
