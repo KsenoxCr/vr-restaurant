@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { MenuItemScreen } from "~/app/_components/menu-items/menu-item-screen";
+import { MenuItemScreen } from "~/app/menu-items/[id]/_components/menu-item-screen";
 import { ScrollLock } from "~/app/_components/scroll-lock";
 
 export default async function MenuItemModal({

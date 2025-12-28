@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "~/app/_components/ui/button";
-import { Text } from "./ui/text";
+import { Text } from "../ui/text";
 
 type ClickOrHref = {
   message?: string;

@@ -1,9 +1,7 @@
 "use client";
 
 import { useCartStore } from "~/stores/cart-store";
-import { CartButton } from "../_components/cart-button";
-import { BackButton } from "../_components/menu-items/back-button";
-import { ErrorScreen } from "../_components/error-screen";
+import { ErrorScreen } from "../_components/screen/error-screen";
 import { CartItem } from "./_components/cart-item";
 import { EmptyCart } from "./_components/empty-cart";
 import { CartHeader } from "./_components/cart-header";
@@ -12,6 +10,8 @@ import { PlaceOrderButton } from "./_components/place-order-button";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { navigateBack } from "~/lib/utils/navigation";
+import { CartButton } from "../_components/cart/cart-button";
+import { BackButton } from "../menu-items/[id]/_components/back-button";
 
 export default function CartPage() {
   const router = useRouter();

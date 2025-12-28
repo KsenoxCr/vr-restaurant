@@ -2,9 +2,9 @@
 
 import { Train, Utensils, Coffee, ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { KitchenButton } from "./_components/kitchen-button";
-import { FeaturePill } from "./_components/feature-pill";
-import { TrainIcon } from "./_components/train-icon";
+import { KitchenButton } from "./_components/ui/kitchen-button";
+import { FeaturePill } from "./_components/ui/feature-pill";
+import { TrainIcon } from "./_components/ui/train-icon";
 import { Text } from "./_components/ui/text";
 import Link from "next/link";
 import { Button } from "./_components/ui/button";

@@ -2,7 +2,7 @@ import { CircleX } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatCents } from "~/lib/utils/price";
-import { Text } from "./ui/text";
+import { Text } from "~/app/_components/ui/text";
 
 export function MenuItemCard({
   id,
@@ -20,7 +20,7 @@ export function MenuItemCard({
   return (
     <Link
       href={`/menu-items/${id}`}
-      className="mt-4 flex h-[350px] w-[90%] flex-col justify-center overflow-hidden rounded-2xl bg-dark shadow-lg"
+      className="bg-dark mt-4 flex h-[350px] w-[90%] flex-col justify-center overflow-hidden rounded-2xl shadow-lg"
     >
       <div className="flex relative justify-center items-center basis-3/5">
         {imageUrl ? (

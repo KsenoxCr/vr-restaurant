@@ -1,7 +1,7 @@
 "use client";
 
 import { QuantityButton } from "./quantity-button";
-import { Text } from "./ui/text";
+import { Text } from "~/app/_components/ui/text";
 
 export function QuantityPicker({
   isLarge,

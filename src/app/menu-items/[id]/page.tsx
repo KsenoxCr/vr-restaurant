@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { MenuItemScreen } from "~/app/_components/menu-items/menu-item-screen";
+import { MenuItemScreen } from "./_components/menu-item-screen";
 
 export default async function MenuItemPage({
   params,

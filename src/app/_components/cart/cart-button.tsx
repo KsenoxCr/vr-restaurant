@@ -16,7 +16,7 @@ export function CartButton() {
         {itemCount > 0 && (
           <Text
             variant="badge"
-            className="flex absolute bottom-7 left-8 justify-center items-center p-1 bg-accent rounded-full transition-colors min-w-6 group-active:bg-accent-dark group-active:text-off-white-dark"
+            className="flex absolute bottom-7 left-8 justify-center items-center p-1 rounded-full transition-colors bg-accent group-active:bg-accent-dark group-active:text-off-white-dark min-w-6"
           >
             {itemCount}
           </Text>

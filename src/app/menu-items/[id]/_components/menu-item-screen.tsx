@@ -3,12 +3,12 @@ import { CircleX } from "lucide-react";
 import Image from "next/image";
 import { api } from "~/trpc/server";
 import { BackButton } from "./back-button";
-import { CartButton } from "../cart-button";
-import { PurchasePanel } from "../purchase-panel";
+import { CartButton } from "~/app/_components/cart/cart-button";
 import { formatCents } from "~/lib/utils/price";
-import { NotFoundScreen } from "../not-found";
-import { ErrorScreen } from "../error-screen";
-import { Text } from "../ui/text";
+import { ErrorScreen } from "~/app/_components/screen/error-screen";
+import { Text } from "~/app/_components/ui/text";
+import { NotFoundScreen } from "~/app/_components/screen/not-found-screen";
+import { PurchasePanel } from "./purchase-panel";
 
 export async function MenuItemScreen({ id }: { id: number }) {
   let menuItem;

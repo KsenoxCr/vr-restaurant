@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { KitchenButton } from "../_components/kitchen-button";
-import { TrainIcon } from "../_components/train-icon";
+import { KitchenButton } from "../_components/ui/kitchen-button";
+import { TrainIcon } from "../_components/ui/train-icon";
 import { api } from "~/trpc/react";
-import { Toast } from "../_components/toast";
+import { Toast } from "./_components/toast";
 import { useRouter } from "next/navigation";
 import { TRPCClientError } from "@trpc/client";
 import Cookies from "js-cookie";
@@ -96,12 +96,7 @@ export default function SeatSelection() {
               }}
             />
           )}
-          <Text
-            as="label"
-            htmlFor="seat"
-            variant="label"
-            className="block mb-3"
-          >
+          <Text as="label" htmlFor="seat" className="block mb-3">
             Seat Number
           </Text>
           <input
@@ -111,7 +106,7 @@ export default function SeatSelection() {
             onChange={HandleChange}
             inputMode="numeric"
             placeholder="e.g. 12"
-            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-accent focus:outline-none border-gray bg-dark-gray text-off-white placeholder:text-gray"
+            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:outline-none border-gray bg-dark-gray text-off-white placeholder:text-gray focus:border-accent"
             autoFocus
           />
           <Button type="submit" disabled={isDisabled} className="mt-5 w-full">

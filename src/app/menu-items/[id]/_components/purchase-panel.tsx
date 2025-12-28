@@ -1,7 +1,7 @@
 "use client";
 
 import { AddToCartButton } from "./add-to-cart-button";
-import { QuantityPicker } from "./quantity-picker";
+import { QuantityPicker } from "~/app/_components/cart/quantity-picker";
 import { useState } from "react";
 
 export function PurchasePanel({

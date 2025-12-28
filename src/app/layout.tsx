@@ -4,7 +4,7 @@ import { Inter, IBM_Plex_Sans } from "next/font/google";
 import { type Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
-import { MobileOnlyGate } from "~/app/_components/mobile-only-gate";
+import { MobileOnlyGate } from "~/app/_components/screen/mobile-only-gate";
 import React from "react";
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {

@@ -2,12 +2,12 @@
 
 import { UserRound } from "lucide-react";
 import { api } from "~/trpc/react";
-import { LoadingPage } from "../_components/loading-page";
+import { LoadingPage } from "../_components/screen/loading-page";
 import { useEffect, useRef, useState } from "react";
-import { MenuItemCard } from "../_components/menu-item-card";
-import { ErrorScreen } from "../_components/error-screen";
+import { MenuItemCard } from "./_components/menu-item-card";
+import { ErrorScreen } from "../_components/screen/error-screen";
 import Link from "next/link";
-import { CartButton } from "../_components/cart-button";
+import { CartButton } from "../_components/cart/cart-button";
 import { usePathname } from "next/navigation";
 import { Button } from "~/app/_components/ui/button";
 import { Text } from "../_components/ui/text";
@@ -146,13 +146,15 @@ export default function MenuView() {
       <div className={`${isModalOpen ? "-z-10" : "z-10"}`}>
         <header className="flex justify-between items-center w-screen text-xl bg-dark-gray">
           {queries.session.data?.seatNumber && (
-            <Link
-              className="flex gap-1 items-center ml-2 text-lg text-accent active:text-dark-accent transition-color group"
-              href="/seat-selection"
-            >
-              <UserRound className="w-8 h-8" />
-              {`Seat ${queries.session.data?.seatNumber}`}
-            </Link>
+            <Button variant="ghost" active={false} className="-ml-1">
+              <Link
+                className="flex gap-1 items-center transition-color group"
+                href="/seat-selection"
+              >
+                <UserRound className="w-8 h-8" />
+                {`Seat ${queries.session.data?.seatNumber}`}
+              </Link>
+            </Button>
           )}
           <Text
             as="h1"
