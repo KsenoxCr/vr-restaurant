@@ -20,7 +20,7 @@ export function MenuItemCard({
   return (
     <Link
       href={`/menu-items/${id}`}
-      className="mt-4 flex h-[350px] w-[90%] flex-col justify-center overflow-hidden rounded-2xl bg-neutral-900 shadow-lg"
+      className="mt-4 flex h-[350px] w-[90%] flex-col justify-center overflow-hidden rounded-2xl bg-dark shadow-lg"
     >
       <div className="flex relative justify-center items-center basis-3/5">
         {imageUrl ? (
@@ -31,7 +31,7 @@ export function MenuItemCard({
             fill
           />
         ) : (
-          <CircleX className="w-14 h-14 text-neutral-700" />
+          <CircleX className="w-14 h-14 text-gray" />
         )}
       </div>
       <div className="flex flex-col justify-between basis-2/5">

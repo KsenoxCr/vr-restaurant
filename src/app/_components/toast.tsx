@@ -38,7 +38,7 @@ export function Toast({
   return (
     <div className="flex fixed inset-0 justify-center items-center">
       <div
-        className={`flex max-w-[min(300px,60vw)] rounded-xl border-2 bg-neutral-600 px-8 py-5 shadow-lg transition-opacity duration-${fadeTime} ${isFading ? "opacity-0" : "opacity-100"} border-neutral-400 backdrop-blur-lg`}
+        className={`flex max-w-[min(300px,60vw)] rounded-xl border-2 bg-light-gray px-8 py-5 shadow-lg transition-opacity duration-${fadeTime} ${isFading ? "opacity-0" : "opacity-100"} border-slate backdrop-blur-lg`}
       >
         <Text as="p">
           {message}

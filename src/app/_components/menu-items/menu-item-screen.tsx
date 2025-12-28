@@ -50,15 +50,15 @@ export async function MenuItemScreen({ id }: { id: number }) {
   }
 
   return (
-    <main className="flex overflow-hidden fixed inset-0 flex-col items-center w-screen h-screen bg-neutral-700">
-      <header className="flex justify-between items-center w-screen bg-neutral-800">
+    <main className="flex overflow-hidden fixed inset-0 flex-col items-center w-screen h-screen bg-gray">
+      <header className="flex justify-between items-center w-screen bg-dark-gray">
         <BackButton />
         <CartButton />
       </header>
       <div className="flex flex-1 justify-center items-center">
-        <article className="flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col justify-center overflow-hidden rounded-2xl bg-neutral-800 text-neutral-300 shadow-lg">
+        <article className="flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col justify-center overflow-hidden rounded-2xl bg-dark-gray text-off-white shadow-lg">
           {/* Image */}
-          <div className="flex relative justify-center items-center flex-[4] bg-neutral-900">
+          <div className="flex relative justify-center items-center flex-[4] bg-dark">
             {menuItem.imageUrl ? (
               <Image
                 src={menuItem.imageUrl}
@@ -67,7 +67,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
                 fill
               />
             ) : (
-              <CircleX className="w-14 h-14 text-neutral-700" />
+              <CircleX className="w-14 h-14 text-gray" />
             )}
           </div>
 
@@ -82,10 +82,10 @@ export async function MenuItemScreen({ id }: { id: number }) {
 
             {/* Type & Category */}
             <div>
-              <Text className="py-2 px-4 mr-2 rounded-full bg-neutral-600">
+              <Text className="py-2 px-4 mr-2 rounded-full bg-light-gray">
                 {menuItem.category.type}
               </Text>
-              <Text className="py-2 px-4 rounded-full bg-neutral-600">
+              <Text className="py-2 px-4 rounded-full bg-light-gray">
                 {menuItem.category.name}
               </Text>
             </div>
@@ -96,7 +96,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
             </Text>
             <div className="flex flex-wrap gap-2 mt-2">
               {menuItem.allergens.map((a) => (
-                <Text className="py-1 px-2 rounded-full bg-neutral-600">
+                <Text className="py-1 px-2 rounded-full bg-light-gray">
                   {a.toLowerCase()}
                 </Text>
               ))}

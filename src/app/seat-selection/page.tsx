@@ -74,9 +74,9 @@ export default function SeatSelection() {
   };
 
   return (
-    <div className="flex justify-center items-center p-6 min-h-screen bg-neutral-700">
+    <div className="flex justify-center items-center p-6 min-h-screen bg-gray">
       <KitchenButton />
-      <div className="p-8 w-full max-w-md rounded-2xl shadow-lg bg-neutral-800">
+      <div className="p-8 w-full max-w-md rounded-2xl shadow-lg bg-dark-gray">
         <div className="flex justify-center mb-6">
           <TrainIcon />
         </div>
@@ -111,7 +111,7 @@ export default function SeatSelection() {
             onChange={HandleChange}
             inputMode="numeric"
             placeholder="e.g. 12"
-            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-green-600 focus:outline-none border-neutral-700 bg-neutral-800 text-neutral-300 placeholder:text-neutral-700"
+            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-accent focus:outline-none border-gray bg-dark-gray text-off-white placeholder:text-gray"
             autoFocus
           />
           <Button type="submit" disabled={isDisabled} className="mt-5 w-full">

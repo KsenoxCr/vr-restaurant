@@ -4,21 +4,21 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "~/lib/utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex text-neutral-300 items-center justify-center transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none group shadow-lg",
+  "inline-flex text-off-white items-center justify-center transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none group shadow-lg",
   {
     variants: {
       variant: {
-        primary: "bg-green-600 active:bg-green-700 active:text-neutral-400",
+        primary: "bg-accent active:bg-dark-accent active:text-slate",
         secondary:
-          "bg-neutral-800 active:bg-neutral-900 active:text-neutral-400",
+          "bg-dark-gray active:bg-dark active:text-slate",
         destructive:
-          "bg-neutral-700 hover:bg-red-600 active:bg-red-700 active:text-neutral-400",
-        increment: "bg-green-600 active:bg-green-700 active:text-neutral-400",
+          "bg-gray hover:bg-desctructive active:bg-desctructive-dark active:text-slate",
+        increment: "bg-accent active:bg-dark-accent active:text-slate",
         decrement:
-          "bg-neutral-900 active:bg-neutral-950 active:text-neutral-400",
-        ghost: "text-green-600 active:text-green-700",
+          "bg-dark active:bg-off-black active:text-slate",
+        ghost: "text-accent active:text-dark-accent",
         toggle:
-          "bg-neutral-800 data-[active=true]:bg-green-600 data-[active=true]:text-neutral-800 shadow-mb",
+          "bg-dark-gray data-[active=true]:bg-accent data-[active=true]:text-dark-gray shadow-mb",
       },
       size: {
         default: "px-4 py-3",

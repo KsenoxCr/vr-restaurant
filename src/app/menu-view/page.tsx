@@ -84,7 +84,7 @@ export default function MenuView() {
     if (!items || items.length === 0) return null;
 
     return (
-      <div className="w-screen bg-neutral-700">
+      <div className="w-screen bg-gray">
         <div className="flex overflow-x-auto gap-2 px-2">
           {items.map((item) => (
             <Button
@@ -144,10 +144,10 @@ export default function MenuView() {
   return (
     <main className="flex flex-col h-screen">
       <div className={`${isModalOpen ? "-z-10" : "z-10"}`}>
-        <header className="flex justify-between items-center w-screen text-xl bg-neutral-800">
+        <header className="flex justify-between items-center w-screen text-xl bg-dark-gray">
           {queries.session.data?.seatNumber && (
             <Link
-              className="flex gap-1 items-center ml-2 text-lg text-green-600 active:text-green-700 transition-color group"
+              className="flex gap-1 items-center ml-2 text-lg text-accent active:text-dark-accent transition-color group"
               href="/seat-selection"
             >
               <UserRound className="w-8 h-8" />
@@ -186,7 +186,7 @@ export default function MenuView() {
       </div>
       <menu
         ref={menuRef}
-        className="grid overflow-y-auto relative flex-1 justify-items-center pt-2 pb-6 bg-neutral-800"
+        className="grid overflow-y-auto relative flex-1 justify-items-center pt-2 pb-6 bg-dark-gray"
       >
         {showMenuItems(activeCategory, filters)}
       </menu>

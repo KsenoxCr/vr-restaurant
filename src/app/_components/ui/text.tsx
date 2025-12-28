@@ -7,7 +7,7 @@ import {
 } from "react";
 import { cn } from "~/lib/utils/cn";
 
-const textVariants = cva("text-neutral-300", {
+const textVariants = cva("text-off-white", {
   variants: {
     variant: {
       // Headings
@@ -20,11 +20,11 @@ const textVariants = cva("text-neutral-300", {
       "body-sm": "text-sm",
 
       // Specialized
-      price: "text-green-600 font-medium",
-      "price-lg": "text-2xl text-green-600",
-      muted: "text-neutral-400",
+      price: "text-accent font-medium",
+      "price-lg": "text-2xl text-accent",
+      muted: "text-slate",
       badge: "text-xs font-semibold",
-      error: "text-sm text-red-500",
+      error: "text-sm text-error",
     },
     size: {
       xs: "text-xs",
@@ -42,10 +42,10 @@ const textVariants = cva("text-neutral-300", {
       bold: "font-bold",
     },
     color: {
-      muted: "text-neutral-400",
-      accent: "text-green-600",
-      "accent-light": "text-green-500",
-      error: "text-red-500",
+      muted: "text-slate",
+      accent: "text-accent",
+      "accent-light": "text-light-accent",
+      error: "text-error",
     },
   },
   defaultVariants: {

@@ -11,7 +11,7 @@ export function FeaturePill({
 }) {
   return (
     <div className="flex gap-2 items-center p-3 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm">
-      <Icon className="text-green-600" />
+      <Icon className="text-accent" />
       <Text as="p">{label}</Text>
     </div>
   );

@@ -16,10 +16,10 @@ type CartItemProps = {
 
 export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
   return (
-    <div className="flex flex-col gap-4 p-4 rounded-lg bg-neutral-800">
+    <div className="flex flex-col gap-4 p-4 rounded-lg bg-dark-gray">
       {/* Upper row: Image, Name, Price */}
       <div className="flex gap-4 items-center">
-        <div className="flex overflow-hidden relative flex-shrink-0 justify-center items-center w-16 h-16 rounded-lg bg-neutral-800-dark">
+        <div className="flex overflow-hidden relative flex-shrink-0 justify-center items-center w-16 h-16 rounded-lg bg-dark">
           {item.imageUrl ? (
             <Image
               src={item.imageUrl}
@@ -28,7 +28,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
               className="object-cover"
             />
           ) : (
-            <CircleX className="w-6 h-6 text-neutral-700" />
+            <CircleX className="w-8 h-8 text-color text-gray" />
           )}
         </div>
 
