@@ -1,5 +1,6 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import colors from "tailwindcss/colors";
 
 export default {
   content: ["./src/**/*.tsx"],
@@ -8,6 +9,22 @@ export default {
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
       },
+    },
+    colors: {
+      white: colors.white,
+      "off-white": colors.neutral[300],
+      slate: colors.neutral[400],
+      "light-gray": colors.neutral[600],
+      gray: colors.neutral[700],
+      "dark-gray": colors.neutral[800],
+      dark: colors.neutral[900],
+      "off-black": colors.neutral[950],
+      "light-accent": colors.green[500],
+      accent: colors.green[600],
+      "dark-accent": colors.green[700],
+      error: colors.red[500],
+      desctructive: colors.red[600],
+      "desctructive-dark": colors.red[700],
     },
   },
   plugins: [],
