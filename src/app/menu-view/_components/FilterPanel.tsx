@@ -52,10 +52,10 @@ export function FilterPanel({
 
   return (
     <div
-      className={`${visibility} absolute bottom-20 right-7 rounded-lg bg-dark-gray-dark`}
+      className={`${visibility} bg-dark absolute bottom-20 right-7 rounded-lg`}
     >
       <form className="flex flex-col gap-1 m-4" onSubmit={handleSubmit}>
-        <Text as="h2" variant="label" className="mb-2">
+        <Text as="h2" className="mb-2">
           Filters
         </Text>
         <fieldset>
