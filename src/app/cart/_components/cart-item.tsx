@@ -19,7 +19,7 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
     <div className="flex flex-col gap-4 p-4 rounded-lg bg-neutral-800">
       {/* Upper row: Image, Name, Price */}
       <div className="flex gap-4 items-center">
-        <div className="flex overflow-hidden relative flex-shrink-0 justify-center items-center w-16 h-16 rounded-lg bg-neutral-900">
+        <div className="flex overflow-hidden relative flex-shrink-0 justify-center items-center w-16 h-16 rounded-lg bg-neutral-800-dark">
           {item.imageUrl ? (
             <Image
               src={item.imageUrl}

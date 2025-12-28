@@ -1,5 +1,6 @@
 import React from "react";
 import { LucideIcon } from "lucide-react";
+import { Text } from "~/app/_components/ui/text";
 
 export function FeaturePill({
   icon: Icon,
@@ -9,9 +10,9 @@ export function FeaturePill({
   label: string;
 }) {
   return (
-    <div className="flex gap-2 items-center p-3 rounded-full border-2 border-white/20 bg-white/10 text-neutral-300 backdrop-blur-sm">
+    <div className="flex gap-2 items-center p-3 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm">
       <Icon className="text-green-600" />
-      <p>{label}</p>
+      <Text as="p">{label}</Text>
     </div>
   );
 }

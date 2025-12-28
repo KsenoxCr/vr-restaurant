@@ -20,7 +20,6 @@ const textVariants = cva("text-neutral-300", {
       "body-sm": "text-sm",
 
       // Specialized
-      label: "text-lg text-neutral-100",
       price: "text-green-600 font-medium",
       "price-lg": "text-2xl text-green-600",
       muted: "text-neutral-400",
@@ -44,7 +43,6 @@ const textVariants = cva("text-neutral-300", {
     },
     color: {
       muted: "text-neutral-400",
-      placeholder: "text-neutral-500",
       accent: "text-green-600",
       "accent-light": "text-green-500",
       error: "text-red-500",

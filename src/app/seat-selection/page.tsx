@@ -111,7 +111,7 @@ export default function SeatSelection() {
             onChange={HandleChange}
             inputMode="numeric"
             placeholder="e.g. 12"
-            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-green-600 focus:outline-none border-neutral-600 bg-neutral-800 text-neutral-300 placeholder:text-neutral-600"
+            className="py-3 px-4 w-full rounded-lg border-2 transition-colors focus:border-green-600 focus:outline-none border-neutral-700 bg-neutral-800 text-neutral-300 placeholder:text-neutral-700"
             autoFocus
           />
           <Button type="submit" disabled={isDisabled} className="mt-5 w-full">

@@ -52,7 +52,7 @@ export function FilterPanel({
 
   return (
     <div
-      className={`${visibility} absolute bottom-20 right-7 rounded-lg bg-neutral-900`}
+      className={`${visibility} absolute bottom-20 right-7 rounded-lg bg-neutral-800-dark`}
     >
       <form className="flex flex-col gap-1 m-4" onSubmit={handleSubmit}>
         <Text as="h2" variant="label" className="mb-2">

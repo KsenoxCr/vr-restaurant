@@ -160,7 +160,6 @@ export default function MenuView() {
               menuRef.current &&
                 menuRef.current.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            color="secondary"
             size="xl"
             className="absolute left-1/2"
           >
