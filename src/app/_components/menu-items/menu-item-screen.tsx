@@ -56,9 +56,9 @@ export async function MenuItemScreen({ id }: { id: number }) {
         <CartButton />
       </header>
       <div className="flex flex-1 justify-center items-center">
-        <article className="flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col justify-center overflow-hidden rounded-2xl bg-dark-gray text-off-white shadow-lg">
+        <article className="bg-dark-gray text-off-white flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col justify-center overflow-hidden rounded-2xl shadow-lg">
           {/* Image */}
-          <div className="flex relative justify-center items-center flex-[4] bg-dark">
+          <div className="flex relative justify-center items-center bg-dark flex-[4]">
             {menuItem.imageUrl ? (
               <Image
                 src={menuItem.imageUrl}
@@ -91,9 +91,11 @@ export async function MenuItemScreen({ id }: { id: number }) {
             </div>
 
             {/* Allergens */}
-            <Text as="h2" variant="heading-2" className="mt-3">
-              Allergens
-            </Text>
+            {menuItem.allergens.length > 0 && (
+              <Text as="h2" variant="heading-2" className="mt-3">
+                Allergens
+              </Text>
+            )}
             <div className="flex flex-wrap gap-2 mt-2">
               {menuItem.allergens.map((a) => (
                 <Text className="py-1 px-2 rounded-full bg-light-gray">
