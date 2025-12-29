@@ -43,7 +43,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
           href={href}
           message={message}
           label={label}
-          error={error instanceof Error ? error : undefined}
+          errorMessage={error instanceof Error ? error.message : undefined}
         />
       );
     }
