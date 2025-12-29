@@ -6,13 +6,13 @@ import Link from "next/link";
 
 export function EmptyCart() {
   return (
-    <div className="w-[40%]">
+    <>
       <Text as="p" variant="body" className="text-center">
         Your cart is empty.
       </Text>
-      <Button className="mt-5 w-full">
+      <Button className="mt-5">
         <Link href="/menu-view">Browse Menu</Link>
       </Button>
-    </div>
+    </>
   );
 }

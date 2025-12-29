@@ -39,13 +39,12 @@ export default function CartPage() {
         <BackButton />
         <CartButton />
       </header>
-      <div className="flex flex-1 justify-center items-center">
+      <div className="flex flex-col flex-1 gap-3 justify-center items-center">
         {items.length === 0 ? (
-          <EmptyCart onBrowseMenu={() => navigateBack(router, "/menu-view")} />
+          <EmptyCart />
         ) : (
           <div className="flex flex-col gap-6 p-6 w-full max-w-md">
             <CartHeader seatNumber={seatNumber} />
-
             <div className="flex flex-col gap-4">
               {items.map((item) => (
                 <CartItem
@@ -56,9 +55,7 @@ export default function CartPage() {
                 />
               ))}
             </div>
-
             <CartSummary totalPrice={getTotalPrice()} />
-
             <PlaceOrderButton />
           </div>
         )}
