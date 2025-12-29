@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "~/app/_components/ui/button";
 import { Text } from "../ui/text";
 import { useState } from "react";
+import { ScrollLock } from "../behavior/scroll-lock";
 
 type ClickOrHref = {
   message?: string;
@@ -16,7 +17,7 @@ type ClickOrHref = {
 );
 
 export function ErrorScreen(props: ClickOrHref) {
-  const [visible, setVisible] = useState(true); // Destroy instead of set invisible if possible dead components accumulating
+  const [visible, setVisible] = useState(true);
 
   const displayButton = () => {
     if ("callback" in props) {
@@ -55,21 +56,24 @@ export function ErrorScreen(props: ClickOrHref) {
   }
 
   return (
-    <div className="flex fixed inset-0 flex-col justify-center items-center bg-gray">
-      <Text as="h1" size="lg" weight="bold">
-        {props.message ? props.message : "Something went wrong..."}
-      </Text>
-      {props.errorMessage && (
-        <Text as="p" variant="body" className="mt-4">
-          {props.errorMessage}
+    <>
+      <div className="flex fixed inset-0 z-20 flex-col justify-center items-center bg-gray">
+        <Text as="h1" size="lg" weight="bold">
+          {props.message ? props.message : "Something went wrong..."}
         </Text>
-      )}
-      {props.digest && (
-        <Text as="p" size="xs" className="mt-2">
-          {props.digest}
-        </Text>
-      )}
-      {displayButton()}
-    </div>
+        {props.errorMessage && (
+          <Text as="p" variant="body" className="mt-4">
+            {props.errorMessage}
+          </Text>
+        )}
+        {props.digest && (
+          <Text as="p" size="xs" className="mt-2">
+            {props.digest}
+          </Text>
+        )}
+        {displayButton()}
+      </div>
+      <ScrollLock />
+    </>
   );
 }
