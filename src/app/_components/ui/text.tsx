@@ -24,7 +24,6 @@ const textVariants = cva("text-off-white font-body", {
       "price-lg": "text-2xl text-accent",
       muted: "text-slate",
       badge: "text-xs font-semibold",
-      error: "text-sm text-error",
     },
     size: {
       xs: "text-xs",
@@ -45,7 +44,6 @@ const textVariants = cva("text-off-white font-body", {
       muted: "text-slate",
       accent: "text-accent",
       "accent-light": "text-light-accent",
-      error: "text-error",
     },
   },
   defaultVariants: {

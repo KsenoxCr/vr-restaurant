@@ -22,7 +22,6 @@ export default {
       "light-accent": colors.green[500],
       accent: colors.green[600],
       "dark-accent": colors.green[700],
-      error: colors.red[500],
       desctructive: colors.red[600],
       "desctructive-dark": colors.red[700],
     },

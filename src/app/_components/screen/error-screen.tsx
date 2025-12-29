@@ -60,7 +60,7 @@ export function ErrorScreen(props: ClickOrHref) {
         {props.message ? props.message : "Something went wrong..."}
       </Text>
       {props.errorMessage && (
-        <Text as="p" variant="error" className="mt-4">
+        <Text as="p" variant="body" className="mt-4">
           {props.errorMessage}
         </Text>
       )}
