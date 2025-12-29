@@ -35,7 +35,7 @@ export default function CartPage() {
 
   return (
     <main className="flex flex-col min-h-screen bg-dark">
-      <header className="flex sticky inset-0 justify-between items-center w-screen bg-dark-gray">
+      <header className="flex sticky inset-0 z-10 justify-between items-center w-screen bg-dark-gray">
         <BackButton />
         <CartButton />
       </header>
