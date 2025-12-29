@@ -56,7 +56,7 @@ export default function MenuView() {
     return (
       <ErrorScreen
         href="/seat-selection"
-        message="Session not created..."
+        message="Seat not selected"
         label="Select Seat"
       />
     );
@@ -106,8 +106,6 @@ export default function MenuView() {
 
   const showMenuItems = (category: string, filters: Filters | null) => {
     if (!queries.menu.data) return null;
-
-    console.log(filters);
 
     const items = queries.menu.data!.filter(
       (e) =>
@@ -196,7 +194,7 @@ export default function MenuView() {
       {queries.menu.data && queries.menu.data.length > 0 && (
         <FilterButton
           onClick={() => {
-            setFiltersVisible(!filtersVisible); //TODO: Why this rerenders menuItems
+            setFiltersVisible(!filtersVisible); // Why this rerenders menuItems
           }}
         />
       )}
