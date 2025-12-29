@@ -14,8 +14,6 @@ import { CartButton } from "../_components/cart/cart-button";
 import { BackButton } from "../menu-items/[id]/_components/back-button";
 
 export default function CartPage() {
-  const router = useRouter();
-
   const items = useCartStore((state) => state.items);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
