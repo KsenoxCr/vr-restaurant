@@ -29,7 +29,7 @@ import { prolongSession } from "~/lib/utils/session";
  */
 
 export const createTRPCContext = async (opts: {
-  headers: Headers,
+  headers: Headers;
   req?: Request;
 }) => {
   const cookieStore = cookies();
@@ -39,7 +39,7 @@ export const createTRPCContext = async (opts: {
 
   if (sessionId) {
     session = await db.session.findUnique({
-      where: { id: sessionId }
+      where: { id: sessionId },
     });
   }
 
@@ -126,7 +126,7 @@ const authMiddleware = t.middleware(async ({ ctx, next }) => {
 
   await prolongSession(ctx.db, ctx.session);
 
-  return next({ ctx: { ...ctx, session: ctx.session, }, });
+  return next({ ctx: { ...ctx, session: ctx.session } });
 });
 
 const kitchenMiddleware = t.middleware(async ({ ctx, next }) => {
@@ -137,7 +137,7 @@ const kitchenMiddleware = t.middleware(async ({ ctx, next }) => {
   if (ctx.session.role !== SessionRole.KITCHEN) {
     throw new TRPCError({
       code: "FORBIDDEN",
-      message: "Kitchen access required"
+      message: "Kitchen access required",
     });
   }
 
@@ -145,7 +145,6 @@ const kitchenMiddleware = t.middleware(async ({ ctx, next }) => {
 
   return next({ ctx: { ...ctx, session: ctx.session } });
 });
-
 
 /**
  * Public (unauthenticated) procedure
@@ -156,6 +155,10 @@ const kitchenMiddleware = t.middleware(async ({ ctx, next }) => {
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
 
-export const protectedProcedure = t.procedure.use(timingMiddleware).use(authMiddleware);
+export const protectedProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(authMiddleware);
 
-export const kitchenProcedure = t.procedure.use(timingMiddleware).use(kitchenMiddleware);
+export const kitchenProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(kitchenMiddleware);
