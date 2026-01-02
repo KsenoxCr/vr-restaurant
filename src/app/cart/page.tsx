@@ -2,17 +2,14 @@
 
 import { useCartStore } from "~/stores/cart-store";
 import { ErrorScreen } from "../_components/screen/error-screen";
-import { CartItem } from "./_components/cart-item";
 import { EmptyCart } from "./_components/empty-cart";
-import { CartHeader } from "./_components/cart-header";
-import { CartSummary } from "./_components/cart-summary";
-import { PlaceOrderButton } from "./_components/place-order-button";
 import Cookies from "js-cookie";
 import { CartButton } from "../_components/cart/cart-button";
 import { BackButton } from "../menu-items/[id]/_components/back-button";
 import { api } from "~/trpc/react";
 import { TRPCError } from "@trpc/server";
 import { useState, useRef } from "react";
+import { CartItemView } from "./_components/cart-item-view";
 
 type Messages = {
   message?: string;
@@ -25,9 +22,7 @@ export default function CartPage() {
   const messages = useRef<Messages>();
 
   const cartItems = useCartStore((state) => state.items);
-  const updateQuantity = useCartStore((state) => state.updateQuantity);
-  const removeItem = useCartStore((state) => state.removeItem);
-  const getTotalPrice = useCartStore((state) => state.getTotalPrice);
+  const clearCart = useCartStore((state) => state.clearCart);
 
   const seatNumber = Cookies.get("seatNumber");
 
@@ -59,7 +54,19 @@ export default function CartPage() {
 
       return setIsError(true);
     }
+
+    clearCart();
+
+    // TODO: Order viewing logic (how do order state updates reflect client side)
   };
+
+  // useState = orderStatus
+  // orderInProgress = orderStatus
+
+  // No cart items and noOrderInProgress: EmptyCart
+  // CartItems and no orderInProgress: CartView
+  // no cart items and orderInProgress OrderView
+  // Add in MenuItem view -> cant add to cart if orderInProgress
 
   return (
     <>
@@ -81,21 +88,11 @@ export default function CartPage() {
           {cartItems.length === 0 ? (
             <EmptyCart />
           ) : (
-            <div className="flex flex-col gap-6 p-6 w-full max-w-md">
-              <CartHeader seatNumber={seatNumber} />
-              <div className="flex flex-col gap-4">
-                {cartItems.map((item) => (
-                  <CartItem
-                    key={item.menuItemId}
-                    item={item}
-                    onUpdateQuantity={updateQuantity}
-                    onRemove={removeItem}
-                  />
-                ))}
-              </div>
-              <CartSummary totalPrice={getTotalPrice()} />
-              <PlaceOrderButton onClick={placeOrder} />
-            </div>
+            <CartItemView
+              cartItems={cartItems}
+              seatNumber={seatNumber}
+              placeOrder={placeOrder}
+            />
           )}
         </div>
       </main>

@@ -5,16 +5,16 @@ import { QuantityPicker } from "~/app/_components/cart/quantity-picker";
 import { RemoveButton } from "./remove-button";
 import { formatCents } from "~/lib/utils/price";
 import { Text } from "~/app/_components/ui/text";
-import type { CartItem as CartItemType } from "~/stores/cart-store";
+import {
+  useCartStore,
+  type CartItem as CartItemType,
+} from "~/stores/cart-store";
 import { CircleX } from "lucide-react";
 
-type CartItemProps = {
-  item: CartItemType;
-  onUpdateQuantity: (menuItemId: number, quantity: number) => void;
-  onRemove: (menuItemId: number) => void;
-};
+export function CartItem({ item }: { item: CartItemType }) {
+  const updateQuantity = useCartStore((state) => state.updateQuantity);
+  const removeItem = useCartStore((state) => state.removeItem);
 
-export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
   return (
     <div className="flex flex-col gap-4 p-4 rounded-lg bg-dark-gray">
       {/* Upper row: Image, Name, Price */}
@@ -48,13 +48,13 @@ export function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProps) {
           <QuantityPicker
             quantity={item.quantity}
             setQuantity={(newQuantity) =>
-              onUpdateQuantity(item.menuItemId, newQuantity)
+              updateQuantity(item.menuItemId, newQuantity)
             }
             max={10}
             isLarge={false}
             showLabel={false}
           />
-          <RemoveButton onClick={() => onRemove(item.menuItemId)} />
+          <RemoveButton onClick={() => removeItem(item.menuItemId)} />
         </div>
 
         <Text size="base" weight="medium">
