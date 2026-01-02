@@ -7,6 +7,7 @@ import {
 import { TRPCError } from "@trpc/server";
 
 import { OrderStatus } from "@prisma/client";
+import { parser } from ".eslintrc.cjs";
 
 export const orderRouter = createTRPCRouter({
   create: protectedProcedure
@@ -83,6 +84,16 @@ export const orderRouter = createTRPCRouter({
             },
           },
         });
+      });
+    }),
+  getById: protectedProcedure
+    .input(z.object({ id: z.number() }))
+    .query(async ({ ctx, input }) => {
+      return ctx.db.order.findFirst({
+        where: {
+          id: input.id,
+          sessionId: ctx.session.id,
+        },
       });
     }),
   getAll: kitchenProcedure.query(async ({ ctx }) => {
