@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${ibmPlexSans.variable} ${inter.variable} ${inter.className}`}
+      className={`bg-gray ${ibmPlexSans.variable} ${inter.variable} ${inter.className}`}
     >
       <body>
         <TRPCReactProvider>
