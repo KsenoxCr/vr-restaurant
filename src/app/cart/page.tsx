@@ -10,10 +10,8 @@ import { api } from "~/trpc/react";
 import { TRPCError } from "@trpc/server";
 import { useState, useRef } from "react";
 import { CartItemView } from "./_components/cart-item-view";
-import { OrderStatus } from "@prisma/client";
 import { LoadingScreen } from "../_components/screen/loading-page";
-import { OrderStatusView } from "./_components/order-status-view";
-import { LoaderCircle } from "lucide-react";
+import { OrderStatusView } from "./order-status/order-status-view";
 
 type Messages = {
   message?: string;
