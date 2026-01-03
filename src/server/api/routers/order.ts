@@ -87,11 +87,11 @@ export const orderRouter = createTRPCRouter({
       });
     }),
   getById: protectedProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.number())
     .query(async ({ ctx, input }) => {
       return ctx.db.order.findFirst({
         where: {
-          id: input.id,
+          id: input,
           sessionId: ctx.session.id,
         },
       });
