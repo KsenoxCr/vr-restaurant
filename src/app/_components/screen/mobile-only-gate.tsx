@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useIsMobile } from "~/hooks/useIsMobile";
-import { Text } from "~/app/_components/ui/text";
+import { Typography } from "~/app/_components/ui/typography";
 import { Link } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -20,12 +20,12 @@ export function MobileOnlyGate({
   if (!isMobile) {
     return (
       <div className="flex fixed inset-0 flex-col justify-center items-center bg-gray">
-        <Text as="h1" size="lg" weight="bold">
+        <Typography as="h1" size="lg" weight="bold">
           This demo only works on mobile devices...
-        </Text>
-        <Text as="p" className="mt-4">
+        </Typography>
+        <Typography as="p" className="mt-4">
           Please change device or viewport width
-        </Text>
+        </Typography>
       </div>
     );
   }

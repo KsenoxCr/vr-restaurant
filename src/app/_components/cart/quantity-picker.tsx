@@ -1,7 +1,7 @@
 "use client";
 
 import { QuantityButton } from "./quantity-button";
-import { Text } from "~/app/_components/ui/text";
+import { Typography } from "~/app/_components/ui/typography";
 
 export function QuantityPicker({
   isLarge,
@@ -29,12 +29,12 @@ export function QuantityPicker({
         isIncrement={false}
         isLarge={isLarge}
       />
-      <Text
+      <Typography
         size={isLarge ? "lg" : "base"}
         className={isLarge ? "m-4 my-5" : "w-8 text-center"}
       >
         {quantity}
-      </Text>
+      </Typography>
       <QuantityButton
         onClick={() => changeQuantity(1)}
         isIncrement={true}
@@ -49,9 +49,9 @@ export function QuantityPicker({
 
   return (
     <div className="flex justify-between items-center">
-      <Text as="label" variant="label">
+      <Typography as="label" variant="label">
         Quantity
-      </Text>
+      </Typography>
       {controls}
     </div>
   );

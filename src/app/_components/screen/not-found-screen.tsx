@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "~/app/_components/ui/button";
-import { Text } from "../ui/text";
+import { Typography } from "../ui/typography";
 
 type NotFoundScreenProps = {
   message?: string;
@@ -14,17 +14,17 @@ export function NotFoundScreen({ message, buttonProps }: NotFoundScreenProps) {
   return (
     <div className="flex fixed inset-0 flex-col justify-center items-center background bg-light-gray-dark">
       {message ? (
-        <Text as="h1" size="lg" className="mb-4">
+        <Typography as="h1" size="lg" className="mb-4">
           {message}
-        </Text>
+        </Typography>
       ) : (
         <>
-          <Text as="h1" size="3xl" weight="bold">
+          <Typography as="h1" size="3xl" weight="bold">
             404
-          </Text>
-          <Text as="h1" size="lg" weight="bold">
+          </Typography>
+          <Typography as="h1" size="lg" weight="bold">
             Page not found
-          </Text>
+          </Typography>
         </>
       )}
       <Button variant="primary" className="mt-10" asChild>

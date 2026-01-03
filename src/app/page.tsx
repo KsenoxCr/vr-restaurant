@@ -5,7 +5,7 @@ import Image from "next/image";
 import { KitchenButton } from "./_components/ui/kitchen-button";
 import { FeaturePill } from "./_components/ui/feature-pill";
 import { TrainIcon } from "./_components/ui/train-icon";
-import { Text } from "./_components/ui/text";
+import { Typography } from "./_components/ui/typography";
 import Link from "next/link";
 import { Button } from "./_components/ui/button";
 
@@ -23,13 +23,13 @@ export default function Home() {
       </div>
       <KitchenButton />
       <TrainIcon />
-      <Text as="h1" variant="heading-1">
+      <Typography as="h1" variant="heading-1">
         Welcome Aboard
-      </Text>
-      <Text as="p" variant="body">
+      </Typography>
+      <Typography as="p" variant="body">
         Order fresh food and beverages directly to your seat in the restaurant
         carriage
-      </Text>
+      </Typography>
       <div className="flex flex-wrap gap-2 justify-center mb-4 max-w-md">
         <FeaturePill icon={Utensils} label="Fresh Food" />
         <FeaturePill icon={Coffee} label="Hot Beverages" />
@@ -38,13 +38,13 @@ export default function Home() {
 
       <Button size="lg" rounded="full">
         <Link href="/seat-selection">
-          <Text size="lg">Get Started</Text>
+          <Typography size="lg">Get Started</Typography>
         </Link>
         <ArrowRight className="ml-2 w-5 h-5" />
       </Button>
-      <Text as="p" variant="body">
+      <Typography as="p" variant="body">
         Enjoy your journey with our onboard dining service
-      </Text>
+      </Typography>
     </main>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { LucideIcon } from "lucide-react";
-import { Text } from "~/app/_components/ui/text";
+import { Typography } from "~/app/_components/ui/typography";
 
 export function FeaturePill({
   icon: Icon,
@@ -12,7 +12,7 @@ export function FeaturePill({
   return (
     <div className="flex gap-2 items-center p-3 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm">
       <Icon className="text-accent" />
-      <Text as="p">{label}</Text>
+      <Typography as="p">{label}</Typography>
     </div>
   );
 }

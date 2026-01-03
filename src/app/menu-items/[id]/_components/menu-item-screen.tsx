@@ -6,7 +6,7 @@ import { BackButton } from "./back-button";
 import { CartButton } from "~/app/_components/cart/cart-button";
 import { formatCents } from "~/lib/utils/price";
 import { ErrorScreen } from "~/app/_components/screen/error-screen";
-import { Text } from "~/app/_components/ui/text";
+import { Typography } from "~/app/_components/ui/typography";
 import { NotFoundScreen } from "~/app/_components/screen/not-found-screen";
 import { PurchasePanel } from "./purchase-panel";
 
@@ -74,44 +74,44 @@ export async function MenuItemScreen({ id }: { id: number }) {
           <div className="flex flex-col gap-1 my-4 mx-4">
             {/* Name & Price */}
             <div className="flex justify-between items-center mb-4">
-              <Text as="h1" variant="heading-2">
+              <Typography as="h1" variant="heading-2">
                 {menuItem.name}
-              </Text>
-              <Text variant="price-lg">{formatCents(menuItem.priceCents)}</Text>
+              </Typography>
+              <Typography variant="price-lg">{formatCents(menuItem.priceCents)}</Typography>
             </div>
 
             {/* Type & Category */}
             <div>
-              <Text className="py-2 px-4 mr-2 rounded-full bg-light-gray">
+              <Typography className="py-2 px-4 mr-2 rounded-full bg-light-gray">
                 {menuItem.category.type}
-              </Text>
-              <Text className="py-2 px-4 rounded-full bg-light-gray">
+              </Typography>
+              <Typography className="py-2 px-4 rounded-full bg-light-gray">
                 {menuItem.category.name}
-              </Text>
+              </Typography>
             </div>
 
             {/* Allergens */}
             {menuItem.allergens.length > 0 && (
-              <Text as="h2" variant="heading-2" className="mt-3">
+              <Typography as="h2" variant="heading-2" className="mt-3">
                 Allergens
-              </Text>
+              </Typography>
             )}
             <div className="flex flex-wrap gap-2 mt-2">
               {menuItem.allergens.map((a) => (
-                <Text className="py-1 px-2 rounded-full bg-light-gray">
+                <Typography className="py-1 px-2 rounded-full bg-light-gray">
                   {a.toLowerCase()}
-                </Text>
+                </Typography>
               ))}
             </div>
 
             {/* Description */}
             <div>
-              <Text as="h2" variant="heading-2" className="mt-2 mb-2">
+              <Typography as="h2" variant="heading-2" className="mt-2 mb-2">
                 Description
-              </Text>
-              <Text as="p" variant="body">
+              </Typography>
+              <Typography as="p" variant="body">
                 {menuItem.description}
-              </Text>
+              </Typography>
             </div>
             <PurchasePanel
               id={menuItem.id}

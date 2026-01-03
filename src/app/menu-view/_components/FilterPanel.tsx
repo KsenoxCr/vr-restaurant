@@ -1,7 +1,7 @@
 import { Allergen } from "@prisma/client";
 import { FormEvent } from "react";
 import { Button } from "~/app/_components/ui/button";
-import { Text } from "~/app/_components/ui/text";
+import { Typography } from "~/app/_components/ui/typography";
 type PriceRangeCents = {
   top: number;
   bottom: number;
@@ -55,71 +55,71 @@ export function FilterPanel({
       className={`${visibility} bg-dark absolute bottom-20 right-7 rounded-lg`}
     >
       <form className="flex flex-col gap-1 m-4" onSubmit={handleSubmit}>
-        <Text as="h2" className="mb-2">
+        <Typography as="h2" className="mb-2">
           Filters
-        </Text>
+        </Typography>
         <fieldset>
-          <Text as="legend" variant="heading-3" className="mb-1">
+          <Typography as="legend" variant="heading-3" className="mb-1">
             Price Range
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="radio" name="priceRange" value="le-5" />
             Under 5€
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="radio" name="priceRange" value="5-10" />
             5€-10€
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="radio" name="priceRange" value="ge-10" />
             Over 10€
-          </Text>
+          </Typography>
         </fieldset>
 
         <fieldset>
-          <Text as="legend" variant="heading-3" className="my-1">
+          <Typography as="legend" variant="heading-3" className="my-1">
             Allergens
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="GLUTEN" />
             Gluten
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="DAIRY" />
             Dairy
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="EGGS" />
             Eggs
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="NUTS" />
             Nuts
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="PEANUTS" />
             Peanuts
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="SHELLFISH" />
             Shellfish
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="FISH" />
             Fish
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="SOY" />
             Soy
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="WHEAT" />
             Wheat
-          </Text>
-          <Text as="label" className="flex gap-2">
+          </Typography>
+          <Typography as="label" className="flex gap-2">
             <input type="checkbox" name="allergen" value="SESAME" />
             Sesame
-          </Text>
+          </Typography>
         </fieldset>
         <div className="flex gap-2 mt-2">
           <Button type="reset" variant="secondary">

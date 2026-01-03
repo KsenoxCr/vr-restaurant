@@ -10,7 +10,7 @@ import Link from "next/link";
 import { CartButton } from "../_components/cart/cart-button";
 import { usePathname } from "next/navigation";
 import { Button } from "~/app/_components/ui/button";
-import { Text } from "../_components/ui/text";
+import { Typography } from "../_components/ui/typography";
 import { FilterButton } from "./_components/FilterButton";
 import { FilterPanel, Filters } from "./_components/FilterPanel";
 import { inRange } from "~/lib/utils/price";
@@ -154,7 +154,7 @@ export default function MenuView() {
               </Link>
             </Button>
           )}
-          <Text
+          <Typography
             as="h1"
             onClick={() => {
               menuRef.current &&
@@ -164,7 +164,7 @@ export default function MenuView() {
             className="absolute left-1/2"
           >
             Menu
-          </Text>
+          </Typography>
           <CartButton />
         </header>
         {createCategoryButtons(

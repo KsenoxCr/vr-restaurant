@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Text } from "~/app/_components/ui/text";
+import { Typography } from "~/app/_components/ui/typography";
 
 export function Toast({
   message,
@@ -40,9 +40,9 @@ export function Toast({
       <div
         className={`flex max-w-[min(300px,60vw)] rounded-xl border-2 bg-light-gray px-8 py-5 shadow-lg transition-opacity duration-${fadeTime} ${isFading ? "opacity-0" : "opacity-100"} border-slate backdrop-blur-lg`}
       >
-        <Text as="p">
+        <Typography as="p">
           {message}
-        </Text>
+        </Typography>
       </div>
     </div>
   );

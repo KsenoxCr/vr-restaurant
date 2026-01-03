@@ -10,7 +10,7 @@ import { TRPCClientError } from "@trpc/client";
 import Cookies from "js-cookie";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "~/app/_components/ui/button";
-import { Text } from "../_components/ui/text";
+import { Typography } from "../_components/ui/typography";
 
 export default function SeatSelection() {
   const router = useRouter();
@@ -80,12 +80,12 @@ export default function SeatSelection() {
         <div className="flex justify-center mb-6">
           <TrainIcon />
         </div>
-        <Text as="h1" variant="heading-1" className="mb-2 text-center">
+        <Typography as="h1" variant="heading-1" className="mb-2 text-center">
           Select Your Seat
-        </Text>
-        <Text as="p" variant="body" className="my-6 text-center">
+        </Typography>
+        <Typography as="p" variant="body" className="my-6 text-center">
           Please enter your seat number to begin ordering
-        </Text>
+        </Typography>
         <form onSubmit={HandleSubmit}>
           {errorMessage && (
             <Toast
@@ -96,9 +96,9 @@ export default function SeatSelection() {
               }}
             />
           )}
-          <Text as="label" htmlFor="seat" className="block mb-3">
+          <Typography as="label" htmlFor="seat" className="block mb-3">
             Seat Number
-          </Text>
+          </Typography>
           <input
             id="seat"
             type="text"

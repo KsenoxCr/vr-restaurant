@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "~/app/_components/ui/button";
-import { Text } from "../ui/text";
+import { Typography } from "../ui/typography";
 import { useState } from "react";
 import { ScrollLock } from "../behavior/scroll-lock";
 
@@ -58,18 +58,18 @@ export function ErrorScreen(props: ClickOrHref) {
   return (
     <>
       <div className="flex fixed inset-0 z-20 flex-col justify-center items-center bg-gray">
-        <Text as="h1" size="lg" weight="bold">
+        <Typography as="h1" size="lg" weight="bold">
           {props.message ? props.message : "Something went wrong..."}
-        </Text>
+        </Typography>
         {props.errorMessage && (
-          <Text as="p" variant="body" className="mt-4">
+          <Typography as="p" variant="body" className="mt-4">
             {props.errorMessage}
-          </Text>
+          </Typography>
         )}
         {props.digest && (
-          <Text as="p" size="xs" className="mt-2">
+          <Typography as="p" size="xs" className="mt-2">
             {props.digest}
-          </Text>
+          </Typography>
         )}
         {displayButton()}
       </div>
