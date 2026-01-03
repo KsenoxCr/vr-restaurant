@@ -10,6 +10,9 @@ import { api } from "~/trpc/react";
 import { TRPCError } from "@trpc/server";
 import { useState, useRef } from "react";
 import { CartItemView } from "./_components/cart-item-view";
+import { OrderStatus } from "@prisma/client";
+import { LoadingPage } from "../_components/screen/loading-page";
+import { OrderStatusView } from "./_components/order-status-view";
 
 type Messages = {
   message?: string;
@@ -17,9 +20,16 @@ type Messages = {
 };
 
 export default function CartPage() {
-  const createOrder = api.order.create.useMutation();
+  const [orderId, setOrderId] = useState<number>(NaN);
   const [isError, setIsError] = useState(false);
   const messages = useRef<Messages>();
+
+  const orderMutation = api.order.create.useMutation();
+
+  const orderQuery = api.order.getById.useQuery(orderId, {
+    enabled: !!orderId,
+    refetchInterval: 1000,
+  });
 
   const cartItems = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
@@ -41,23 +51,27 @@ export default function CartPage() {
       return { id: mi.menuItemId, quantity: mi.quantity };
     });
 
-    try {
-      createOrder.mutate({ items: menuItems });
-    } catch (error) {
-      messages.current = {
-        message:
-          error instanceof TRPCError && error.code === "BAD_REQUEST"
-            ? "Order rejected"
-            : "something went wrong...",
-        errorMessage: error instanceof Error ? error.message : undefined,
-      };
+    orderMutation.mutate(
+      { items: menuItems },
+      {
+        onError: (error) => {
+          messages.current = {
+            message:
+              error instanceof TRPCError && error.code === "BAD_REQUEST"
+                ? "Order rejected"
+                : "something went wrong...",
+            errorMessage: error instanceof Error ? error.message : undefined,
+          };
 
-      return setIsError(true);
-    }
+          setIsError(true);
+        },
+        onSuccess(data) {
+          clearCart();
 
-    clearCart();
-
-    // TODO: Order viewing logic (how do order state updates reflect client side)
+          setOrderId(data.id);
+        },
+      },
+    );
   };
 
   // useState = orderStatus
@@ -68,32 +82,48 @@ export default function CartPage() {
   // no cart items and orderInProgress OrderView
   // Add in MenuItem view -> cant add to cart if orderInProgress
 
+  if (isError) {
+    return (
+      <ErrorScreen
+        message={messages.current?.message}
+        errorMessage={messages.current?.errorMessage}
+        callback={() => setIsError(false)}
+        label="Back to Cart"
+      />
+    );
+  }
+
+  const showAppropriateView = () => {
+    if (orderId && !orderQuery.data) {
+      return <LoadingPage />;
+    }
+
+    if (orderId && orderQuery.data) {
+      return <OrderStatusView />;
+    }
+
+    if (cartItems.length === 0) {
+      return <EmptyCart />;
+    }
+
+    return (
+      <CartItemView
+        cartItems={cartItems}
+        seatNumber={seatNumber}
+        placeOrder={placeOrder}
+      />
+    );
+  };
+
   return (
     <>
-      {isError && (
-        <ErrorScreen
-          message={messages.current?.message}
-          errorMessage={messages.current?.errorMessage}
-          callback={() => setIsError(false)}
-          label="Back to Cart"
-        />
-      )}
-      {}
       <main className="flex flex-col min-h-screen bg-dark">
         <header className="flex sticky inset-0 z-10 justify-between items-center w-screen bg-dark-gray">
           <BackButton />
           <CartButton />
         </header>
         <div className="flex flex-col flex-1 gap-3 justify-center items-center">
-          {cartItems.length === 0 ? (
-            <EmptyCart />
-          ) : (
-            <CartItemView
-              cartItems={cartItems}
-              seatNumber={seatNumber}
-              placeOrder={placeOrder}
-            />
-          )}
+          {showAppropriateView()}
         </div>
       </main>
     </>
