@@ -50,15 +50,15 @@ export async function MenuItemScreen({ id }: { id: number }) {
   }
 
   return (
-    <main className="flex overflow-hidden fixed inset-0 flex-col items-center w-screen h-screen bg-gray">
+    <main className="flex overflow-hidden fixed inset-0 flex-col items-center w-screen h-screen bg-dark-gray">
       <header className="flex justify-between items-center w-screen bg-dark-gray">
         <BackButton />
         <CartButton />
       </header>
       <div className="flex flex-1 justify-center items-center">
-        <article className="bg-dark-gray text-off-white flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col justify-center overflow-hidden rounded-2xl shadow-lg">
+        <article className="flex h-[calc(100%-2rem)] w-[calc(100%-2rem)] flex-col justify-center overflow-hidden rounded-2xl bg-dark text-off-white shadow-lg">
           {/* Image */}
-          <div className="flex relative justify-center items-center bg-dark flex-[4]">
+          <div className="flex relative justify-center items-center flex-[4]">
             {menuItem.imageUrl ? (
               <Image
                 src={menuItem.imageUrl}

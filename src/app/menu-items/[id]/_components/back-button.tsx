@@ -12,6 +12,7 @@ export function BackButton() {
     <Button
       variant="ghost"
       active={false}
+      className="shadow-none"
       onClick={() => navigateBack(router, "/menu-view")}
     >
       <ArrowLeft className="w-8 h-8" />
