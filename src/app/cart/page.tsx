@@ -2,7 +2,7 @@
 
 import { useCartStore } from "~/stores/cart-store";
 import { ErrorScreen } from "../_components/screen/error-screen";
-import { EmptyCart } from "./_components/empty-cart";
+import { EmptyCartView } from "./_components/empty-cart-view";
 import Cookies from "js-cookie";
 import { CartButton } from "../_components/cart/cart-button";
 import { BackButton } from "../menu-items/[id]/_components/back-button";
@@ -97,7 +97,6 @@ export default function CartPage() {
   const showAppropriateView = () => {
     if (orderId && !orderQuery.data) {
       return <LoadingScreen color={"dark"} />;
-      return <LoaderCircle className="w-20 h-20 animate-spin text-gray" />;
     }
 
     if (orderId && orderQuery.data) {
@@ -105,7 +104,7 @@ export default function CartPage() {
     }
 
     if (cartItems.length === 0) {
-      return <EmptyCart />;
+      return <EmptyCartView />;
     }
 
     return (
