@@ -2,12 +2,12 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator dbml {
@@ -28,6 +28,7 @@ enum OrderStatus {
   READY
   DELIVERED
   REJECTED
+  CANCELLED
 }
 
 enum Allergen {
@@ -67,43 +68,43 @@ model MenuItem {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
-  category    Category     @relation(fields: [categoryId], references: [id])
-  orderItems  OrderItem[]
+  category   Category    @relation(fields: [categoryId], references: [id])
+  orderItems OrderItem[]
 
   @@index([categoryId])
   @@index([available])
 }
 
 model Session {
-  id              String    @id @default(cuid())
-  seatNumber      Int
-  role            SessionRole  @default(CUSTOMER)
-  activeOrderId   Int?      @unique
-  lastActivity    DateTime  @default(now())
-  createdAt       DateTime  @default(now())
-  expiresAt       DateTime 
+  id            String      @id @default(cuid())
+  seatNumber    Int
+  role          SessionRole @default(CUSTOMER)
+  activeOrderId Int?        @unique
+  lastActivity  DateTime    @default(now())
+  createdAt     DateTime    @default(now())
+  expiresAt     DateTime
 
-  activeOrder     Order?    @relation("ActiveOrder", fields: [activeOrderId], references: [id])
-  orders          Order[]   @relation("SessionOrders")
+  activeOrder Order?  @relation("ActiveOrder", fields: [activeOrderId], references: [id])
+  orders      Order[] @relation("SessionOrders")
 
   @@index([seatNumber])
   @@index([expiresAt])
 }
 
 model Order {
-  id                  Int         @id @default(autoincrement())
-  sessionId           String
-  seatNumber          Int
-  status              OrderStatus @default(SUBMITTED)
-  totalCents          Int
-  queuePosition       Int? // TODO: Constrait can't be less than 1
-  estimatedStartTime  DateTime?
-  createdAt           DateTime    @default(now())
-  updatedAt           DateTime    @updatedAt
+  id                 Int         @id @default(autoincrement())
+  sessionId          String
+  seatNumber         Int
+  status             OrderStatus @default(SUBMITTED)
+  totalCents         Int
+  queuePosition      Int? // TODO: Constrait can't be less than 1
+  estimatedStartTime DateTime?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
 
-  session             Session     @relation("SessionOrders", fields: [sessionId], references: [id], onDelete: Cascade)
-  items               OrderItem[]
-  activeSession       Session?    @relation("ActiveOrder")
+  session       Session     @relation("SessionOrders", fields: [sessionId], references: [id], onDelete: Cascade)
+  items         OrderItem[]
+  activeSession Session?    @relation("ActiveOrder")
 
   @@index([sessionId])
   @@index([status])
@@ -112,15 +113,15 @@ model Order {
 }
 
 model OrderItem {
-  id                   Int      @id @default(autoincrement())
-  orderId              Int
-  menuItemId           Int
-  quantity             Int      @default(1)
-  priceSnapshotCents   Int
-  createdAt            DateTime @default(now())
+  id                 Int      @id @default(autoincrement())
+  orderId            Int
+  menuItemId         Int
+  quantity           Int      @default(1)
+  priceSnapshotCents Int
+  createdAt          DateTime @default(now())
 
-  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  menuItem      MenuItem @relation(fields: [menuItemId], references: [id])
+  order    Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id])
 
   @@index([orderId])
   @@index([menuItemId])
