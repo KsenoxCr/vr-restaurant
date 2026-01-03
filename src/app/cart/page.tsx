@@ -13,6 +13,7 @@ import { CartItemView } from "./_components/cart-item-view";
 import { OrderStatus } from "@prisma/client";
 import { LoadingPage } from "../_components/screen/loading-page";
 import { OrderStatusView } from "./_components/order-status-view";
+import { LoaderCircle } from "lucide-react";
 
 type Messages = {
   message?: string;
@@ -95,7 +96,7 @@ export default function CartPage() {
 
   const showAppropriateView = () => {
     if (orderId && !orderQuery.data) {
-      return <LoadingPage />;
+      return <LoaderCircle className="w-20 h-20 animate-spin text-gray" />;
     }
 
     if (orderId && orderQuery.data) {
