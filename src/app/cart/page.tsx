@@ -11,7 +11,7 @@ import { TRPCError } from "@trpc/server";
 import { useState, useRef } from "react";
 import { CartItemView } from "./_components/cart-item-view";
 import { OrderStatus } from "@prisma/client";
-import { LoadingPage } from "../_components/screen/loading-page";
+import { LoadingScreen } from "../_components/screen/loading-page";
 import { OrderStatusView } from "./_components/order-status-view";
 import { LoaderCircle } from "lucide-react";
 
@@ -96,11 +96,12 @@ export default function CartPage() {
 
   const showAppropriateView = () => {
     if (orderId && !orderQuery.data) {
+      return <LoadingScreen color={"dark"} />;
       return <LoaderCircle className="w-20 h-20 animate-spin text-gray" />;
     }
 
     if (orderId && orderQuery.data) {
-      return <OrderStatusView />;
+      return <OrderStatusView status={orderQuery.data.status} />;
     }
 
     if (cartItems.length === 0) {
@@ -123,9 +124,7 @@ export default function CartPage() {
           <BackButton />
           <CartButton />
         </header>
-        <div className="flex flex-col flex-1 gap-3 justify-center items-center">
-          {showAppropriateView()}
-        </div>
+        {showAppropriateView()}
       </main>
     </>
   );

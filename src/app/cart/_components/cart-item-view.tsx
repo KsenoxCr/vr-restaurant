@@ -16,7 +16,7 @@ export function CartItemView({
   placeOrder,
 }: CartItemViewProps) {
   return (
-    <div className="flex flex-col gap-6 p-6 w-full max-w-md">
+    <div className="flex flex-col flex-1 gap-6 p-6 w-full max-w-md">
       <SeatDisplay seatNumber={seatNumber} />
       <div className="flex flex-col gap-4">
         {cartItems.map((item) => (
