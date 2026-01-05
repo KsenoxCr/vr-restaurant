@@ -10,8 +10,8 @@ const buttonVariants = cva(
       variant: {
         primary: "bg-accent active:bg-dark-accent active:text-slate",
         secondary: "bg-dark-gray active:bg-dark active:text-slate",
-        destructive:
-          "bg-gray hover:bg-desctructive active:bg-desctructive-dark active:text-slate",
+        destructive: "bg-gray active:bg-danger-dark active:text-slate",
+        danger: "bg-danger active:bg-danger-dark active:text-slate",
         increment: "bg-accent active:bg-dark-accent active:text-slate",
         decrement: "bg-dark active:bg-off-black active:text-slate",
         ghost: "text-accent active:text-dark-accent",
