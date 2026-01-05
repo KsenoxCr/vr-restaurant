@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import { useQueryClient } from "@tanstack/react-query";
 import { Button } from "~/app/_components/ui/button";
 import { Typography } from "../_components/ui/typography";
+import { useOrderStore } from "~/stores/order-store";
 
 export default function SeatSelection() {
   const router = useRouter();
@@ -22,6 +23,8 @@ export default function SeatSelection() {
   const [inputValue, setInputValue] = useState("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const isDisabled = inputValue.length == 0;
+
+  const clearOrderState = useOrderStore((state) => state.clearState);
 
   const HandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const input = e.currentTarget.value.replace(/\D/g, "").slice(0, 2);
@@ -64,6 +67,8 @@ export default function SeatSelection() {
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
         });
+
+        clearOrderState();
 
         queryClient.removeQueries({ queryKey: [["session"]] });
         utils.invalidate();
