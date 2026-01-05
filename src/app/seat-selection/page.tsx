@@ -41,7 +41,7 @@ export default function SeatSelection() {
     }
 
     if (Cookies.get("seatNumber") === inputValue && Cookies.get("sessionId")) {
-      router.push("/menu-view");
+      router.push("/menu");
       return;
     }
 
@@ -73,7 +73,7 @@ export default function SeatSelection() {
         queryClient.removeQueries({ queryKey: [["session"]] });
         utils.invalidate();
 
-        router.push("/menu-view");
+        router.push("/menu");
       },
     });
   };

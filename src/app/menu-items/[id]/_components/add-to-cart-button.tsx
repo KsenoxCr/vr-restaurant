@@ -45,7 +45,7 @@ export function AddToCartButton({
       <Button
         onClick={() => {
           handleAddToCart();
-          navigateBack(router, "/menu-view");
+          navigateBack(router, "/menu");
         }}
         rounded="xl"
         className="gap-2 w-full"

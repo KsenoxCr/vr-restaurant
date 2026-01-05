@@ -11,7 +11,7 @@ export function EmptyCartView() {
         Your cart is empty.
       </Typography>
       <Button className="mt-5">
-        <Link href="/menu-view">Browse Menu</Link>
+        <Link href="/menu">Browse Menu</Link>
       </Button>
     </div>
   );

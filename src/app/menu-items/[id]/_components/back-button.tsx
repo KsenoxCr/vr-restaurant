@@ -13,7 +13,7 @@ export function BackButton() {
       variant="ghost"
       active={false}
       className="shadow-none"
-      onClick={() => navigateBack(router, "/menu-view")}
+      onClick={() => navigateBack(router, "/menu")}
     >
       <ArrowLeft className="w-8 h-8" />
       <p>Back</p>

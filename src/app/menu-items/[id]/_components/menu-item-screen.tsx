@@ -20,7 +20,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
       return (
         <NotFoundScreen
           message="Item not Found"
-          buttonProps={{ text: "Back to Menu", route: "/menu-view" }}
+          buttonProps={{ text: "Back to Menu", route: "/menu" }}
         />
       );
     } else {
@@ -33,7 +33,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
         message = "Session not created...";
         label = "Select Seat";
       } else {
-        href = "/menu-view";
+        href = "/menu";
         message = "Error loading item...";
         label = "Back to Menu";
       }
