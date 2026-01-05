@@ -12,6 +12,7 @@ import { useState, useRef } from "react";
 import { CartItemView } from "./_components/cart-item-view";
 import { LoadingScreen } from "../_components/screen/loading-page";
 import { OrderStatusView } from "./order-status/order-status-view";
+import { useOrderStore } from "~/stores/order-store";
 
 type Messages = {
   message?: string;
@@ -19,19 +20,21 @@ type Messages = {
 };
 
 export default function CartPage() {
-  const [orderId, setOrderId] = useState<number>(NaN);
   const [isError, setIsError] = useState(false);
   const messages = useRef<Messages>();
 
   const orderMutation = api.order.create.useMutation();
 
-  const orderQuery = api.order.getById.useQuery(orderId, {
-    enabled: !!orderId,
-    refetchInterval: 1000,
-  });
-
   const cartItems = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
+
+  const orderId = useOrderStore((state) => state.id);
+  const setOrderDetails = useOrderStore((state) => state.setOrderDetails);
+
+  const orderQuery = api.order.getById.useQuery(orderId, {
+    enabled: !!orderId,
+    refetchInterval: 2000,
+  });
 
   const seatNumber = Cookies.get("seatNumber");
 
@@ -67,19 +70,18 @@ export default function CartPage() {
         onSuccess(data) {
           clearCart();
 
-          setOrderId(data.id);
+          setOrderDetails(
+            data.id,
+            data.items.map((item) => ({
+              name: item.menuItem.name,
+              priceCents: item.priceSnapshotCents,
+              quantity: item.quantity,
+            })),
+          );
         },
       },
     );
   };
-
-  // useState = orderStatus
-  // orderInProgress = orderStatus
-
-  // No cart items and noOrderInProgress: EmptyCart
-  // CartItems and no orderInProgress: CartView
-  // no cart items and orderInProgress OrderView
-  // Add in MenuItem view -> cant add to cart if orderInProgress
 
   if (isError) {
     return (
