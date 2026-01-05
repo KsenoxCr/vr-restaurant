@@ -83,6 +83,7 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - Seat availability validation
 - Reactive Design
 - Locale currency formatting
+- logging back into session from device
 
 ## Technology Stack: T3 with Local Postgres (Docker)
 
