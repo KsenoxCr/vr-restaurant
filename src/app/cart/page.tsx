@@ -100,7 +100,12 @@ export default function CartPage() {
     }
 
     if (orderId && orderQuery.data) {
-      return <OrderStatusView status={orderQuery.data.status} />;
+      return (
+        <OrderStatusView
+          status={orderQuery.data.status}
+          seatNumber={orderQuery.data.seatNumber}
+        />
+      );
     }
 
     if (cartItems.length === 0) {
