@@ -8,7 +8,7 @@ export function OrderSummary() {
   const getTotalPrice = useOrderStore((state) => state.getTotalPrice);
 
   return (
-    <div className="flex w-[80%] flex-col gap-1 rounded-lg bg-dark-gray p-4">
+    <div className="flex max-h-[60%] w-[80%] flex-col gap-1 overflow-y-scroll rounded-lg bg-dark-gray p-4">
       <Typography className="mb-1" variant="muted" size="sm">
         Order #{id}
       </Typography>
