@@ -125,7 +125,7 @@ export function OrderStatusScreen() {
       statusHeader = "Order Rejected";
       statusDesc =
         "Your order has been rejected by the staff. Please ask the staff for more information";
-      orderSummary = <OrderSummary idOnly />;
+      orderSummary = <OrderSummary />;
       button = <ActionButton text="Back to Menu" onClick={backToMenu} />;
       break;
     case os.CANCELLED:
@@ -140,7 +140,7 @@ export function OrderStatusScreen() {
   }
 
   return (
-    <div className="flex flex-col gap-5 justify-center items-center min-h-screen bg-dark">
+    <div className="flex flex-col gap-5 justify-center items-center h-screen bg-dark">
       {icon}
       <Typography as="h1" variant="heading-3">
         {statusHeader}

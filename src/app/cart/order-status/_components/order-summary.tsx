@@ -2,18 +2,10 @@ import { Typography } from "~/app/_components/ui/typography";
 import { formatCents } from "~/lib/utils";
 import { useOrderStore } from "~/stores/order-store";
 
-export function OrderSummary({ idOnly = false }: { idOnly?: boolean }) {
+export function OrderSummary() {
   const id = useOrderStore((state) => state.id);
   const items = useOrderStore((state) => state.items);
   const getTotalPrice = useOrderStore((state) => state.getTotalPrice);
-
-  if (idOnly) {
-    return (
-      <Typography className="mb-1" variant="muted" size="sm">
-        Order #{id}
-      </Typography>
-    );
-  }
 
   return (
     <div className="flex w-[80%] flex-col gap-1 rounded-lg bg-dark-gray p-4">
