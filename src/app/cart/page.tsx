@@ -86,8 +86,8 @@ export default function CartPage() {
   if (isError) {
     return (
       <ErrorScreen
-        message={messages.current?.message}
-        errorMessage={messages.current?.errorMessage}
+        title={messages.current?.message}
+        message={messages.current?.errorMessage}
         callback={() => setIsError(false)}
         label="Back to Cart"
       />
