@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { QuantityPicker } from "~/app/_components/cart/quantity-picker";
 import { RemoveButton } from "./remove-button";
-import { formatCents } from "~/lib/utils/price";
+import { formatCents } from "~/lib/utils";
 import { Typography } from "~/app/_components/ui/typography";
 import {
   useCartStore,

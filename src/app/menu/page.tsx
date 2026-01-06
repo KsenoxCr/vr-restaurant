@@ -13,7 +13,7 @@ import { Button } from "~/app/_components/ui/button";
 import { Typography } from "../_components/ui/typography";
 import { FilterButton } from "./_components/FilterButton";
 import { FilterPanel, Filters } from "./_components/FilterPanel";
-import { inRange } from "~/lib/utils/price";
+import { inRange } from "~/lib/utils";
 
 export default function MenuView() {
   const [categoryType, setCategoryType] = useState("all");

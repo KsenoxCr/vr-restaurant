@@ -1,6 +1,6 @@
 "use client";
 
-import { formatCents } from "~/lib/utils/price";
+import { formatCents } from "~/lib/utils";
 import { Typography } from "~/app/_components/ui/typography";
 import { useCartStore } from "~/stores/cart-store";
 

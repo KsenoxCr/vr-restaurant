@@ -6,7 +6,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { newExpiresAt } from "~/lib/utils/session";
+import { newExpiresAt } from "~/lib/utils";
 
 export const sessionRouter = createTRPCRouter({
   create: publicProcedure

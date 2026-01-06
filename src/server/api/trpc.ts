@@ -13,7 +13,7 @@ import { Session, SessionRole } from "@prisma/client";
 
 import { db } from "~/server/db";
 import { cookies } from "next/headers";
-import { prolongSession } from "~/lib/utils/session";
+import { prolongSession } from "~/lib/utils";
 
 /**
  * 1. CONTEXT

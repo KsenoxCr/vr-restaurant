@@ -5,7 +5,7 @@ import {
   type ComponentPropsWithoutRef,
   ReactElement,
 } from "react";
-import { cn } from "~/lib/utils/cn";
+import { cn } from "~/lib/utils";
 
 const textVariants = cva("text-off-white font-body", {
   variants: {
