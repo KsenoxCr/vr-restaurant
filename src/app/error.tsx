@@ -1,13 +1,8 @@
 "use client";
 
+import { ErrorProps } from "~/lib/errors";
 import { ErrorScreen } from "./_components/screen/error-screen";
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  return <ErrorScreen errorMessage={error.message} callback={reset} />;
+export default function ErrorPage({ error, reset }: ErrorProps) {
+  return <ErrorScreen message={error.message} callback={reset!} />;
 }
