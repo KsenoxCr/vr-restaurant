@@ -6,7 +6,7 @@ import {
 } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus, SessionRole } from "@prisma/client";
 
 export const orderRouter = createTRPCRouter({
   create: protectedProcedure
@@ -118,7 +118,7 @@ export const orderRouter = createTRPCRouter({
       },
     });
   }),
-  updateStatus: kitchenProcedure
+  updateStatus: protectedProcedure
     .input(
       z.object({}).extend({
         orderId: z.number(),
@@ -129,10 +129,21 @@ export const orderRouter = createTRPCRouter({
       const order = await ctx.db.order.findUnique({
         where: { id: input.orderId },
       });
+
       if (!order) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Order not found",
+        });
+      }
+
+      if (
+        ctx.session.id !== order.sessionId ||
+        ctx.session.role !== SessionRole.KITCHEN
+      ) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "Not authorized",
         });
       }
 
