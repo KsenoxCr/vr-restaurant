@@ -15,7 +15,7 @@ import { FilterButton } from "./_components/FilterButton";
 import { FilterPanel, Filters } from "./_components/FilterPanel";
 import { inRange } from "~/lib/utils";
 
-export default function MenuView() {
+export default function Menu() {
   const [categoryType, setCategoryType] = useState("all");
   const [subcategory, setSubcategory] = useState("");
   const [filtersVisible, setFiltersVisible] = useState(false);
