@@ -27,8 +27,8 @@ type ActionButtonProps = {
 };
 
 export function OrderStatusScreen() {
-  const orderId = useOrderStore((state) => state.id);
   const clearOrderState = useOrderStore((state) => state.clearState);
+  const orderId = useOrderStore((state) => state.id);
   const router = useRouter();
   const queryClient = useQueryClient();
 
@@ -44,6 +44,7 @@ export function OrderStatusScreen() {
   }
 
   const seatNumber = orderQuery.data.seatNumber;
+  const status = orderQuery.data.status;
   const os = OrderStatus;
 
   let icon,
@@ -81,9 +82,9 @@ export function OrderStatusScreen() {
     );
   };
 
-  console.log(orderQuery.data.status);
+  console.log(status);
 
-  switch (orderQuery.data.status) {
+  switch (status) {
     case os.SUBMITTED:
       icon = <ClockIcon />;
       statusHeader = "Order Submitted";
