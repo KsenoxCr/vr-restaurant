@@ -9,7 +9,11 @@ import {
 } from "lucide-react";
 
 export function ClockIcon() {
-  return <Clock4 className="w-14 h-14" />;
+  return (
+    <div className="p-4 rounded-full bg-dark-gray text-light-gray">
+      <Clock4 className="w-14 h-14" />;
+    </div>
+  );
 }
 
 export function EyeIcon() {
@@ -46,7 +50,7 @@ export function CircleCheckIcon() {
 
 export function BanIcon() {
   return (
-    <div className="p-4 rounded-full text-danger bg-dark-gray">
+    <div className="p-4 rounded-full bg-dark-gray text-danger">
       <Ban className="w-14 h-14" />
     </div>
   );
