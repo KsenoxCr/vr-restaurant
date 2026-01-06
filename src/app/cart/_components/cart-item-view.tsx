@@ -1,8 +1,8 @@
 import type { CartItem as CartItemType } from "~/stores/cart-store";
 import { CartItem } from "./cart-item";
 import { CartSummary } from "./cart-summary";
-import { PlaceOrderButton } from "./place-order-button";
 import { SeatDisplay } from "./seat-display";
+import { Button } from "~/app/_components/ui/button";
 
 type CartItemViewProps = {
   cartItems: CartItemType[];
@@ -23,7 +23,9 @@ export function CartItemView({
           <CartItem key={item.menuItemId} item={item} />
         ))}
         <CartSummary />
-        <PlaceOrderButton onClick={placeOrder} />
+        <Button size="lg" onClick={placeOrder} className="w-full font-medium">
+          Place Order
+        </Button>
       </div>
     </div>
   );
