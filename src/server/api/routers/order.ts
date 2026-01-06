@@ -138,7 +138,7 @@ export const orderRouter = createTRPCRouter({
       }
 
       if (
-        ctx.session.id !== order.sessionId ||
+        ctx.session.id !== order.sessionId &&
         ctx.session.role !== SessionRole.KITCHEN
       ) {
         throw new TRPCError({
