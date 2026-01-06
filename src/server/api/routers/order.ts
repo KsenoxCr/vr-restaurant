@@ -7,7 +7,6 @@ import {
 import { TRPCError } from "@trpc/server";
 
 import { OrderStatus } from "@prisma/client";
-import { parser } from ".eslintrc.cjs";
 
 export const orderRouter = createTRPCRouter({
   create: protectedProcedure
