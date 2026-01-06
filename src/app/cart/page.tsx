@@ -11,7 +11,7 @@ import { TRPCError } from "@trpc/server";
 import { useState, useRef } from "react";
 import { CartItemView } from "./_components/cart-item-view";
 import { LoadingScreen } from "../_components/screen/loading-page";
-import { OrderStatusView } from "./order-status/order-status-view";
+import { OrderStatusScreen } from "./order-status/order-status-screen";
 import { useOrderStore } from "~/stores/order-store";
 
 type Messages = {
@@ -41,9 +41,29 @@ export default function CartPage() {
   if (seatNumber === undefined) {
     return (
       <ErrorScreen
+        title="Session not created..."
         href="/seat-selection"
-        message="Session not created..."
         label="Select Seat"
+      />
+    );
+  }
+
+  if (isError) {
+    return (
+      <ErrorScreen
+        title={messages.current?.message}
+        message={messages.current?.errorMessage}
+        callback={() => setIsError(false)}
+        label="Back to Cart"
+      />
+    );
+  }
+
+  if (orderId && orderQuery.data) {
+    return (
+      <OrderStatusScreen
+        status={orderQuery.data.status}
+        seatNumber={orderQuery.data.seatNumber}
       />
     );
   }
@@ -83,29 +103,9 @@ export default function CartPage() {
     );
   };
 
-  if (isError) {
-    return (
-      <ErrorScreen
-        title={messages.current?.message}
-        message={messages.current?.errorMessage}
-        callback={() => setIsError(false)}
-        label="Back to Cart"
-      />
-    );
-  }
-
   const showAppropriateView = () => {
     if (orderId && !orderQuery.data) {
       return <LoadingScreen color={"dark"} />;
-    }
-
-    if (orderId && orderQuery.data) {
-      return (
-        <OrderStatusView
-          status={orderQuery.data.status}
-          seatNumber={orderQuery.data.seatNumber}
-        />
-      );
     }
 
     if (cartItems.length === 0) {
@@ -122,14 +122,12 @@ export default function CartPage() {
   };
 
   return (
-    <>
-      <main className="flex flex-col min-h-screen bg-dark">
-        <header className="flex sticky inset-0 z-10 justify-between items-center w-screen bg-dark-gray">
-          <BackButton />
-          <CartButton />
-        </header>
-        {showAppropriateView()}
-      </main>
-    </>
+    <main className="flex flex-col min-h-screen bg-dark">
+      <header className="flex sticky inset-0 z-10 justify-between items-center w-screen bg-dark-gray">
+        <BackButton />
+        <CartButton />
+      </header>
+      {showAppropriateView()}
+    </main>
   );
 }

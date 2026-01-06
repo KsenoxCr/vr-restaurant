@@ -1,8 +1,9 @@
+"use client";
+
 import { OrderStatus } from "@prisma/client";
 import { Typography } from "~/app/_components/ui/typography";
 import { OrderSummary } from "./_components/order-summary";
 import { Button } from "~/app/_components/ui/button";
-import Link from "next/link";
 import {
   ClockIcon,
   EyeIcon,
@@ -14,6 +15,8 @@ import {
 } from "./_components/status-icons";
 import { useRouter } from "next/navigation";
 import { useOrderStore } from "~/stores/order-store";
+import { api } from "~/trpc/react";
+import { useState } from "react";
 
 type OrderStatusViewProps = {
   status: OrderStatus;
@@ -23,12 +26,21 @@ type OrderStatusViewProps = {
 type ActionButtonProps = {
   desctructive?: boolean;
   text: string;
+  notWide?: boolean;
   onClick: () => void;
 };
 
-export function OrderStatusView({ status, seatNumber }: OrderStatusViewProps) {
+export function OrderStatusScreen({
+  status,
+  seatNumber,
+}: OrderStatusViewProps) {
+  const [orderStatus, setOrderStatus] = useState(status);
+
+  const orderId = useOrderStore((state) => state.id);
   const clearOrderState = useOrderStore((state) => state.clearState);
   const router = useRouter();
+
+  const updateStatus = api.order.updateStatus.useMutation();
 
   const os = OrderStatus;
 
@@ -38,7 +50,11 @@ export function OrderStatusView({ status, seatNumber }: OrderStatusViewProps) {
     orderSummary,
     button = null;
 
-  const cancelOrder = () => {};
+  const cancelOrder = () => {
+    updateStatus.mutate({ orderId, status: os.CONFIRMED });
+
+    setOrderStatus(os.CANCELLED);
+  };
 
   const backToMenu = () => {
     clearOrderState();
@@ -49,12 +65,13 @@ export function OrderStatusView({ status, seatNumber }: OrderStatusViewProps) {
   const ActionButton = ({
     desctructive = false,
     text,
+    notWide = false,
     onClick,
   }: ActionButtonProps) => {
     return (
       <Button
         variant={`${desctructive ? "danger" : "primary"}`}
-        className="w-[80%]"
+        className={`${notWide ? "" : "w-[80%]"}`}
         onClick={onClick}
       >
         {text}
@@ -62,7 +79,7 @@ export function OrderStatusView({ status, seatNumber }: OrderStatusViewProps) {
     );
   };
 
-  switch (status) {
+  switch (orderStatus) {
     case os.SUBMITTED:
       icon = <ClockIcon />;
       statusHeader = "Order Submitted";
@@ -112,12 +129,14 @@ export function OrderStatusView({ status, seatNumber }: OrderStatusViewProps) {
       statusHeader = "Order Cancelled";
       statusDesc =
         "Your order has been cancelled and there for will not be seen by the staff";
-      button = <ActionButton text="Back to Menu" onClick={backToMenu} />;
+      button = (
+        <ActionButton text="Back to Menu" onClick={backToMenu} notWide />
+      );
       break;
   }
 
   return (
-    <div className="flex flex-col flex-1 gap-5 justify-center items-center">
+    <div className="flex flex-col gap-5 justify-center items-center min-h-screen bg-dark">
       {icon}
       <Typography as="h1" variant="heading-3">
         {statusHeader}
