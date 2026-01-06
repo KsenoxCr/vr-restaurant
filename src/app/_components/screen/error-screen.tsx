@@ -7,8 +7,8 @@ import { useState } from "react";
 import { ScrollLock } from "../behavior/scroll-lock";
 
 type ClickOrHref = {
+  title?: string;
   message?: string;
-  errorMessage?: string;
   digest?: string;
 } & (
   | { callback: () => void; label?: string }
@@ -59,11 +59,11 @@ export function ErrorScreen(props: ClickOrHref) {
     <>
       <div className="flex fixed inset-0 z-20 flex-col justify-center items-center bg-gray">
         <Typography as="h1" size="lg" weight="bold">
-          {props.message ? props.message : "Something went wrong..."}
+          {props.title ? props.title : "Something went wrong..."}
         </Typography>
-        {props.errorMessage && (
+        {props.message && (
           <Typography as="p" variant="body" className="mt-4">
-            {props.errorMessage}
+            {props.message}
           </Typography>
         )}
         {props.digest && (
