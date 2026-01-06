@@ -10,7 +10,6 @@ import { api } from "~/trpc/react";
 import { TRPCError } from "@trpc/server";
 import { useState, useRef } from "react";
 import { CartItemView } from "./_components/cart-item-view";
-import { LoadingScreen } from "../_components/screen/loading-page";
 import { OrderStatusScreen } from "./order-status/order-status-screen";
 import { useOrderStore } from "~/stores/order-store";
 
@@ -31,11 +30,6 @@ export default function CartPage() {
   const orderId = useOrderStore((state) => state.id);
   const setOrderDetails = useOrderStore((state) => state.setOrderDetails);
 
-  const orderQuery = api.order.getById.useQuery(orderId, {
-    enabled: !!orderId,
-    refetchInterval: 2000,
-  });
-
   const seatNumber = Cookies.get("seatNumber");
 
   if (seatNumber === undefined) {
@@ -55,15 +49,6 @@ export default function CartPage() {
         message={messages.current?.errorMessage}
         callback={() => setIsError(false)}
         label="Back to Cart"
-      />
-    );
-  }
-
-  if (orderId && orderQuery.data) {
-    return (
-      <OrderStatusScreen
-        status={orderQuery.data.status}
-        seatNumber={orderQuery.data.seatNumber}
       />
     );
   }
@@ -104,10 +89,6 @@ export default function CartPage() {
   };
 
   const showAppropriateView = () => {
-    if (orderId && !orderQuery.data) {
-      return <LoadingScreen color={"dark"} />;
-    }
-
     if (cartItems.length === 0) {
       return <EmptyCartView />;
     }
@@ -121,13 +102,19 @@ export default function CartPage() {
     );
   };
 
+  if (orderId) {
+    return <OrderStatusScreen />;
+  }
+
   return (
-    <main className="flex flex-col min-h-screen bg-dark">
-      <header className="flex sticky inset-0 z-10 justify-between items-center w-screen bg-dark-gray">
-        <BackButton />
-        <CartButton />
-      </header>
-      {showAppropriateView()}
-    </main>
+    <>
+      <main className="flex flex-col min-h-screen bg-dark">
+        <header className="flex sticky inset-0 z-10 justify-between items-center w-screen bg-dark-gray">
+          <BackButton />
+          <CartButton />
+        </header>
+        {showAppropriateView()}
+      </main>
+    </>
   );
 }

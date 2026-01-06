@@ -16,12 +16,8 @@ import {
 import { useRouter } from "next/navigation";
 import { useOrderStore } from "~/stores/order-store";
 import { api } from "~/trpc/react";
-import { useState } from "react";
-
-type OrderStatusViewProps = {
-  status: OrderStatus;
-  seatNumber: number;
-};
+import { LoadingScreen } from "~/app/_components/screen/loading-page";
+import { useQueryClient } from "@tanstack/react-query";
 
 type ActionButtonProps = {
   desctructive?: boolean;
@@ -30,18 +26,24 @@ type ActionButtonProps = {
   onClick: () => void;
 };
 
-export function OrderStatusScreen({
-  status,
-  seatNumber,
-}: OrderStatusViewProps) {
-  const [orderStatus, setOrderStatus] = useState(status);
-
+export function OrderStatusScreen() {
   const orderId = useOrderStore((state) => state.id);
   const clearOrderState = useOrderStore((state) => state.clearState);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const updateStatus = api.order.updateStatus.useMutation();
+  const orderQuery = api.order.getById.useQuery(orderId, {
+    enabled: !!orderId,
+    refetchInterval: 2000,
+  });
 
+  // TODO: use suspense
+  if (!orderQuery.data) {
+    return <LoadingScreen color={"dark"} />;
+  }
+
+  const seatNumber = orderQuery.data.seatNumber;
   const os = OrderStatus;
 
   let icon,
@@ -51,9 +53,9 @@ export function OrderStatusScreen({
     button = null;
 
   const cancelOrder = () => {
-    updateStatus.mutate({ orderId, status: os.CONFIRMED });
-
-    setOrderStatus(os.CANCELLED);
+    // TODO: Show loading screen until mutation complete
+    queryClient.removeQueries({ queryKey: [["order"]] });
+    updateStatus.mutate({ orderId, status: os.CANCELLED });
   };
 
   const backToMenu = () => {
@@ -79,7 +81,9 @@ export function OrderStatusScreen({
     );
   };
 
-  switch (orderStatus) {
+  console.log(orderQuery.data.status);
+
+  switch (orderQuery.data.status) {
     case os.SUBMITTED:
       icon = <ClockIcon />;
       statusHeader = "Order Submitted";
