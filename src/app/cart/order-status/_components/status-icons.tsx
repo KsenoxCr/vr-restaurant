@@ -11,7 +11,7 @@ import {
 export function ClockIcon() {
   return (
     <div className="p-4 rounded-full bg-dark-gray text-light-gray">
-      <Clock4 className="w-14 h-14" />;
+      <Clock4 className="w-14 h-14" />
     </div>
   );
 }
