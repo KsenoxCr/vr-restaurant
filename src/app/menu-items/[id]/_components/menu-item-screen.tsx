@@ -7,7 +7,6 @@ import { CartButton } from "~/app/_components/cart/cart-button";
 import { formatCents } from "~/lib/utils/price";
 import { ErrorScreen } from "~/app/_components/screen/error-screen";
 import { Typography } from "~/app/_components/ui/typography";
-import { NotFoundScreen } from "~/app/_components/screen/not-found-screen";
 import { PurchasePanel } from "./purchase-panel";
 
 export async function MenuItemScreen({ id }: { id: number }) {
@@ -18,10 +17,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
   } catch (error) {
     if (error instanceof TRPCError && error.code === "NOT_FOUND") {
       return (
-        <NotFoundScreen
-          message="Item not Found"
-          buttonProps={{ text: "Back to Menu", route: "/menu" }}
-        />
+        <ErrorScreen title="Item not found" label="Back to Menu" href="/menu" />
       );
     } else {
       let href: string;
@@ -41,9 +37,9 @@ export async function MenuItemScreen({ id }: { id: number }) {
       return (
         <ErrorScreen
           href={href}
-          message={message}
+          title={message}
           label={label}
-          errorMessage={error instanceof Error ? error.message : undefined}
+          message={error instanceof Error ? error.message : undefined}
         />
       );
     }
@@ -77,7 +73,9 @@ export async function MenuItemScreen({ id }: { id: number }) {
               <Typography as="h1" variant="heading-2">
                 {menuItem.name}
               </Typography>
-              <Typography variant="price-lg">{formatCents(menuItem.priceCents)}</Typography>
+              <Typography variant="price-lg">
+                {formatCents(menuItem.priceCents)}
+              </Typography>
             </div>
 
             {/* Type & Category */}
