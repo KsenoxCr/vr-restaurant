@@ -55,8 +55,8 @@ export default function Menu() {
   if (queries.session.isError) {
     return (
       <ErrorScreen
-        title="Seat not selected"
         href="/seat-selection"
+        message="Seat not selected"
         label="Select Seat"
       />
     );
