@@ -2,7 +2,7 @@
 
 import { ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
-import { formatCents, navigateBack } from "~/lib/utils";
+import { formatCents } from "~/lib/utils";
 import { useCartStore } from "~/stores/cart-store";
 import { useRouter } from "next/navigation";
 import { Button } from "~/app/_components/ui/button";
@@ -44,7 +44,7 @@ export function AddToCartButton({
       <Button
         onClick={() => {
           handleAddToCart();
-          navigateBack(router, "/menu");
+          router.push("/menu");
         }}
         rounded="xl"
         className="gap-2 w-full"

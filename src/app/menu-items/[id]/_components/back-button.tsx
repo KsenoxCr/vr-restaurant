@@ -1,22 +1,16 @@
 "use client";
 
 import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { navigateBack } from "~/lib/utils";
 import { Button } from "~/app/_components/ui/button";
+import Link from "next/link";
 
 export function BackButton() {
-  const router = useRouter();
-
   return (
-    <Button
-      variant="ghost"
-      active={false}
-      className="shadow-none"
-      onClick={() => navigateBack(router, "/menu")}
-    >
+    <Button variant="ghost" active={false} className="shadow-none">
       <ArrowLeft className="w-8 h-8" />
-      <p>Back</p>
+      <Link className="text-lg" href="/menu">
+        Back
+      </Link>
     </Button>
   );
 }
