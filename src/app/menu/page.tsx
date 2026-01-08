@@ -24,13 +24,9 @@ export default function Menu() {
 
   const menuRef = useRef<HTMLMenuElement | null>(null);
 
-  const queries = {
-    session: api.session.getCurrent.useQuery(),
-    categories: api.menu.getCategories.useQuery(),
-    menu: api.menu.getAll.useQuery(),
-  } as const;
-
-  const categories = queries.categories.data;
+  const session = api.session.getCurrent.useQuery();
+  const [categories] = api.menu.getCategories.useSuspenseQuery();
+  const [menu] = api.menu.getAll.useSuspenseQuery();
 
   useEffect(() => {
     if (!categories || categoryType === "all") return;
@@ -52,7 +48,11 @@ export default function Menu() {
     }
   }, [categoryType, subcategory]);
 
-  if (queries.session.isError) {
+  if (session.isLoading) {
+    return <LoadingScreen color="gray" />;
+  }
+
+  if (session.isError) {
     return (
       <ErrorScreen
         href="/seat-selection"
@@ -60,19 +60,6 @@ export default function Menu() {
         label="Select Seat"
       />
     );
-  }
-
-  const queryValues = Object.values(queries);
-
-  const error = queryValues.some((q) => q.isError);
-  const loading = queryValues.some((q) => q.isLoading);
-
-  if (error) {
-    throw Error("Page failed to load");
-  }
-
-  if (loading) {
-    return <LoadingScreen color="gray" />;
   }
 
   const createCategoryButtons = (
@@ -105,9 +92,9 @@ export default function Menu() {
   };
 
   const showMenuItems = (category: string, filters: Filters | null) => {
-    if (!queries.menu.data) return null;
+    if (menu.length === 0) return null;
 
-    const items = queries.menu.data!.filter(
+    const items = menu.filter(
       (e) =>
         (category !== "all" ? e.category.name === category : true) &&
         (filters?.priceRange
@@ -143,14 +130,14 @@ export default function Menu() {
     <main className="flex flex-col h-screen">
       <div className={`${isModalOpen ? "-z-10" : "z-10"}`}>
         <header className="flex justify-between items-center w-screen text-xl bg-dark-gray">
-          {queries.session.data?.seatNumber && (
+          {session.data?.seatNumber && (
             <Button variant="ghost" active={false} className="-ml-1">
               <Link
                 className="flex gap-1 items-center transition-color group"
                 href="/seat-selection"
               >
                 <UserRound className="w-8 h-8" />
-                {`Seat ${queries.session.data?.seatNumber}`}
+                {`Seat ${session.data.seatNumber}`}
               </Link>
             </Button>
           )}
@@ -191,7 +178,7 @@ export default function Menu() {
         {showMenuItems(activeCategory, filters)}
       </menu>
       {<FilterPanel visible={filtersVisible} setFilters={setFilters} />}
-      {queries.menu.data && queries.menu.data.length > 0 && (
+      {menu.length > 0 && (
         <FilterButton
           onClick={() => {
             setFiltersVisible(!filtersVisible); // Why this rerenders menuItems
