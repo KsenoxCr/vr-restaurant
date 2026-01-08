@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { Inter, IBM_Plex_Sans } from "next/font/google";
 import { type Metadata } from "next";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { MobileOnlyGate } from "~/app/_components/screen/mobile-only-gate";
@@ -35,6 +36,9 @@ export default function RootLayout({
       <body>
         <TRPCReactProvider>
           <MobileOnlyGate>{children}</MobileOnlyGate>
+          {process.env.NODE_ENV === "development" && (
+            <ReactQueryDevtools initialIsOpen={false} />
+          )}
         </TRPCReactProvider>
       </body>
     </html>
