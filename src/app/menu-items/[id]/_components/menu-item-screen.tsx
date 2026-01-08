@@ -2,7 +2,7 @@ import { TRPCError } from "@trpc/server";
 import { CircleX } from "lucide-react";
 import Image from "next/image";
 import { api } from "~/trpc/server";
-import { BackButton } from "./back-button";
+import { BackButton } from "~/app/_components/behavior/back-button";
 import { CartButton } from "~/app/_components/cart/cart-button";
 import { formatCents } from "~/lib/utils";
 import { ErrorScreen } from "~/app/_components/screen/error-screen";

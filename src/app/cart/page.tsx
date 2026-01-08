@@ -5,7 +5,7 @@ import { ErrorScreen } from "../_components/screen/error-screen";
 import { EmptyCartView } from "./_components/empty-cart-view";
 import Cookies from "js-cookie";
 import { CartButton } from "../_components/cart/cart-button";
-import { BackButton } from "../menu-items/[id]/_components/back-button";
+import { BackButton } from "../_components/behavior/back-button";
 import { api } from "~/trpc/react";
 import { TRPCError } from "@trpc/server";
 import { useState, useRef } from "react";
