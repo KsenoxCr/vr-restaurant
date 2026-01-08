@@ -9,7 +9,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { Session, SessionRole } from "@prisma/client";
+import { SessionRole } from "@prisma/client";
 
 import { db } from "~/server/db";
 import { cookies } from "next/headers";
@@ -35,16 +35,14 @@ export const createTRPCContext = async (opts: {
   const cookieStore = cookies();
   const sessionId = cookieStore.get("sessionId")?.value;
 
-  let session: Session | null = null;
+  let session = sessionId
+    ? await db.session.findUnique({
+        where: { id: sessionId },
+      })
+    : null;
 
-  if (sessionId) {
-    session = await db.session.findUnique({
-      where: { id: sessionId },
-    });
-  }
-
-  if (session && session.expiresAt < new Date()) {
-    session = null;
+  if (session?.expiresAt) {
+    session = session.expiresAt > new Date() ? session : null;
   }
 
   return {
