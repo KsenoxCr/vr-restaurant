@@ -6,7 +6,7 @@ import { type Metadata } from "next";
 import { TRPCReactProvider } from "~/trpc/react";
 import { MobileOnlyGate } from "~/app/_components/screen/mobile-only-gate";
 import React, { Suspense } from "react";
-import { LoadingScreen } from "./_components/screen/loading-page";
+import { LoadingScreen } from "./_components/screen/loading-screen";
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   (window as any).React = React;

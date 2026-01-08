@@ -2,7 +2,7 @@
 
 import { UserRound } from "lucide-react";
 import { api } from "~/trpc/react";
-import { LoadingScreen } from "../_components/screen/loading-page";
+import { LoadingScreen } from "../_components/screen/loading-screen";
 import { useEffect, useRef, useState } from "react";
 import { MenuItemCard } from "./_components/menu-item-card";
 import { ErrorScreen } from "../_components/screen/error-screen";

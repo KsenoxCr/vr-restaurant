@@ -16,7 +16,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useOrderStore } from "~/stores/order-store";
 import { api } from "~/trpc/react";
-import { LoadingScreen } from "~/app/_components/screen/loading-page";
+import { LoadingScreen } from "~/app/_components/screen/loading-screen";
 import { useQueryClient } from "@tanstack/react-query";
 
 type ActionButtonProps = {
@@ -38,7 +38,6 @@ export function OrderStatusScreen() {
     refetchInterval: 2000,
   });
 
-  // TODO: use suspense
   if (!orderQuery.data) {
     return <LoadingScreen color={"dark"} />;
   }
