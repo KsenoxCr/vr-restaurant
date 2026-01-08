@@ -2,11 +2,11 @@ import "~/styles/globals.css";
 
 import { Inter, IBM_Plex_Sans } from "next/font/google";
 import { type Metadata } from "next";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { MobileOnlyGate } from "~/app/_components/screen/mobile-only-gate";
-import React from "react";
+import React, { Suspense } from "react";
+import { LoadingScreen } from "./_components/screen/loading-page";
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   (window as any).React = React;
@@ -35,10 +35,11 @@ export default function RootLayout({
     >
       <body>
         <TRPCReactProvider>
-          <MobileOnlyGate>{children}</MobileOnlyGate>
-          {process.env.NODE_ENV === "development" && (
-            <ReactQueryDevtools initialIsOpen={false} />
-          )}
+          <MobileOnlyGate>
+            <Suspense fallback={<LoadingScreen color="gray" />}>
+              {children}
+            </Suspense>
+          </MobileOnlyGate>
         </TRPCReactProvider>
       </body>
     </html>
