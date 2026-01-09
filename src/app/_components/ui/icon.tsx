@@ -34,7 +34,7 @@ interface IconProps
     Omit<HTMLAttributes<HTMLDivElement>, "color">,
     VariantProps<typeof iconVariants>,
     VariantProps<typeof divVariants> {
-  Icon: LucideIcon;
+  Icon: LucideIcon; // TODO: Icon -> icon
 }
 
 const Icon = forwardRef<HTMLDivElement, IconProps>(
