@@ -7,7 +7,7 @@ import {
 } from "react";
 import { cn } from "~/lib/utils";
 
-const textVariants = cva("text-off-white font-body", {
+const textVariants = cva("font-body", {
   variants: {
     variant: {
       // Headings
@@ -41,13 +41,16 @@ const textVariants = cva("text-off-white font-body", {
       bold: "font-bold",
     },
     color: {
+      primary: "text-off-white",
       muted: "text-slate",
       accent: "text-accent",
       "accent-light": "text-light-accent",
+      error: "text-danger",
     },
   },
   defaultVariants: {
     variant: "body",
+    color: "primary",
   },
 });
 
