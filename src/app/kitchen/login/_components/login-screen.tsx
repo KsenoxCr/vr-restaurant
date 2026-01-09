@@ -13,14 +13,21 @@ import { NumPad } from "./num-pad";
 
 // No retry constraints
 export default function LoginScreen() {
-  const router = useRouter();
   const [pin, setPin] = useState("");
+  const [pinIncorrect, setPinIncorrect] = useState(false);
   const validatePin = api.kitchen.validatePin.useMutation();
+  const router = useRouter();
 
   const handleEnter = () => {
     validatePin.mutate(pin, {
       onSuccess: (data) => {
         if (data.success) router.push("/kitchen");
+        else {
+          setPinIncorrect(true);
+          setTimeout(() => {
+            setPinIncorrect(false);
+          }, 1000);
+        }
       },
     });
   };
@@ -30,19 +37,20 @@ export default function LoginScreen() {
       <Icon Icon={Lock} color="dark-with-white" className="mb-2" />
       <Typography>Kitchen Terminal</Typography>
       <Typography>Enter PIN to access</Typography>
-      <PinIndicator pin={pin} />
-      <NumPad pin={pin} setPin={setPin} />
+      <PinIndicator pin={pin} pinIncorrect={pinIncorrect} />
+      <NumPad pin={pin} setPin={setPin} pinIncorrect={pinIncorrect} />
       <Typography>Demo PIN: 1234</Typography>
       <div className="flex gap-5">
         <Button
-          className="w-20"
+          className="w-24"
           variant="secondary"
+          size="lg"
           onClick={() => navigateBack(router, "/")}
         >
           Cancel
         </Button>
         {pin.length === 4 && (
-          <Button className="w-20" onClick={handleEnter}>
+          <Button className="w-24" size="lg" onClick={handleEnter}>
             Enter
           </Button>
         )}

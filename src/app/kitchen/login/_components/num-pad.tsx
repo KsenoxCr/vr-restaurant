@@ -5,6 +5,7 @@ import { Button } from "~/app/_components/ui/button";
 type NumPadProps = {
   pin: string;
   setPin: Dispatch<SetStateAction<string>>;
+  pinIncorrect: boolean;
 };
 
 type NumKeyProps = {
@@ -12,12 +13,16 @@ type NumKeyProps = {
   onClick: () => void;
 };
 
-export function NumPad({ pin, setPin }: NumPadProps) {
-  const NumKey = ({ content, onClick }: NumKeyProps) => (
-    <Button className="m-1.5" variant="secondary" onClick={onClick}>
-      {content}
-    </Button>
-  );
+export function NumPad({ pin, setPin, pinIncorrect }: NumPadProps) {
+  const NumKey = ({ content, onClick }: NumKeyProps) => {
+    const action = pinIncorrect ? undefined : onClick;
+
+    return (
+      <Button className="m-1.5" variant="secondary" onClick={action}>
+        {content}
+      </Button>
+    );
+  };
 
   const appendToPin = (digit: number) => pin.length < 4 && setPin(pin + digit);
   const subtractFromPin = () => setPin(pin.slice(0, pin.length - 1));

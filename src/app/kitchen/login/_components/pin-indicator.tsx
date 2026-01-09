@@ -1,10 +1,17 @@
 import { Typography } from "~/app/_components/ui/typography";
 
-export default function PinIndicator({ pin }: { pin: string }) {
+type PinIndicatorProps = {
+  pin: string;
+  pinIncorrect: boolean;
+};
+
+export default function PinIndicator({ pin, pinIncorrect }: PinIndicatorProps) {
   const DigitBox = ({ digit }: { digit?: string }) => {
     return (
       <div className="flex justify-center items-center w-12 h-12 rounded-lg border-2 border-gray bg-dark">
-        <Typography size="lg">{digit}</Typography>
+        <Typography size="lg" color={pinIncorrect ? "error" : "primary"}>
+          {digit}
+        </Typography>
       </div>
     );
   };
