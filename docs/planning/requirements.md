@@ -84,6 +84,7 @@ Submitted → Confirmed → Preparing → Ready → Delivered
 - Reactive Design
 - Locale currency formatting
 - logging back into session from device
+- ip based timeout for kitchen login attempts
 
 ## Technology Stack: T3 with Local Postgres (Docker)
 
