@@ -12,6 +12,8 @@ export const kitchenRouter = createTRPCRouter({
           message: "PIN: digits only",
         });
 
-      return input === process.env.KITCHEN_PIN;
+      return {
+        success: input === process.env.KITCHEN_PIN,
+      };
     }),
 });
