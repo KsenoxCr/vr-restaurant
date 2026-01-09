@@ -1,18 +1,19 @@
 "use client";
 
 import { OrderStatus } from "@prisma/client";
+import {
+  Ban,
+  ChefHat,
+  CircleCheckBig,
+  Clock4,
+  Eye,
+  SoupIcon,
+  X,
+} from "lucide-react";
 import { Typography } from "~/app/_components/ui/typography";
 import { OrderSummary } from "./_components/order-summary";
 import { Button } from "~/app/_components/ui/button";
-import {
-  ClockIcon,
-  EyeIcon,
-  ChefHatIcon,
-  SoupIcon,
-  CircleCheckIcon,
-  BanIcon,
-  XIcon,
-} from "./_components/status-icons";
+import { Icon } from "~/app/_components/ui/icon";
 import { useRouter } from "next/navigation";
 import { useOrderStore } from "~/stores/order-store";
 import { api } from "~/trpc/react";
@@ -85,7 +86,7 @@ export function OrderStatusScreen() {
 
   switch (status) {
     case os.SUBMITTED:
-      icon = <ClockIcon />;
+      icon = <Icon Icon={Clock4} color="dark-with-light" size="base" />;
       statusHeader = "Order Submitted";
       statusDesc =
         "Your order has been submitted and, is waiting to be seen by the kitchen staff";
@@ -95,33 +96,33 @@ export function OrderStatusScreen() {
       );
       break;
     case os.CONFIRMED:
-      icon = <EyeIcon />;
+      icon = <Icon Icon={Eye} color="dark-with-light" size="base" />;
       statusHeader = "Order Confirmed";
       statusDesc =
         "Your order has been seen by the kitchen staff and will be prepared soon";
       orderSummary = <OrderSummary />;
       break;
     case os.PREPARING:
-      icon = <ChefHatIcon />;
+      icon = <Icon Icon={ChefHat} color="dark-with-light" size="base" />;
       statusHeader = "Preparing";
       statusDesc =
         "Your order is currently being prepared by our kitchen staff";
       orderSummary = <OrderSummary />;
       break;
     case os.READY:
-      icon = <SoupIcon />;
+      icon = <Icon Icon={SoupIcon} color="dark-with-accent" size="base" />;
       statusHeader = "Order Ready";
       statusDesc = `Your order is ready and will be served to seat ${seatNumber} shortly`;
       orderSummary = <OrderSummary />;
       break;
     case os.DELIVERED:
-      icon = <CircleCheckIcon />;
+      icon = <Icon Icon={CircleCheckBig} color="dark-with-accent" size="base" />;
       statusHeader = "Order Complete";
       statusDesc = `Your order has been delivered to seat ${seatNumber}. Enjoy your meal!`;
       button = <ActionButton text="Order More" onClick={backToMenu} />;
       break;
     case os.REJECTED:
-      icon = <BanIcon />;
+      icon = <Icon Icon={Ban} color="dark-with-danger" size="base" />;
       statusHeader = "Order Rejected";
       statusDesc =
         "Your order has been rejected by the staff. Please ask the staff for more information";
@@ -129,7 +130,7 @@ export function OrderStatusScreen() {
       button = <ActionButton text="Back to Menu" onClick={backToMenu} />;
       break;
     case os.CANCELLED:
-      icon = <XIcon />;
+      icon = <Icon Icon={X} color="dark-with-light" size="base" />;
       statusHeader = "Order Cancelled";
       statusDesc =
         "Your order has been cancelled and there for will not be seen by the staff";

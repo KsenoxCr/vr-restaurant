@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { Train } from "lucide-react";
 import { KitchenButton } from "../_components/ui/kitchen-button";
-import { TrainIcon } from "../_components/ui/train-icon";
+import { Icon } from "../_components/ui/icon";
 import { api } from "~/trpc/react";
 import { Toast } from "./_components/toast";
 import { useRouter } from "next/navigation";
@@ -83,7 +84,7 @@ export default function SeatSelection() {
       <KitchenButton />
       <div className="p-8 w-full max-w-md rounded-2xl shadow-lg bg-dark-gray">
         <div className="flex justify-center mb-6">
-          <TrainIcon />
+          <Icon Icon={Train} color="accent-with-white" />
         </div>
         <Typography as="h1" variant="heading-1" className="mb-2 text-center">
           Select Your Seat

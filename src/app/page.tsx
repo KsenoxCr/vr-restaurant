@@ -4,7 +4,7 @@ import { Train, Utensils, Coffee, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { KitchenButton } from "./_components/ui/kitchen-button";
 import { FeaturePill } from "./_components/ui/feature-pill";
-import { TrainIcon } from "./_components/ui/train-icon";
+import { Icon } from "./_components/ui/icon";
 import { Typography } from "./_components/ui/typography";
 import Link from "next/link";
 import { Button } from "./_components/ui/button";
@@ -22,7 +22,7 @@ export default function Home() {
         />
       </div>
       <KitchenButton />
-      <TrainIcon />
+      <Icon Icon={Train} color="accent-with-white" size="lg" />
       <Typography as="h1" variant="heading-1">
         Welcome Aboard
       </Typography>
