@@ -17,7 +17,7 @@ export const KitchenButton = React.forwardRef<
       className="fixed top-4 right-4 z-50 p-3"
       asChild
     >
-      <Link href="/kitchen-view" ref={ref} {...props}>
+      <Link href="/kitchen" ref={ref} {...props}>
         <ChefHat className="w-6 h-6" />
       </Link>
     </Button>
