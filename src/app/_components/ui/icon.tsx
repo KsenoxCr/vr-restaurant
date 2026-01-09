@@ -7,6 +7,7 @@ const divVariants = cva("p-4 rounded-full", {
   variants: {
     color: {
       "accent-with-white": "bg-accent text-off-white",
+      "dark-with-white": "bg-dark-gray text-off-white",
       "dark-with-light": "bg-dark-gray text-light-gray",
       "dark-with-accent": "bg-dark-gray text-accent",
       "dark-with-danger": "bg-dark-gray text-danger",
