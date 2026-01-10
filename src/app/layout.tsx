@@ -7,6 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 import { MobileOnlyGate } from "~/app/_components/screen/mobile-only-gate";
 import React, { Suspense } from "react";
 import { LoadingScreen } from "./_components/screen/loading-screen";
+import { LayoutProps } from "~/types";
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   (window as any).React = React;
@@ -25,9 +26,7 @@ const ibmPlexSans = IBM_Plex_Sans({
   variable: "--font-heading",
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: LayoutProps) {
   return (
     <html
       lang="en"
