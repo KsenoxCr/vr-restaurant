@@ -24,7 +24,7 @@ export default function Menu() {
 
   const menuRef = useRef<HTMLMenuElement | null>(null);
 
-  const session = api.session.getCurrent.useQuery();
+  const sessionQuery = api.session.getCurrent.useQuery();
   const [categories] = api.menu.getCategories.useSuspenseQuery();
   const [menu] = api.menu.getAll.useSuspenseQuery();
 
@@ -48,11 +48,11 @@ export default function Menu() {
     }
   }, [categoryType, subcategory]);
 
-  if (session.isLoading) {
+  if (sessionQuery.isLoading) {
     return <LoadingScreen color="gray" />;
   }
 
-  if (session.isError) {
+  if (sessionQuery.isError) {
     return (
       <ErrorScreen
         href="/seat-selection"
@@ -130,14 +130,14 @@ export default function Menu() {
     <main className="flex flex-col h-screen">
       <div className={`${isModalOpen ? "-z-10" : "z-10"}`}>
         <header className="flex justify-between items-center w-screen text-xl bg-dark-gray">
-          {session.data?.seatNumber && (
+          {sessionQuery.data?.seatNumber && (
             <Button variant="ghost" active={false} className="-ml-1">
               <Link
                 className="flex gap-1 items-center transition-color group"
                 href="/seat-selection"
               >
                 <UserRound className="w-8 h-8" />
-                {`Seat ${session.data.seatNumber}`}
+                {`Seat ${sessionQuery.data.seatNumber}`}
               </Link>
             </Button>
           )}
