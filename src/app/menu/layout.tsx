@@ -1,13 +1,8 @@
 import { Metadata } from "next";
 import React from "react";
+import { LayoutProps } from "~/types";
 
-export default function MenuLayout({
-  children,
-  modal,
-}: {
-  children: React.ReactNode;
-  modal: React.ReactNode;
-}) {
+export default function MenuLayout({ children, modal }: LayoutProps) {
   return (
     <>
       {children}
