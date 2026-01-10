@@ -10,7 +10,7 @@ import { newExpiresAt } from "~/lib/utils";
 
 export const sessionRouter = createTRPCRouter({
   create: publicProcedure
-    .input(z.number().min(1).max(99))
+    .input(z.number().int().min(1).max(99))
     .mutation(async ({ ctx, input }) => {
       return await ctx.db.$transaction(async (tx) => {
         const existing = await tx.session.findFirst({
@@ -35,7 +35,11 @@ export const sessionRouter = createTRPCRouter({
           },
         });
 
-        return { sessionId: session.id, expiresAt: session.expiresAt };
+        return {
+          sessionId: session.id,
+          expiresAt: session.expiresAt,
+          role: session.role,
+        };
       });
     }),
   getCurrent: protectedProcedure.query(async ({ ctx }) => {
