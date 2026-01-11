@@ -19,6 +19,8 @@ export default function Kitchen() {
     return <LoadingScreen color="gray" />;
   }
 
+  console.log(sessionQuery.data);
+
   if (sessionQuery.isError || sessionQuery.data!.role !== "KITCHEN") {
     router.push("/kitchen/login");
   }
@@ -60,9 +62,13 @@ export default function Kitchen() {
 
   return (
     <main className="flex flex-col">
-      <header className="flex justify-between items-center bg-dark-gray">
+      <header className="flex items-center bg-dark-gray">
         <BackButton fallbackHref="/" />
-        <Typography as="h1">Kitchen Terminal</Typography>
+        <div className="flex-1">
+          <Typography as="h1" className="mr-4 text-center">
+            Kitchen Terminal
+          </Typography>
+        </div>
       </header>
       <section>{displayOrders()}</section>
     </main>
