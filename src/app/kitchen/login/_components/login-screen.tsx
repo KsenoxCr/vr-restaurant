@@ -21,7 +21,7 @@ export default function LoginScreen() {
   const handleEnter = () => {
     validatePin.mutate(pin, {
       onSuccess: (data) => {
-        if (data.success) router.push("/kitchen");
+        if (data.success) navigateBack(router, "/menu");
         else {
           setPinIncorrect(true);
           setTimeout(() => {
@@ -33,7 +33,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <div className="flex flex-col gap-4 justify-center items-center h-screen bg-dark">
+    <div className="flex fixed inset-0 flex-col gap-4 justify-center items-center h-screen bg-dark">
       <Icon Icon={Lock} color="dark-with-white" className="mb-2" />
       <Typography>Kitchen Terminal</Typography>
       <Typography>Enter PIN to access</Typography>
