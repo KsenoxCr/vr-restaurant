@@ -21,13 +21,24 @@ const handler = (req: NextRequest) =>
     req,
     router: appRouter,
     createContext: () => createContext(req),
+    responseMeta: ({ ctx }) => {
+      const resHeaders = new Headers();
+
+      if (ctx?.cookiesToSet) {
+        for (const c of ctx.cookiesToSet) {
+          resHeaders.append("Set-Cookie", c);
+        }
+      }
+
+      return { headers: resHeaders };
+    },
     onError:
       env.NODE_ENV === "development"
         ? ({ path, error }) => {
-          console.error(
-            `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`
-          );
-        }
+            console.error(
+              `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`,
+            );
+          }
         : undefined,
   });
 
