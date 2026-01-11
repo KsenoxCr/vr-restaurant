@@ -2,7 +2,7 @@
 
 import { OrderStatus } from "@prisma/client";
 import { ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "~/app/_components/ui/button";
 import { Typography } from "~/app/_components/ui/typography";
 import { formatCents, toSentenceCase } from "~/lib/utils/shared";
@@ -29,10 +29,12 @@ const timeFi = new Intl.DateTimeFormat("fi-FI", {
 });
 
 export default function OrderCard({ order }: OrderCardProps) {
-  const [selectorOpen, setSelectorOpen] = useState(false);
+  const [selectorIsOpen, setSelectorIsOpen] = useState(false);
   const [status, setStatus] = useState(order.status);
 
-  // useState status
+  useEffect(() => {
+    setStatus(order.status);
+  }, [order.status]);
 
   return (
     <article className="flex flex-col gap-2 p-4 m-6 rounded-lg shadow-lg bg-dark-gray">
@@ -73,16 +75,21 @@ export default function OrderCard({ order }: OrderCardProps) {
         <Typography as="label">Order Status</Typography>
         <Button
           variant="ternary"
-          className="flex justify-between"
+          className={`flex justify-between ${selectorIsOpen ? "rounded-t-none" : ""}`}
           active={false}
-          onClick={() => setSelectorOpen(!selectorOpen)}
+          onClick={() => setSelectorIsOpen(!selectorIsOpen)}
         >
           {toSentenceCase(status)}
           <ChevronUp
-            className={`h-6 w-6 ${selectorOpen ? "rotate-180" : ""}`}
+            className={`h-6 w-6 ${selectorIsOpen ? "rotate-180" : ""}`}
           />
         </Button>
-        <Selector open={selectorOpen} currentStatus={order.status} />
+        <Selector
+          open={selectorIsOpen}
+          currentStatus={status}
+          setStatus={setStatus}
+          setIsOpen={setSelectorIsOpen}
+        />
       </section>
     </article>
   );

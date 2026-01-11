@@ -5,16 +5,25 @@ import { toSentenceCase } from "~/lib/utils/shared";
 type SelectorProps = {
   open: boolean;
   currentStatus: string;
+  setStatus: (status: OrderStatus) => void;
+  setIsOpen: (isOpen: boolean) => void;
 };
 
-export function Selector({ open, currentStatus }: SelectorProps) {
+export function Selector({
+  open,
+  currentStatus,
+  setStatus,
+  setIsOpen: setIsOpen,
+}: SelectorProps) {
   if (!open) {
     return null;
   }
 
+  const statusCodes = Object.values(OrderStatus);
+
   return (
     <ul className="absolute bottom-12 w-full">
-      {Object.values(OrderStatus).map((oStatus) => {
+      {statusCodes.map((oStatus, i) => {
         if (oStatus !== currentStatus) {
           return (
             <li>
@@ -22,7 +31,11 @@ export function Selector({ open, currentStatus }: SelectorProps) {
                 variant="ternary"
                 rounded="none"
                 active={false}
-                className="justify-start w-full border-b-2 border-dark"
+                onClick={() => {
+                  setStatus(oStatus);
+                  setIsOpen(false);
+                }}
+                className={`w-full justify-start border-b-2 border-dark ${i === 0 ? "rounded-t-xl" : ""}`}
               >
                 {toSentenceCase(oStatus)}
               </Button>
