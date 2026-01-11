@@ -2,7 +2,7 @@ import { SessionRole } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { serialize } from "cookie";
 import { z } from "zod";
-import { newExpiresAt } from "~/lib/utils";
+import { newExpiresAt, sessionCookiesToContext } from "~/lib/utils";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const kitchenRouter = createTRPCRouter({
@@ -28,27 +28,7 @@ export const kitchenRouter = createTRPCRouter({
           },
         });
 
-        const isProd = process.env.NODE_ENV === "production";
-
-        const cookies = [
-          {
-            name: isProd ? "__Host-sessionId" : "sessionId",
-            value: session.id.toString(),
-          },
-          { name: "seatNumber", value: session.seatNumber.toString() },
-        ];
-
-        for (const c of cookies) {
-          ctx.cookiesToSet.push(
-            serialize(c.name, c.value, {
-              httpOnly: true,
-              secure: isProd,
-              sameSite: "lax",
-              path: "/",
-              maxAge: 60 * 60 * 24 * 7, // 7 days
-            }),
-          );
-        }
+        sessionCookiesToContext(ctx, session);
 
         return {
           success: pinCorrect,

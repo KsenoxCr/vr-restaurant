@@ -6,7 +6,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { newExpiresAt } from "~/lib/utils";
+import { newExpiresAt, sessionCookiesToContext } from "~/lib/utils";
 
 export const sessionRouter = createTRPCRouter({
   create: publicProcedure
@@ -34,6 +34,8 @@ export const sessionRouter = createTRPCRouter({
             role: SessionRole.CUSTOMER,
           },
         });
+
+        sessionCookiesToContext(ctx, session);
 
         return {
           sessionId: session.id,
