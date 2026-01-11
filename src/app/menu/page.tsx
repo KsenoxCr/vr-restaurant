@@ -130,7 +130,7 @@ export default function Menu() {
     <main className="flex flex-col h-screen">
       <div className={`${isModalOpen ? "-z-10" : "z-10"}`}>
         <header className="flex justify-between items-center w-screen text-xl bg-dark-gray">
-          {sessionQuery.data?.seatNumber && (
+          {sessionQuery.data?.seatNumber != null && (
             <Button variant="ghost" active={false} className="-ml-1">
               <Link
                 className="flex gap-1 items-center transition-color group"
