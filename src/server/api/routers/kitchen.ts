@@ -17,10 +17,12 @@ export const kitchenRouter = createTRPCRouter({
 
       const pinCorrect = input === process.env.KITCHEN_PIN;
 
+      // TODO: just change role if valid session already exists
+
       if (pinCorrect && (!ctx.session || ctx.session.role !== "KITCHEN")) {
         const session = await ctx.db.session.create({
           data: {
-            seatNumber: -1,
+            seatNumber: 0,
             expiresAt: newExpiresAt(480),
             role: SessionRole.KITCHEN,
           },
@@ -29,18 +31,18 @@ export const kitchenRouter = createTRPCRouter({
         const isProd = process.env.NODE_ENV === "production";
 
         const cookieName = isProd ? "__Host-session" : "session";
-        const cookieValue = session.id;
 
-        ctx.headers.append(
-          "Set-Cookie",
-          serialize(cookieName, cookieValue, {
+        ctx.cookiesToSet.push(
+          serialize(cookieName, session.id, {
             httpOnly: true,
             secure: isProd,
             sameSite: "lax",
             path: "/",
-            maxAge: 60 * 60 * 24 * 7,
+            maxAge: 60 * 60 * 24 * 7, // 7 days
           }),
         );
+
+        console.log("cookToSet: ", ctx.cookiesToSet);
 
         return {
           success: pinCorrect,
