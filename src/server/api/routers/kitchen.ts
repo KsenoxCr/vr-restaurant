@@ -30,19 +30,25 @@ export const kitchenRouter = createTRPCRouter({
 
         const isProd = process.env.NODE_ENV === "production";
 
-        const cookieName = isProd ? "__Host-session" : "session";
+        const cookies = [
+          {
+            name: isProd ? "__Host-sessionId" : "sessionId",
+            value: session.id.toString(),
+          },
+          { name: "seatNumber", value: session.seatNumber.toString() },
+        ];
 
-        ctx.cookiesToSet.push(
-          serialize(cookieName, session.id, {
-            httpOnly: true,
-            secure: isProd,
-            sameSite: "lax",
-            path: "/",
-            maxAge: 60 * 60 * 24 * 7, // 7 days
-          }),
-        );
-
-        console.log("cookToSet: ", ctx.cookiesToSet);
+        for (const c of cookies) {
+          ctx.cookiesToSet.push(
+            serialize(c.name, c.value, {
+              httpOnly: true,
+              secure: isProd,
+              sameSite: "lax",
+              path: "/",
+              maxAge: 60 * 60 * 24 * 7, // 7 days
+            }),
+          );
+        }
 
         return {
           success: pinCorrect,
