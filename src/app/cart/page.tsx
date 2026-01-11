@@ -110,7 +110,7 @@ export default function CartPage() {
     <>
       <main className="flex flex-col min-h-screen bg-dark">
         <header className="flex sticky inset-0 z-10 justify-between items-center w-screen bg-dark-gray">
-          <BackButton />
+          <BackButton fallbackHref="/menu" />
           <CartButton />
         </header>
         {showAppropriateView()}
