@@ -3,8 +3,6 @@
 import React from "react";
 import { useIsMobile } from "~/hooks/useIsMobile";
 import { Typography } from "~/app/_components/ui/typography";
-import { Link } from "lucide-react";
-import { Button } from "./ui/button";
 
 export function MobileOnlyGate({
   children,
@@ -30,5 +28,11 @@ export function MobileOnlyGate({
     );
   }
 
-  return <>{children}</>;
+  const isProd = process.env.NODE_ENV === "production";
+
+  return (
+    <div className={`${isProd ? "" : "overflow-hidden rounded-3xl"}`}>
+      {children}
+    </div>
+  );
 }
