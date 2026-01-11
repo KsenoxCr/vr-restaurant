@@ -45,26 +45,6 @@ export const sessionRouter = createTRPCRouter({
   getCurrent: protectedProcedure.query(async ({ ctx }) => {
     return ctx.session;
   }),
-  kitchenLogin: publicProcedure
-    .input(z.string().length(4))
-    .mutation(async ({ ctx, input }) => {
-      if (input !== process.env.KITCHEN_PIN) {
-        throw new TRPCError({
-          code: "UNAUTHORIZED",
-          message: "Invalid kitchen PIN",
-        });
-      }
-
-      const session = await ctx.db.session.create({
-        data: {
-          seatNumber: 0,
-          expiresAt: newExpiresAt(120),
-          role: SessionRole.KITCHEN,
-        },
-      });
-
-      return { sessionId: session.id, expiresAt: session.expiresAt };
-    }),
   cleanup: publicProcedure // Auth required for production
     .mutation(async ({ ctx }) => {
       const result = await ctx.db.session.deleteMany({
