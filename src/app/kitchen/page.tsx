@@ -7,23 +7,26 @@ import { LoadingScreen } from "../_components/screen/loading-screen";
 import { useRouter } from "next/navigation";
 import OrderCard from "./_components/order-card";
 
+// TODO: keep order with terminal status shown for some interval
+
 export default function Kitchen() {
   const sessionQuery = api.session.getCurrent.useQuery();
   const ordersQuery = api.order.getAll.useQuery(undefined, {
     enabled: sessionQuery.isSuccess,
     refetchInterval: 5000,
   });
+
   const router = useRouter();
 
   if (sessionQuery.isLoading) {
     return <LoadingScreen color="gray" />;
   }
 
-  console.log(sessionQuery.data);
-
   if (sessionQuery.isError || sessionQuery.data!.role !== "KITCHEN") {
     router.push("/kitchen/login");
   }
+
+  const terminalStatuses = ["DELIVERED", "REJECTED", "CANCELLED"];
 
   const displayOrders = () => {
     if (ordersQuery.isLoading) {
@@ -33,6 +36,10 @@ export default function Kitchen() {
     return (
       <>
         {ordersQuery.data?.map((o) => {
+          if (terminalStatuses.includes(o.status)) {
+            return null;
+          }
+
           let totalPriceCents = 0;
 
           const oItems = o.items.map((oItem) => {
@@ -59,6 +66,8 @@ export default function Kitchen() {
       </>
     );
   };
+
+  // TODO: Add order count & refetch countdown
 
   return (
     <main className="flex flex-col">

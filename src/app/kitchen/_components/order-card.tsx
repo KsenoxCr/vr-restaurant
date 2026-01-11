@@ -86,6 +86,7 @@ export default function OrderCard({ order }: OrderCardProps) {
         </Button>
         <Selector
           open={selectorIsOpen}
+          orderId={order.id}
           currentStatus={status}
           setStatus={setStatus}
           setIsOpen={setSelectorIsOpen}
