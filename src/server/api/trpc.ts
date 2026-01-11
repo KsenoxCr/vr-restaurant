@@ -49,6 +49,7 @@ export const createTRPCContext = async (opts: {
     db,
     session,
     headers: opts.headers,
+    cookiesToSet: [] as string[],
   };
 };
 
