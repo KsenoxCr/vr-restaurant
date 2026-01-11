@@ -5,7 +5,7 @@ import { Train } from "lucide-react";
 import { KitchenButton } from "../_components/ui/kitchen-button";
 import { Icon } from "../_components/ui/icon";
 import { api } from "~/trpc/react";
-import { Toast } from "./_components/toast";
+import { Toast } from "../_components/ui/toast";
 import { useRouter } from "next/navigation";
 import { TRPCClientError } from "@trpc/client";
 import Cookies from "js-cookie";
