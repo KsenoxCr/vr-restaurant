@@ -1,5 +1,5 @@
 import { Typography } from "~/app/_components/ui/typography";
-import { formatCents } from "~/lib/utils";
+import { formatCents } from "~/lib/utils/shared";
 import { useOrderStore } from "~/stores/order-store";
 
 export function OrderSummary() {

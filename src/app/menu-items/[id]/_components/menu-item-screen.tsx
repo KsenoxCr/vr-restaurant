@@ -4,7 +4,7 @@ import Image from "next/image";
 import { api } from "~/trpc/server";
 import { BackButton } from "~/app/_components/behavior/back-button";
 import { CartButton } from "~/app/_components/cart/cart-button";
-import { formatCents } from "~/lib/utils";
+import { formatCents } from "~/lib/utils/shared";
 import { ErrorScreen } from "~/app/_components/screen/error-screen";
 import { Typography } from "~/app/_components/ui/typography";
 import { PurchasePanel } from "./purchase-panel";

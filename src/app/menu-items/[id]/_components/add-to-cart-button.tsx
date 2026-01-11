@@ -2,7 +2,8 @@
 
 import { ShoppingCart } from "lucide-react";
 import { useState, useEffect } from "react";
-import { formatCents, navigateBack } from "~/lib/utils";
+import { formatCents } from "~/lib/utils/shared";
+import { navigateBack } from "~/lib/utils/client";
 import { useCartStore } from "~/stores/cart-store";
 import { useRouter } from "next/navigation";
 import { Button } from "~/app/_components/ui/button";

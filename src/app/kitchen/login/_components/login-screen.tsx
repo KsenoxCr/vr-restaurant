@@ -8,7 +8,7 @@ import { api } from "~/trpc/react";
 import { Button } from "~/app/_components/ui/button";
 import PinIndicator from "./pin-indicator";
 import { useRouter } from "next/navigation";
-import { navigateBack } from "~/lib/utils";
+import { navigateBack } from "~/lib/utils/client";
 import { NumPad } from "./num-pad";
 
 // No retry constraints

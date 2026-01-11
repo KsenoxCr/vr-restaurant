@@ -1,8 +1,7 @@
 import { SessionRole } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
-import { serialize } from "cookie";
 import { z } from "zod";
-import { newExpiresAt, sessionCookiesToContext } from "~/lib/utils";
+import { newExpiresAt, sessionCookiesToContext } from "~/lib/utils/server";
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const kitchenRouter = createTRPCRouter({

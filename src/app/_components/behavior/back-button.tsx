@@ -3,7 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 import { Button } from "~/app/_components/ui/button";
 import { useRouter } from "next/navigation";
-import { navigateBack } from "~/lib/utils";
+import { navigateBack } from "~/lib/utils/client";
 
 export function BackButton({ fallbackHref }: { fallbackHref: string }) {
   const router = useRouter();

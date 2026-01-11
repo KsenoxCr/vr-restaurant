@@ -57,17 +57,19 @@ export default function SeatSelection() {
       onSuccess: (data) => {
         const expires = new Date(data.expiresAt);
 
-        Cookies.set("sessionId", data.sessionId, {
-          expires: expires,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
-        });
+        // Move to server side
 
-        Cookies.set("seatNumber", inputValue, {
-          expires: expires,
-          secure: process.env.NODE_ENV === "production",
-          sameSite: "strict",
-        });
+        // Cookies.set("sessionId", data.sessionId, {
+        //   expires: expires,
+        //   secure: process.env.NODE_ENV === "production",
+        //   sameSite: "strict",
+        // });
+        //
+        // Cookies.set("seatNumber", inputValue, {
+        //   expires: expires,
+        //   secure: process.env.NODE_ENV === "production",
+        //   sameSite: "strict",
+        // });
 
         clearOrderState();
 
