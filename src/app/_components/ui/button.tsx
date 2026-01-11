@@ -4,7 +4,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cn } from "~/lib/utils/client";
 
 const buttonVariants = cva(
-  "inline-flex text-off-white items-center justify-center transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none group shadow-lg font-heading",
+  "inline-flex text-off-white justify-center items-center transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none group shadow-lg font-heading",
   {
     variants: {
       variant: {
@@ -27,6 +27,7 @@ const buttonVariants = cva(
         "icon-lg": "w-10 h-10 text-3xl",
       },
       rounded: {
+        none: "",
         default: "rounded-lg",
         full: "rounded-full",
         xl: "rounded-xl",
