@@ -20,8 +20,8 @@ export default function PinIndicator({ pin, pinIncorrect }: PinIndicatorProps) {
 
   return (
     <div className="flex gap-2">
-      {[...Array(pinLength)].map((_, i) => (
-        <DigitBox digit={pin[i]} />
+      {[...Array<null>(pinLength)].map((_, i) => (
+        <DigitBox key={`digitbox-${i}`} digit={pin[i]} />
       ))}
     </div>
   );

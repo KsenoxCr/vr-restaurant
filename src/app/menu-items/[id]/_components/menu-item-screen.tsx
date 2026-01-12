@@ -95,8 +95,11 @@ export async function MenuItemScreen({ id }: { id: number }) {
               </Typography>
             )}
             <div className="flex flex-wrap gap-2 mt-2">
-              {menuItem.allergens.map((a) => (
-                <Typography className="py-1 px-2 rounded-full bg-light-gray">
+              {menuItem.allergens.map((a, i) => (
+                <Typography
+                  key={`allergen-${i}`}
+                  className="py-1 px-2 rounded-full bg-light-gray"
+                >
                   {a.toLowerCase()}
                 </Typography>
               ))}

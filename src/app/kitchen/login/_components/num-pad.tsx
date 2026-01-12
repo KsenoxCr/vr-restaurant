@@ -1,5 +1,5 @@
 import { Delete } from "lucide-react";
-import { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { Button } from "~/app/_components/ui/button";
 
 type NumPadProps = {
@@ -30,8 +30,12 @@ export function NumPad({ pin, setPin, pinIncorrect }: NumPadProps) {
 
   return (
     <div className="grid w-[80%] grid-cols-[1fr_1fr_1fr]">
-      {[...Array(9)].map((_, i) => (
-        <NumKey onClick={() => appendToPin(i + 1)} content={i + 1} />
+      {[...Array<null>(9)].map((_, i) => (
+        <NumKey
+          key={`numKey${i}`}
+          onClick={() => appendToPin(i + 1)}
+          content={i + 1}
+        />
       ))}
       <NumKey onClick={clearPin} content="Clear" />
       <NumKey onClick={() => appendToPin(0)} content="0" />

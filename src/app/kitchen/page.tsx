@@ -40,7 +40,7 @@ export default function Kitchen() {
 
     return (
       <>
-        {ordersQuery.data?.map((o) => {
+        {ordersQuery.data?.map((o, i) => {
           if (terminalStatuses.includes(o.status)) {
             return null;
           }
@@ -66,7 +66,7 @@ export default function Kitchen() {
             totalPriceCents: totalPriceCents,
           };
 
-          return <OrderCard order={order} />;
+          return <OrderCard key={`order-card-${i}`} order={order} />;
         })}
       </>
     );
