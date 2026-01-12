@@ -1,2 +1,2 @@
-export * from "./error";
-export * from "./layout";
+export * from "./error.d";
+export * from "./layout.d";
