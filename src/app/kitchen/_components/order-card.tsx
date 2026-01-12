@@ -1,6 +1,6 @@
 "use client";
 
-import { OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@prisma/client";
 import { ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "~/app/_components/ui/button";
