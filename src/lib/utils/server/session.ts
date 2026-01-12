@@ -1,8 +1,9 @@
 import "server-only";
 
-import { PrismaClient, Session, SessionRole } from "@prisma/client";
+import { PrismaClient, SessionRole } from "@prisma/client";
+import type { Session } from "@prisma/client";
 import { serialize } from "cookie";
-import { TRPCContext } from "~/server/api/trpc";
+import type { TRPCContext } from "~/server/api/trpc";
 
 export function sessionCookiesToContext(ctx: TRPCContext, session: Session) {
   const isProd = process.env.NODE_ENV === "production";

@@ -1,5 +1,5 @@
-import { Allergen } from "@prisma/client";
-import { FormEvent } from "react";
+import type { Allergen } from "@prisma/client";
+import type { FormEvent } from "react";
 import { Button } from "~/app/_components/ui/button";
 import { Typography } from "~/app/_components/ui/typography";
 type PriceRangeCents = {

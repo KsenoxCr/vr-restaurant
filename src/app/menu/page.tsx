@@ -12,7 +12,8 @@ import { usePathname } from "next/navigation";
 import { Button } from "~/app/_components/ui/button";
 import { Typography } from "../_components/ui/typography";
 import { FilterButton } from "./_components/FilterButton";
-import { FilterPanel, Filters } from "./_components/FilterPanel";
+import { FilterPanel } from "./_components/FilterPanel";
+import type { Filters } from "./_components/FilterPanel";
 import { inRange } from "~/lib/utils/shared";
 
 export default function Menu() {

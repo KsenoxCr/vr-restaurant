@@ -1,13 +1,13 @@
 import "~/styles/globals.css";
 
 import { Inter, IBM_Plex_Sans } from "next/font/google";
-import { type Metadata } from "next";
+import type { Metadata } from "next";
 
 import { TRPCReactProvider } from "~/trpc/react";
 import { MobileOnlyGate } from "~/app/_components/screen/mobile-only-gate";
 import React, { Suspense } from "react";
 import { LoadingScreen } from "./_components/screen/loading-screen";
-import { LayoutProps } from "~/types";
+import type { LayoutProps } from "~/types";
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
   (window as any).React = React;

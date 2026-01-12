@@ -1,6 +1,8 @@
-import { cva, VariantProps } from "class-variance-authority";
-import { LucideIcon } from "lucide-react";
-import { forwardRef, HTMLAttributes } from "react";
+import { cva } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority";
+import type { LucideIcon } from "lucide-react";
+import { forwardRef } from "react";
+import type { HTMLAttributes } from "react";
 import { cn } from "~/lib/utils/client";
 
 const divVariants = cva("p-4 rounded-full", {
