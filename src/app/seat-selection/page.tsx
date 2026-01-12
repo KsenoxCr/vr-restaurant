@@ -54,23 +54,7 @@ export default function SeatSelection() {
             : "Something went wrong.";
         setErrorMessage(message);
       },
-      onSuccess: (data) => {
-        const expires = new Date(data.expiresAt);
-
-        // Move to server side
-
-        // Cookies.set("sessionId", data.sessionId, {
-        //   expires: expires,
-        //   secure: process.env.NODE_ENV === "production",
-        //   sameSite: "strict",
-        // });
-        //
-        // Cookies.set("seatNumber", inputValue, {
-        //   expires: expires,
-        //   secure: process.env.NODE_ENV === "production",
-        //   sameSite: "strict",
-        // });
-
+      onSuccess: () => {
         clearOrderState();
 
         queryClient.removeQueries({ queryKey: [["session"]] });
