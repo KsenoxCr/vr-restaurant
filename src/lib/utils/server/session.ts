@@ -1,6 +1,6 @@
 import "server-only";
 
-import { PrismaClient, SessionRole } from "@prisma/client";
+import { SessionRole, type PrismaClient } from "@prisma/client";
 import type { Session } from "@prisma/client";
 import { serialize } from "cookie";
 import type { TRPCContext } from "~/server/api/trpc";
