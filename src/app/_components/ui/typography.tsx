@@ -64,9 +64,9 @@ type TextProps<T extends ElementType = "span"> = Omit<propsOf<T>, "color"> & {
   as?: T;
 } & VariantProps<typeof textVariants>;
 
-type TextComponent = <T extends ElementType = "span">(
+type TextComponent = (<T extends ElementType = "span">(
   props: TextProps<T> & { ref?: polymorphicRef<T> },
-) => ReactElement | null;
+) => ReactElement | null) & { displayName?: string };
 
 const Typography = forwardRef(
   <T extends ElementType = "span">(
@@ -87,5 +87,7 @@ const Typography = forwardRef(
     );
   },
 ) as TextComponent;
+
+Typography.displayName = "text";
 
 export { Typography };
