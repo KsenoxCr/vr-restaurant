@@ -12,8 +12,11 @@ export function OrderSummary() {
       <Typography className="mb-1" variant="muted" size="sm">
         Order #{id}
       </Typography>
-      {items.map((item) => (
-        <div className="grid items-center grid-cols-[2fr_1fr_1fr]">
+      {items.map((item, i) => (
+        <div
+          key={`item${i}`}
+          className="grid items-center grid-cols-[2fr_1fr_1fr]"
+        >
           <Typography className="">{item.name}</Typography>
           <Typography className="">× {item.quantity}</Typography>
           <Typography className="text-right" variant="muted">
