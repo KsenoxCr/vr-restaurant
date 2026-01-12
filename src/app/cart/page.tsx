@@ -12,6 +12,7 @@ import { useState, useRef } from "react";
 import { CartItemView } from "./_components/cart-item-view";
 import { OrderStatusScreen } from "./order-status/order-status-screen";
 import { useOrderStore } from "~/stores/order-store";
+import { LoadingScreen } from "../_components/screen/loading-screen";
 
 type Messages = {
   message?: string;
@@ -22,27 +23,30 @@ export default function CartPage() {
   const [isError, setIsError] = useState(false);
   const messages = useRef<Messages>();
 
-  // TODO: Add ordering constraint for max orders kitchen can handle
+  const sessionQuery = api.session.getCurrent.useQuery();
 
+  // TODO: Add ordering constraint for max orders kitchen can handle
   const orderMutation = api.order.create.useMutation();
+
+  if (sessionQuery.isLoading) {
+    return <LoadingScreen color="gray" />;
+  }
+
+  if (sessionQuery.isError) {
+    return (
+      <ErrorScreen
+        title="Seat not selected"
+        href="/seat-selection"
+        label="Select Seat"
+      />
+    );
+  }
 
   const cartItems = useCartStore((state) => state.items);
   const clearCart = useCartStore((state) => state.clearCart);
 
   const orderId = useOrderStore((state) => state.id);
   const setOrderDetails = useOrderStore((state) => state.setOrderDetails);
-
-  const seatNumber = Cookies.get("seatNumber");
-
-  if (seatNumber === undefined) {
-    return (
-      <ErrorScreen
-        title="Session not created..."
-        href="/seat-selection"
-        label="Select Seat"
-      />
-    );
-  }
 
   if (isError) {
     return (
@@ -98,7 +102,7 @@ export default function CartPage() {
     return (
       <CartItemView
         cartItems={cartItems}
-        seatNumber={seatNumber}
+        seatNumber={sessionQuery.data!.seatNumber.toString()}
         placeOrder={placeOrder}
       />
     );
