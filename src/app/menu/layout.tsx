@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import { LayoutProps } from "~/types";
+import { LayoutPropsWithModal } from "~/types";
 
-export default function MenuLayout({ children, modal }: LayoutProps) {
+export default function MenuLayout({ children, modal }: LayoutPropsWithModal) {
   return (
     <>
       {children}

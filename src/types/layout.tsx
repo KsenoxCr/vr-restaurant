@@ -1,6 +1,9 @@
-import { ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
-export type LayoutProps = Readonly<{
-  children: ReactNode;
-  modal?: ReactNode;
-}>;
+export type LayoutPropsWithModal = Readonly<
+  PropsWithChildren<{
+    modal: ReactNode;
+  }>
+>;
+
+export type LayoutProps = Readonly<PropsWithChildren>;
