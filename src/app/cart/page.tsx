@@ -3,7 +3,6 @@
 import { useCartStore } from "~/stores/cart-store";
 import { ErrorScreen } from "../_components/screen/error-screen";
 import { EmptyCartView } from "./_components/empty-cart-view";
-import Cookies from "js-cookie";
 import { CartButton } from "../_components/cart/cart-button";
 import { BackButton } from "../_components/behavior/back-button";
 import { api } from "~/trpc/react";
@@ -23,6 +22,11 @@ export default function CartPage() {
   const [isError, setIsError] = useState(false);
   const messages = useRef<Messages>();
 
+  const cartItems = useCartStore((state) => state.items);
+  const clearCart = useCartStore((state) => state.clearCart);
+  const orderId = useOrderStore((state) => state.id);
+  const setOrderDetails = useOrderStore((state) => state.setOrderDetails);
+
   const sessionQuery = api.session.getCurrent.useQuery();
 
   // TODO: Add ordering constraint for max orders kitchen can handle
@@ -41,12 +45,6 @@ export default function CartPage() {
       />
     );
   }
-
-  const cartItems = useCartStore((state) => state.items);
-  const clearCart = useCartStore((state) => state.clearCart);
-
-  const orderId = useOrderStore((state) => state.id);
-  const setOrderDetails = useOrderStore((state) => state.setOrderDetails);
 
   if (isError) {
     return (
