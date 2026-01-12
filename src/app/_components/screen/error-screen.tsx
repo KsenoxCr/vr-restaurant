@@ -59,7 +59,7 @@ export function ErrorScreen(props: ClickOrHref) {
     <>
       <div className="flex fixed inset-0 z-20 flex-col justify-center items-center bg-gray">
         <Typography as="h1" size="lg" weight="bold">
-          {props.title ? props.title : "Something went wrong..."}
+          {props.title ?? "Something went wrong..."}
         </Typography>
         {props.message && (
           <Typography as="p" variant="body" className="mt-4">
