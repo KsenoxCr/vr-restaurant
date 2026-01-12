@@ -11,12 +11,18 @@ import { useRouter } from "next/navigation";
 import { navigateBack } from "~/lib/utils/client";
 import { NumPad } from "./num-pad";
 
-// No retry constraints
+// TODO: Add retry constraints (preferably ip based)
 export default function LoginScreen() {
   const [pin, setPin] = useState("");
   const [pinIncorrect, setPinIncorrect] = useState(false);
   const validatePin = api.kitchen.validatePin.useMutation();
   const router = useRouter();
+
+  // FIX: Session role = customer on #1 validatePin exec
+  // Reproduce:
+  // 1. select seat as customer
+  // 2. go to kitchen
+  // 3. try to login
 
   const handleEnter = () => {
     validatePin.mutate(pin, {

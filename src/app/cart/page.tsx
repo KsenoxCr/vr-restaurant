@@ -22,6 +22,8 @@ export default function CartPage() {
   const [isError, setIsError] = useState(false);
   const messages = useRef<Messages>();
 
+  // TODO: Add ordering constraint for max orders kitchen can handle
+
   const orderMutation = api.order.create.useMutation();
 
   const cartItems = useCartStore((state) => state.items);

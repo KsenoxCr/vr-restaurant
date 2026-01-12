@@ -22,11 +22,16 @@ export default function Kitchen() {
     return <LoadingScreen color="gray" />;
   }
 
+  console.log(sessionQuery.isError);
+  console.log(sessionQuery.data?.role);
+
   if (sessionQuery.isError || sessionQuery.data!.role !== "KITCHEN") {
     router.push("/kitchen/login");
   }
 
   const terminalStatuses = ["DELIVERED", "REJECTED", "CANCELLED"];
+
+  // FIX: button's status code jumps from order to the next when orders with terminal statuses are cleared
 
   const displayOrders = () => {
     if (ordersQuery.isLoading) {
