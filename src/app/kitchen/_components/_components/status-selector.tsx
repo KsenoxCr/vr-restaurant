@@ -62,7 +62,7 @@ export function Selector({
         {statusCodes.map((oStatus, i) => {
           if (oStatus !== currentStatus) {
             return (
-              <li>
+              <li key={`option-${i}`}>
                 <Button
                   variant="ternary"
                   rounded="none"
