@@ -10,7 +10,7 @@ import { LoadingScreen } from "./_components/screen/loading-screen";
 import type { LayoutProps } from "~/types";
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
-  (window as any).React = React;
+  window.React = React;
 }
 
 export const metadata: Metadata = {
