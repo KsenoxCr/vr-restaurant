@@ -49,9 +49,7 @@ export function QuantityPicker({
 
   return (
     <div className="flex justify-between items-center">
-      <Typography as="label" variant="label">
-        Quantity
-      </Typography>
+      <Typography as="label">Quantity</Typography>
       {controls}
     </div>
   );
