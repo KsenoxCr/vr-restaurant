@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist, createJSONStorage, devtools } from "zustand/middleware";
+import { persist, devtools } from "zustand/middleware";
 
 export type OrderItem = {
   name: string;
