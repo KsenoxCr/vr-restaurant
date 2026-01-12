@@ -145,8 +145,7 @@ export default function Menu() {
           <Typography
             as="h1"
             onClick={() => {
-              menuRef.current &&
-                menuRef.current.scrollTo({ top: 0, behavior: "smooth" });
+              menuRef.current?.scrollTo({ top: 0, behavior: "smooth" });
             }}
             size="xl"
             className="absolute left-1/2"

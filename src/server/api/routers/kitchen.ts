@@ -18,7 +18,7 @@ export const kitchenRouter = createTRPCRouter({
 
       // TODO: just change role if valid session already exists
 
-      if (pinCorrect && (!ctx.session || ctx.session.role !== "KITCHEN")) {
+      if (pinCorrect && ctx.session?.role !== "KITCHEN") {
         const session = await ctx.db.session.create({
           data: {
             seatNumber: 0,
