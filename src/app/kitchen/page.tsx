@@ -75,7 +75,7 @@ export default function Kitchen() {
   // TODO: Add order count & refetch countdown
 
   return (
-    <main className="flex flex-col">
+    <main className="flex flex-col h-dvh">
       <header className="flex items-center bg-dark-gray">
         <BackButton fallbackHref="/" />
         <div className="flex-1">

@@ -15,6 +15,7 @@ import { FilterButton } from "./_components/FilterButton";
 import { FilterPanel } from "./_components/FilterPanel";
 import type { Filters } from "./_components/FilterPanel";
 import { inRange } from "~/lib/utils/shared";
+import { ScrollLock } from "../_components/behavior/scroll-lock";
 
 export default function Menu() {
   const [categoryType, setCategoryType] = useState("all");
@@ -128,7 +129,7 @@ export default function Menu() {
     pathname.includes("/menu-items/") || pathname.includes("/cart");
 
   return (
-    <main className="flex flex-col h-screen">
+    <main className="flex flex-col h-dvh">
       <div className={`${isModalOpen ? "-z-10" : "z-10"}`}>
         <header className="flex justify-between items-center w-screen text-xl bg-dark-gray">
           {sessionQuery.data?.seatNumber != null && (
@@ -185,6 +186,7 @@ export default function Menu() {
           }}
         />
       )}
+      <ScrollLock />
     </main>
   );
 }

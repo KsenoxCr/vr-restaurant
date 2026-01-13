@@ -68,7 +68,7 @@ export default function SeatSelection() {
   };
 
   return (
-    <div className="flex justify-center items-center p-6 min-h-screen bg-gray">
+    <div className="flex justify-center items-center p-6 h-dvh bg-gray">
       <KitchenButton />
       <div className="p-8 w-full max-w-md rounded-2xl shadow-lg bg-dark-gray">
         <div className="flex justify-center mb-6">

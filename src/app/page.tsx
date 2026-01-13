@@ -11,7 +11,7 @@ import { Button } from "./_components/ui/button";
 
 export default function Home() {
   return (
-    <main className="flex flex-col gap-6 justify-center items-center px-4 min-h-screen text-center">
+    <main className="flex flex-col gap-6 justify-center items-center px-4 text-center h-dvh">
       <div className="fixed inset-0 -z-10">
         <Image
           src="/images/bg.jpg"
