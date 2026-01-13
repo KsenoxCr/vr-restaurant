@@ -41,10 +41,12 @@ export default function SeatSelection() {
       return;
     }
 
-    if (Cookies.get("seatNumber") === inputValue && Cookies.get("sessionId")) {
-      router.push("/menu");
-      return;
-    }
+    // FIX: Cookies now server side httpOnly: need new way to handle existing session
+
+    // if (Cookies.get("seatNumber") === inputValue && Cookies.get("sessionId")) {
+    //   router.push("/menu");
+    //   return;
+    // }
 
     createSession.mutate(Number(inputValue), {
       onError: (err) => {
