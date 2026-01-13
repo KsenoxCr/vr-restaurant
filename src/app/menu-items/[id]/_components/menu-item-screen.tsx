@@ -46,7 +46,7 @@ export async function MenuItemScreen({ id }: { id: number }) {
   }
 
   return (
-    <main className="flex overflow-hidden fixed inset-0 flex-col items-center w-screen h-screen bg-dark-gray">
+    <main className="flex fixed inset-0 flex-col items-center w-screen h-dvh bg-dark-gray">
       <header className="flex justify-between items-center w-screen bg-dark-gray">
         <BackButton fallbackHref="/menu" />
         <CartButton />
