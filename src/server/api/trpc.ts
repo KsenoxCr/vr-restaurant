@@ -33,7 +33,7 @@ export const createTRPCContext = async (opts: {
   req?: Request;
 }) => {
   const cookieStore = cookies();
-  const sessionId = cookieStore.get("sessionId")?.value;
+  const sessionId = cookieStore.get("__Host-sessionId")?.value;
 
   let session = sessionId
     ? await db.session.findUnique({
