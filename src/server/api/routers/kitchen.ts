@@ -16,27 +16,34 @@ export const kitchenRouter = createTRPCRouter({
 
       const pinCorrect = input === process.env.KITCHEN_PIN;
 
-      // TODO: just change role if valid session already exists
+      if (pinCorrect) {
+        if (ctx.session && ctx.session.role !== "KITCHEN") {
+          await ctx.db.session.update({
+            where: { id: ctx.session.id },
+            data: {
+              role: "KITCHEN",
+            },
+          });
+        } else {
+          const session = await ctx.db.session.create({
+            data: {
+              seatNumber: 0,
+              expiresAt: newExpiresAt(480),
+              role: SessionRole.KITCHEN,
+            },
+          });
 
-      if (pinCorrect && ctx.session?.role !== "KITCHEN") {
-        const session = await ctx.db.session.create({
-          data: {
-            seatNumber: 0,
-            expiresAt: newExpiresAt(480),
-            role: SessionRole.KITCHEN,
-          },
-        });
+          sessionCookiesToContext(ctx, session);
 
-        sessionCookiesToContext(ctx, session);
-
-        return {
-          success: pinCorrect,
-          session: {
-            sessionId: session.id,
-            expiresAt: session.expiresAt,
-            role: session.role,
-          },
-        };
+          return {
+            success: pinCorrect,
+            session: {
+              sessionId: session.id,
+              expiresAt: session.expiresAt,
+              role: session.role,
+            },
+          };
+        }
       }
 
       return {
