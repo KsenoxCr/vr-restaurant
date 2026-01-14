@@ -8,7 +8,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_DATABASE_URL")
+  // directUrl = env("DIRECT_DATABASE_URL")
 }
 
 generator dbml {
@@ -73,7 +73,6 @@ model MenuItem {
   orderItems OrderItem[]
 
   @@index([categoryId])
-  @@index([available])
 }
 
 model Session {
@@ -108,9 +107,7 @@ model Order {
   activeSession Session?    @relation("ActiveOrder")
 
   @@index([sessionId])
-  @@index([status])
-  @@index([seatNumber])
-  @@index([createdAt])
+  @@index([status, queuePosition])
 }
 
 model OrderItem {
